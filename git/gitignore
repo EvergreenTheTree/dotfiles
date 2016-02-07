@@ -1,0 +1,30 @@
+# Compiled sources #
+####################
+__pycache__/
+*.py[oc]
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# OS files #
+############
+.directory
+.DS_Store
+.DS_Store?
+._*
+Thums.db
+ethumbs.db
+.Trashes
+.Spotlight-V100
+
+# Temporary files #
+###################
+*.swp
+tags
+Session.vim
+
+# Misc #
+########
+.bowerrc

@@ -1,0 +1,397 @@
+" Make vim uncomaptible with vi, usually this is redundant, but I have run into
+" cases where it does make a difference.
+set nocompatible
+
+" Syntax colors
+syntax on
+
+" Filetype plugins
+filetype plugin on
+filetype plugin indent on
+
+" Get user's vim config directory (used later)
+let g:user_config_dir = split(&rtp, ',')[0]
+
+" Load matchit plugin that is bundled with vim
+runtime macros/matchit.vim
+
+""" PATHOGEN
+execute pathogen#infect('runtimes/{}')
+execute pathogen#helptags()
+
+""" COLORSCHEME
+if &t_Co > 16 || has("gui_running") " 256 color scheme
+    colorscheme spacegray
+else " 16 color scheme
+    colorscheme desert
+endif
+
+""" OPTIONS
+" Make backspace work
+set backspace=indent,eol,start
+
+" Don't search tags file when using insert completion
+set complete-=t
+
+" Don't show preview with insert completion
+set completeopt-=preview
+
+" Ask before quiting without saving
+set confirm
+
+" Make it easier to see what line I am on
+set cursorline
+
+" Make help window half the size of the terminal window
+set helpheight=0
+
+" Allow abandoning of buffers without writing them
+set hidden
+
+" Ignore case while searching
+set ignorecase
+
+" Show first search result while typing
+set incsearch
+
+" Highlight search result
+set hlsearch
+
+" Disable on vimrc reload
+nohlsearch
+
+" Always show status line
+set laststatus=2
+
+" Show tabs and trailing whitespace
+set list
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
+
+" Allow modelines
+set modeline
+
+" Don't jump to matching bracket
+set noshowmatch
+
+" Line numbers
+set number
+
+" Allow recursive searching within current directory using the find command
+set path=.,**
+
+" Set completion menu height
+set pumheight=10
+
+" Relative numbers make jumping easier
+set relativenumber
+
+" Set margin for scrolling and scroll distance when margin is hit
+set scrolloff=3
+set sidescrolloff=3
+set sidescroll=1
+
+" Don't save global options and mappings in session files, I don't usually make
+" a habit of creating mappings mid session that I want to use later.
+set sessionoptions-=options
+
+" Only ignore case if there are no uppercase letters in pattern
+set smartcase
+
+" Allows more tab pages when using the -p option than the default
+set tabpagemax=25
+
+" Set text width, lines will automatically wrap at this position
+set textwidth=80
+let &colorcolumn = &textwidth
+
+" Change timeout between key strokes to something more reasonable
+set ttimeout
+set ttimeoutlen=100
+
+" I generally have a fast terminal connection
+set ttyfast
+
+" Allow selections beyond end of line when in visual block mode
+set virtualedit=block
+
+" Ctrl-Z in a mapping acts like <Tab> on cmdline
+set wildcharm=<c-z>
+
+" <BS> <Space> h l <Left> <Right> can change lines
+set whichwrap=b,s,h,l,<,>
+
+" Tab completion
+set wildmenu
+set wildmode=full
+
+""" GUI OPTIONS
+if has('gui_running')
+    set guifont=Inconsolata\ Medium\ 11
+    set guioptions-=m
+    set guioptions-=T
+    set guioptions-=l
+    set guioptions-=L
+    set guioptions-=r
+    set guioptions-=R
+    set guiheadroom=0
+endif
+
+""" PLUGIN OPTIONS
+"""" netrw
+" Use tree style browser
+let g:netrw_liststyle = 3
+
+" Don't use seperate window for errors
+let g:netrw_use_errorwindow = 0
+
+" Add files/directories that begin with '.' to hide list
+let g:netrw_list_hide = netrw_gitignore#Hide() . '\(^\|\s\s\)\zs\.\S\+'
+
+" Don't show banner
+let g:netrw_banner = 0
+
+"""" Rust
+" Disable default settings
+let g:rust_recommended_style = 0
+
+"""" Haskellmode
+if executable("/usr/bin/firefox")
+    let g:haddock_browser = "/usr/bin/firefox"
+endif
+
+let g:haddock_docdir = "/usr/share/doc/ghc/html/"
+
+"""" snipMate
+" Use my custom snippets instead of defaults
+let g:snippets_dir = g:user_config_dir . "/snippets/"
+
+" Mini plugin which lets you easily edit snippets for the filetype of the
+" current file.
+
+" Control where snippet editing window is opened. (see :vertical and the like)
+let g:snippets_edit_winpos = "botright"
+
+" Size of snippet editing window
+let g:snippets_edit_winsize = 25
+
+command! -nargs=0 SnipEdit call s:SnipEdit()
+
+function! s:SnipEdit()
+    let snip_file = g:snippets_dir . &filetype . '.snippets'
+    echo snip_file
+    call s:GoToSnipBuffer(snip_file)
+endfunction
+
+function! s:GoToSnipBuffer(snip_file)
+    let winnr = bufwinnr(fnamemodify(a:snip_file, ":t"))
+    if winnr < 0
+        silent! execute g:snippets_edit_winpos . ' new ' . a:snip_file
+    else
+        silent! execute winnr . "wincmd w"
+    endif
+    execute g:snippets_edit_winsize . "wincmd _"
+    execute g:snippets_edit_winsize . "wincmd |"
+endfunction
+
+""" INDENTATION
+" Automatically indent when creating new line
+set autoindent
+
+" Easily change indentation width
+function! SetIndentWidth(width)
+    let &shiftwidth = 4
+    let &softtabstop = &shiftwidth
+    let &tabstop = &shiftwidth
+endfunction
+
+call SetIndentWidth(4)
+
+" Use spaces instead of tabs
+set expandtab
+
+""" KEY MAPPINGS
+" Set leader to space key
+let mapleader = "\<space>"
+
+" Set local leader to comma
+let maplocalleader = ","
+
+" Edit vimrc easily
+nnoremap <leader>ev :e $MYVIMRC<cr>
+
+" Same with tmux config
+nnoremap <leader>et :e ~/.tmux.conf<cr>
+
+" Easily open files that can be found in the current directory or subdirectories
+" of it.
+nnoremap <leader>f :find *
+
+" Same, except include full path to file
+nnoremap <leader>F :find <c-r>=
+            \ substitute(expand('%:p:h'), '^/home/\w\{-}/', "\~/", "")
+            \ . '/**/*'<cr>
+
+" Some mappings which make it faster to replace words throughout a file
+nnoremap <leader>; *``cgn
+nnoremap <leader>, #``cgN
+
+" Keep keys on home row when exiting insert. I can map capslock to escape on
+" some systems, but I am keeping this here for convenience.
+inoremap jk <esc>
+
+" Easy split switching
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+
+" Make Y behave more like D
+nnoremap Y y$
+
+" Temporarily disable search highlighting
+nnoremap <silent> <leader><space> :nohlsearch<cr>
+
+" Focus current fold.  (close all folds that aren't beneath the cursor)
+nnoremap <leader>z zMzv
+
+" I use the system clipboard enough that this is worth it
+if has("clipboard")
+    nnoremap <leader>p "+p
+    nnoremap <leader>P "+P
+    nnoremap <leader>y "+y
+    vnoremap <leader>y "+y
+    vnoremap <leader>p "+p
+endif
+
+" This allows for repeating wincmds with the Q key
+nnoremap <silent> <C-w> :<C-u>call <SID>Wincmd(v:count, getchar())<CR>
+nnoremap <silent> Q :<C-u> call <SID>WincmdRepeat(v:count)<CR>
+
+function! s:Wincmd(count, key)
+    let if_count = a:count ? a:count : ""
+    let g:last_wincmd = "wincmd " . nr2char(a:key)
+    execute if_count . g:last_wincmd
+endfunction
+
+function! s:WincmdRepeat(count)
+    let if_count = a:count ? a:count : ""
+    execute if_count . g:last_wincmd
+endfunction
+
+" Easily strip trailing whitespace
+function! StripTrailingWhitespace()
+    " Save cursor position
+    let l:save = winsaveview()
+    " Remove trailing whitespace
+    %s/\v\s+$//e
+    " Move cursor to original position
+    call winrestview(l:save)
+    echo "Stripped trailing whitespace"
+endfunction
+
+" Map this function
+nnoremap <leader>sw :call StripTrailingWhitespace()<cr>
+
+""" ABBREVIATIONS
+" Abbreviation for current time.  Example: 14:46:23 (hours:minutes:seconds)
+iabbr _t <c-r>=strftime("%H:%M:%S")<cr>
+" Abbreviation for current date.  Example: July 09, 2015 (month day, year)
+iabbr _d <c-r>=strftime("%B %d, %Y")<cr>
+
+""" AUTOCOMMANDS
+if has('autocmd')
+" This will set certain options for really large files, which results in
+" better performance when editing them.
+
+" What is considered to be a large file (in bytes)
+let g:large_file = 1024 * 1024 * 15
+
+function! s:LargeFileSetOptions()
+    setlocal noswapfile
+    setlocal bufhidden=unload
+    setlocal readonly
+    setlocal eventignore+=Filetype
+    setlocal undolevels=-1
+endfunction
+
+augroup vimrc
+    autocmd!
+
+    " Detect large files and set the appropriate options.
+    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) >
+                \ g:large_file | call <SID>LargeFileSetOptions() | endif
+
+    " Automatically open quickfix window when :helpgrep is run
+    autocmd QuickFixCmdPost helpgrep copen
+
+    " Automatically source vimrc after writing it
+    autocmd BufWritePost vimrc,.vimrc,init.vim let l = winsaveview() | source $MYVIMRC
+                \ | call winrestview(l) | normal! zMzv
+
+    " Automatically reload all snippets on save
+    autocmd BufWritePost *.snippets call ReloadAllSnippets()
+augroup END
+endif
+
+""" BACKUP AND UNDO
+" Use undo file
+set undofile
+
+" Allow undoing changes not made in the current session
+let &undodir = g:user_config_dir . '/tmp/undo//'
+
+" Make those folders automatically if they don't already exist
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+
+" Add this folder to wildignore, since I don't need to edit any files from there
+set wildignore+=*/tmp/undo/*
+
+""" STATUS LINE
+set statusline=%!MyStatusline()
+
+function! MyStatusline()
+    let statusline = ''
+    let filename = expand('%')
+    let squeeze_width = winwidth(0) - strlen(filename) / 2
+
+    " Buffer number
+    let statusline .= '[%-3.3n] '
+    " File name
+    if squeeze_width > 50
+        let statusline .= '%f '
+    endif
+    " Window flags
+    let statusline .= '%h%w%q'
+    if squeeze_width > 50
+        " Readonly flag
+        let statusline .= '%r'
+    endif
+    " Modified flag
+    let statusline .= '%m'
+    " Switch to right side
+    let statusline .= '%='
+    " Remove these if window width is too small
+    if squeeze_width > 50
+        " File encoding
+        let statusline .= '[' . (strlen(&fenc) ? &fenc : 'none') . ','
+        " File format
+        let statusline .= &ff . ']'
+    endif
+    " Filetype
+    let statusline .= '%y '
+    " Cursor line and total lines
+    let statusline .= '%l/%L'
+    " Cursor column
+    let statusline .= '-%v '
+    " Percentage through file
+    let statusline .= '%P'
+
+    return statusline
+endfunction
+
+""
+
+"" vim:fdm=expr:fdl=0:fdc=3:
+"" vim:fde=getline(v\:lnum)=~'^""'?'>'.(matchend(getline(v\:lnum),'""*')-2)\:'='

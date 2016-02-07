@@ -1,0 +1,90 @@
+# Environment variables, this script is sourced by bash_profile, so this is a
+# reasonable place to put them.  (and it is before the interactivity check)
+export EDITOR=vim
+type -P nvim >/dev/null || export EDITOR=nvim
+export PATH=$PATH:/home/evergreen/bin/:/home/evergreen/.gem/ruby/2.2.0/bin/
+
+# better yaourt colors
+export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1;41;5:votes=1;44:dsc=0:other=1;35"
+
+if [[ $- != *i* ]] ; then # Shell is non-interactive.  Be done now!
+	return
+fi
+
+xhost +local:root > /dev/null 2>&1
+
+# Bash won't get SIGWINCH if another process is in the foreground.
+# Enable checkwinsize so that bash will check the terminal size when
+# it regains control.  #65623
+# http://cnswww.cns.cwru.edu/~chet/bash/FAQ (E11)
+shopt -s checkwinsize
+
+shopt -s expand_aliases
+
+alias cp="cp -i"                          # confirm before overwriting something
+alias df='df -h'                          # human-readable sizes
+
+# Enable history appending instead of overwriting.  #139609
+shopt -s histappend
+
+use_color=true
+
+# Set colorful PS1 only on colorful terminals.
+# dircolors --print-database uses its own built-in database
+# instead of using /etc/DIR_COLORS.  Try to use the external file
+# first to take advantage of user additions.  Use internal bash
+# globbing instead of external grep binary.
+safe_term=${TERM//[^[:alnum:]]/?}   # sanitize TERM
+match_lhs=""
+[[ -f ~/.dir_colors   ]] && match_lhs="${match_lhs}$(<~/.dir_colors)"
+[[ -f /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
+[[ -z ${match_lhs}    ]] \
+	&& type -P dircolors >/dev/null \
+	&& match_lhs=$(dircolors --print-database)
+[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+
+if ${use_color} ; then
+	# Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
+	if type -P dircolors >/dev/null ; then
+		if [[ -f ~/.dir_colors ]] ; then
+			eval $(dircolors -b ~/.dir_colors)
+		elif [[ -f /etc/DIR_COLORS ]] ; then
+			eval $(dircolors -b /etc/DIR_COLORS)
+		fi
+	fi
+
+	if [[ ${EUID} == 0 ]] ; then
+		# Default colored root prompt
+		# PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
+		PS1='\n┌(\[$(tput setaf 1)\]\u@\H\[$(tput sgr0)\])-(\[$(tput setaf 6)\]\@ \d\[$(tput sgr0)\])\n└(\[$(tput bold)\]\w\[$(tput sgr0)\])-# '
+	else
+		# Default colored normal prompt
+		# PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
+		PS1='\n┌(\[$(tput setaf 2)\]\u@\H\[$(tput sgr0)\])-(\[$(tput setaf 6)\]\@ \d\[$(tput sgr0)\])\n└(\[$(tput bold)\]\w\[$(tput sgr0)\])-$ '
+	fi
+
+	alias ls='ls --color=auto'
+	alias grep='grep --colour=auto'
+	alias egrep='egrep --colour=auto'
+	alias fgrep='fgrep --colour=auto'
+else
+	if [[ ${EUID} == 0 ]] ; then
+		# show root@ when we don't have colors
+		# Default non-colored root prompt
+		# PS1='\u@\h \W \$ '
+		PS1='\n┌(\u@\H)-(\@ \d)\n└(\w)-# '
+	else
+		# Default non-colored normal prompt
+		# PS1='\u@\h \w \$ '
+		PS1='\n┌(\u@\H)-(\@ \d)\n└(\w)-$ '
+	fi
+fi
+
+# If $TERM has xterm in the name, it probably has 256 color support.
+if [[ "$safe_term" == *"xterm"* ]] ; then
+    export TERM="screen-256color"
+fi
+
+unset use_color safe_term match_lhs sh
+
+[ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion

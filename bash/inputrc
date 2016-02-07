@@ -1,0 +1,10 @@
+# Show completion options horizontally
+set print-completions-horizontally on
+
+# Flip through autocompletion matches with Shift-Tab.
+"\t": complete
+"\e[Z": menu-complete
+
+# Filtered history search
+"\e[A": history-search-backward
+"\e[B": history-search-forward
