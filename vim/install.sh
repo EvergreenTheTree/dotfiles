@@ -40,7 +40,7 @@ check_exists() {
 
 install_config() {
     # Install vim config files to given path.
-    check_exists $1
+    check_exists "$1"
     echo
     script_dir="$(dirname "$(readlink -f "$0")")"
     ln -s "$script_dir" "$1"
