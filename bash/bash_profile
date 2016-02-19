@@ -1,5 +1,7 @@
-#
-# ~/.bash_profile
-#
+############################
+# Evergreen's bash_profile #
+############################
 
+# Source bashrc if it exists.  Environment variables are set in bashrc before
+# the interactivity check.
 [[ -f ~/.bashrc ]] && . ~/.bashrc

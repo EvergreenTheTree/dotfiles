@@ -13,7 +13,7 @@ vim config directory to the nvim config directory.
 
     ln -s ~/.vim $XDG_CONFIG_HOME/nvim
 
-# Install
+# Installation
 
 I have written an install script that will install for both vim and nvim.  You
 can choose which program to install for with `-v` for vim and `-n` for nvim.

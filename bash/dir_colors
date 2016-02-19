@@ -221,6 +221,10 @@ EXEC 01;32
 .log 00;32
 .tex 00;32
 .doc 00;32
+.odt 00;32
+.md 00;32
+.markdown 00;32
+.rst 00;32
 
 # audio formats
 .aac 00;36

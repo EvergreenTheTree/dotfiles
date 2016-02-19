@@ -1,4 +1,6 @@
-# Evergreen's dotfiles
+Evergreen's dotfiles
+====================
+
 These are my configuration files.  Use at your own risk.
 
 # Installation

@@ -137,6 +137,7 @@ if has('gui_running')
     set guioptions-=r
     set guioptions-=R
     set guiheadroom=0
+    set mouse=a
 endif
 
 """ PLUGIN OPTIONS
@@ -219,11 +220,10 @@ let mapleader = "\<space>"
 " Set local leader to comma
 let maplocalleader = ","
 
-" Edit vimrc easily
+" Easily edit my config files.
 nnoremap <leader>ev :e $MYVIMRC<cr>
-
-" Same with tmux config
 nnoremap <leader>et :e ~/.tmux.conf<cr>
+nnoremap <leader>eb :e ~/.bashrc<cr>
 
 " Easily open files that can be found in the current directory or subdirectories
 " of it.
