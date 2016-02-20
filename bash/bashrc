@@ -17,7 +17,7 @@ type -P nvim >/dev/null && export EDITOR=nvim
 path_add=("$HOME/bin" "$HOME/.gem/ruby/2.2.0/bin")
 
 for dir in "${path_add[@]}"; do
-    [[ -d $dir ]] && PATH+=:"$dir"
+	[[ -d $dir ]] && PATH+=:"$dir"
 done
 export PATH
 
@@ -43,16 +43,19 @@ shopt -s expand_aliases
 shopt -s extglob
 # once again, don't use this in scripts, just use for one-shots
 shopt -s globstar
-# Enable history appending instead of overwriting.  #139609
+# Enable history appending instead of overwriting.
 shopt -s histappend
 
 ###########
 # ALIASES #
 ###########
 
-alias cp="cp -i"                          # confirm before overwriting something
-alias df="df -h"                          # human-readable sizes
-alias e="$EDITOR"                         # editor shortcut
+# confirm before overwriting something
+alias cp="cp -i"
+# human-readable sizes
+alias df="df -h"
+# editor shortcut
+alias e="$EDITOR"
 
 #####################
 # COLORS AND PROMPT #
@@ -72,7 +75,7 @@ match_lhs=""
 
 # match_lhs will be empty if no user configs exist.  If it is empty, use
 # dircolors --print-database to get the defaults.  (if dircolors exists)
-[[ -z ${match_lhs}    ]] \
+[[ -z ${match_lhs} ]] \
 	&& type -P dircolors >/dev/null \
 	&& match_lhs=$(dircolors --print-database)
 
@@ -83,10 +86,10 @@ use_color=false
 [[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
 
 if ${use_color}; then
-    # Do stuff for colorful terminals.
+	# Do stuff for colorful terminals.
 
-    # Set colors for ls using dircolors.  Prefer ~/.dir_colors over
-    # /etc/DIR_COLORS
+	# Set colors for ls using dircolors.  Prefer ~/.dir_colors over
+	# /etc/DIR_COLORS
 	if type -P dircolors >/dev/null; then
 		if [[ -f ~/.dir_colors ]]; then
 			eval $(dircolors -b ~/.dir_colors)
@@ -95,23 +98,23 @@ if ${use_color}; then
 		fi
 	fi
 
-    # Get whether the user is root or not, and change prompt accordingly.
-    if [[ "$EUID" -eq 0 ]]; then
-        # Root prompt.
+	# Get whether the user is root or not, and change prompt accordingly.
+	if [[ "$EUID" -eq 0 ]]; then
+		# Root prompt.
 		PS1='\n┌(\[$(tput setaf 1)\]\u@\H\[$(tput sgr0)\])-(\[$(tput setaf 6)\]\@ \d\[$(tput sgr0)\])\n└(\[$(tput bold)\]\w\[$(tput sgr0)\])-# '
 	else
-        # Regular user prompt.
+		# Regular user prompt.
 		PS1='\n┌(\[$(tput setaf 2)\]\u@\H\[$(tput sgr0)\])-(\[$(tput setaf 6)\]\@ \d\[$(tput sgr0)\])\n└(\[$(tput bold)\]\w\[$(tput sgr0)\])-$ '
 	fi
 
-    # Make ls and grep use color.
+	# Make ls and grep use color.
 	alias ls='ls --color=auto'
 	alias grep='grep --colour=auto'
 	alias egrep='egrep --colour=auto'
 	alias fgrep='fgrep --colour=auto'
 else
-    # Do stuff for non-colorful terminals.
-    if [[ "$EUID" -eq 0 ]]; then
+	# Do stuff for non-colorful terminals.
+	if [[ "$EUID" -eq 0 ]]; then
 		# Non-colored root prompt
 		PS1='\n┌(\u@\H)-(\@ \d)\n└(\w)-# '
 	else
@@ -123,7 +126,7 @@ fi
 # If $TERM has xterm in the name, it probably has 256 color support.  This is for
 # tmux.
 if [[ "$safe_term" == *"xterm"* ]]; then
-    export TERM="screen-256color"
+	export TERM="screen-256color"
 fi
 
 # Unset the variables used.

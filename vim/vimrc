@@ -129,7 +129,6 @@ set wildmode=full
 
 """ GUI OPTIONS
 if has('gui_running')
-    set guifont=Inconsolata\ Medium\ 11
     set guioptions-=m
     set guioptions-=T
     set guioptions-=l
