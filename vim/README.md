@@ -22,3 +22,5 @@ The script will fail if `~/.vim`, `~/.vimrc` or `~/.config/nvim` already exist.
 For example:
 
     ./install.sh -v -n # installs config files for both vim and nvim
+
+Also make sure to run `git submodule --init --recursive` to pull in plugins.

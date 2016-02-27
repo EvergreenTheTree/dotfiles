@@ -147,9 +147,6 @@ let g:netrw_liststyle = 3
 " Don't use seperate window for errors
 let g:netrw_use_errorwindow = 0
 
-" Add files/directories that begin with '.' to hide list
-let g:netrw_list_hide = netrw_gitignore#Hide() . '\(^\|\s\s\)\zs\.\S\+'
-
 " Don't show banner
 let g:netrw_banner = 0
 
@@ -240,12 +237,6 @@ nnoremap <leader>, #``cgN
 " Keep keys on home row when exiting insert. I can map capslock to escape on
 " some systems, but I am keeping this here for convenience.
 inoremap jk <esc>
-
-" Easy split switching
-nnoremap <c-h> <c-w>h
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
 
 " Make Y behave more like D
 nnoremap Y y$

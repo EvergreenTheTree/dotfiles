@@ -64,37 +64,26 @@ alias e="$EDITOR"
 # This sets up dircolors and the prompt based on whether a colorful terminal is
 # being used,
 
-# Sanitize TERM by replacing all non-alphanumeric characters with "?".
-safe_term=${TERM//[^[:alnum:]]/?}
-match_lhs=""
-
-# Use user local dir_colors if no global config exists (/etc/DIR_COLORS), and
-# use the default configuration of dircolors if none of these exist.
-[[ -f ~/.dir_colors   ]] && match_lhs="${match_lhs}$(<~/.dir_colors)"
-[[ -f /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
-
-# match_lhs will be empty if no user configs exist.  If it is empty, use
-# dircolors --print-database to get the defaults.  (if dircolors exists)
-[[ -z ${match_lhs} ]] \
-	&& type -P dircolors >/dev/null \
-	&& match_lhs=$(dircolors --print-database)
-
 use_color=false
-
-# Check to see if the current terminal emulator is in the list of safe
-# terminals, and set use_color if it is.
-[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+# Check to see if output is a terminal and see if tput exists
+if [[ -t 1 ]] && type -P tput >/dev/null; then
+	# Get number of colors, and set use_color to true if it is greater than 8
+	ncolors="$(tput colors)"
+	[[ -n $ncolors && $ncolors -ge 8 ]] && use_color=true
+fi
 
 if ${use_color}; then
 	# Do stuff for colorful terminals.
 
 	# Set colors for ls using dircolors.  Prefer ~/.dir_colors over
-	# /etc/DIR_COLORS
+	# /etc/DIR_COLORS, and use defaults if no configs are available.
 	if type -P dircolors >/dev/null; then
 		if [[ -f ~/.dir_colors ]]; then
 			eval $(dircolors -b ~/.dir_colors)
 		elif [[ -f /etc/DIR_COLORS ]]; then
 			eval $(dircolors -b /etc/DIR_COLORS)
+		else
+			eval $(dircolors -b)
 		fi
 	fi
 
@@ -114,6 +103,7 @@ if ${use_color}; then
 	alias fgrep='fgrep --colour=auto'
 else
 	# Do stuff for non-colorful terminals.
+
 	if [[ "$EUID" -eq 0 ]]; then
 		# Non-colored root prompt
 		PS1='\n┌(\u@\H)-(\@ \d)\n└(\w)-# '
@@ -123,14 +113,17 @@ else
 	fi
 fi
 
+# Sanitize term by replacing all non-alphanumeric characters with "?".
+safe_term=${TERM//[^[:alnum:]]/?}
+
 # If $TERM has xterm in the name, it probably has 256 color support.  This is for
 # tmux.
 if [[ "$safe_term" == *"xterm"* ]]; then
 	export TERM="screen-256color"
 fi
 
-# Unset the variables used.
-unset use_color safe_term match_lhs
+# Unset use_color
+unset use_color safe_term
 
 ########
 # MISC #
