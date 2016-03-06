@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 usage="Usage: install.sh [-h] [-vn]"
 read -r -d '' help <<EOF
 $usage

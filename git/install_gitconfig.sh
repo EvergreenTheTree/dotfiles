@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 script_dir="$(dirname "$(readlink -f "$0")")"
 if [[ -e ~/.gitconfig ]]; then
     echo "Warning: ~/.gitconfig already exists, and will be overwritten,"
