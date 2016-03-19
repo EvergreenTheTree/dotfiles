@@ -39,10 +39,9 @@ endif
 " Map it
 nnoremap <silent> <localleader>v :call TogglePythonVersion()<cr>
 
-" Poor man's syntastic.  Kinda took this idea from romainl's config.
-if executable("pep8")
+" Use :make to check for syntax errors using pyflakes
+if executable("pyflakes")
     setlocal errorformat=%f:%l:%c:\ %m
-    setlocal makeprg=pep8
+    setlocal makeprg=pyflakes
     command! -buffer Make silent make! % | silent redraw! | silent wincmd p
-    autocmd! BufWritePost <buffer> Make
 endif
