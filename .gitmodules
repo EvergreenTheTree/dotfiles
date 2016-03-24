@@ -13,9 +13,6 @@
 [submodule "vim/runtimes/vim-surround"]
 	path = vim/runtimes/vim-surround
 	url = https://github.com/tpope/vim-surround
-[submodule "vim/runtimes/vim-contextcomplete"]
-	path = vim/runtimes/vim-contextcomplete
-	url = https://github.com/4Evergreen4/vim-contextcomplete
 [submodule "vim/runtimes/vim-hardy"]
 	path = vim/runtimes/vim-hardy
 	url = https://github.com/4Evergreen4/vim-hardy

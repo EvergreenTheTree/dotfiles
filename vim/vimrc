@@ -31,7 +31,7 @@ endif
 set backspace=indent,eol,start
 
 " Don't search tags file when using insert completion
-set complete-=t
+set complete=.,w,b,u,i
 
 " Don't show preview with insert completion
 set completeopt-=preview
@@ -284,6 +284,37 @@ endfunction
 
 " Map this function
 nnoremap <leader>sw :call StripTrailingWhitespace()<cr>
+
+" Use ctrl-space for completion.  (a mini plugin)
+function! s:CtrlSpace()
+    " Simply select the next item if the completion menu is visible
+    if pumvisible()
+        return "\<down>"
+    endif
+
+    " Make <cr> insert the selected completion
+    inoremap <cr> <c-y>
+
+    " Allow different completion types per buffer.  (eg. set it to
+    " \<c-x>\<c-o> for omnicompletion)
+    if exists('b:ctrlspace_completion_key')
+        return b:ctrlspace_completion_key
+    endif
+
+    " Use omnifunc if it is available, otherwise use generic completion
+    if strlen(&omnifunc)
+        return "\<c-x>\<c-o>"
+    else
+        return "\<c-n>"
+    endif
+endfunction
+
+" Map <cr> back to <cr> when completion is done
+autocmd CompleteDone * inoremap <cr> <cr>
+
+" In some terminals, ctrl-space equals <nul>
+imap <nul> <c-space>
+inoremap <expr> <c-space> <SID>CtrlSpace()
 
 """ ABBREVIATIONS
 " Abbreviation for current time.  Example: 14:46:23 (hours:minutes:seconds)
