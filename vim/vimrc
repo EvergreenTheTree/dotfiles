@@ -17,6 +17,10 @@ runtime macros/matchit.vim
 
 """ PATHOGEN
 execute pathogen#infect('runtimes/{}')
+" Only load python dependant modules if python support exists
+if has('python')
+    execute pathogen#infect('runtimes-python/{}')
+endif
 execute pathogen#helptags()
 
 """ COLORSCHEME

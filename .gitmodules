@@ -28,3 +28,6 @@
 [submodule "vim/runtimes/haskellmode-vim"]
 	path = vim/runtimes/haskellmode-vim
 	url = https://github.com/lukerandall/haskellmode-vim
+[submodule "vim/runtimes-python/vim-javacomplete2"]
+	path = vim/runtimes-python/vim-javacomplete2
+	url = https://github.com/artur-shaik/vim-javacomplete2
