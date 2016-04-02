@@ -203,7 +203,7 @@ set autoindent
 
 " Easily change indentation width
 function! SetIndentWidth(width)
-    let &shiftwidth = 4
+    let &shiftwidth = a:width
     let &softtabstop = &shiftwidth
     let &tabstop = &shiftwidth
 endfunction
