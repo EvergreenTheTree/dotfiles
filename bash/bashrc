@@ -14,7 +14,7 @@ export EDITOR=vim
 type -P nvim >/dev/null && export EDITOR=nvim
 
 # List of directories to add to PATH if they exist.
-path_add=("$HOME/bin" "$HOME/.gem/ruby/2.2.0/bin")
+path_add=("$HOME/bin" "$HOME/.gem/ruby/2.3.0/bin" "$HOME/.gem/ruby/2.2.0/bin")
 
 for dir in "${path_add[@]}"; do
 	[[ -d $dir ]] && PATH+=:"$dir"
