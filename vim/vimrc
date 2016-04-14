@@ -69,7 +69,7 @@ set laststatus=2
 
 " Show tabs and trailing whitespace
 set list
-set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
+set listchars=tab:>\ ,extends:>,precedes:<,nbsp:-,trail:-
 
 " Allow modelines
 set modeline
