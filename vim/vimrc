@@ -245,8 +245,16 @@ inoremap jk <esc>
 " Make Y behave more like D
 nnoremap Y y$
 
-" Temporarily disable search highlighting
-nnoremap <silent> <leader><space> :nohlsearch<cr>
+function! Refresh()
+    redraw!
+    syntax sync fromstart
+endf
+
+" Temporarily disable search highlighting and refresh
+nnoremap <silent> <leader><space> :call Refresh()<cr>:nohlsearch<cr>
+
+" Make <c-l> do the same thing as <leader><space>
+nnoremap <silent> <c-l> :call Refresh()<cr>:nohlsearch<cr>
 
 " Focus current fold.  (close all folds that aren't beneath the cursor)
 nnoremap <leader>z zMzv
