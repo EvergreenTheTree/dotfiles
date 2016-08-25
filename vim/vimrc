@@ -229,10 +229,8 @@ nnoremap <leader>eb :e ~/.bashrc<cr>
 " of it.
 nnoremap <leader>f :find *
 
-" Same, except include full path to file
-nnoremap <leader>F :find <c-r>=
-            \ substitute(expand('%:p:h'), '^/home/\w\{-}/', "\~/", "")
-            \ . '/**/*'<cr>
+" Same, except only include file names instead of relative path
+nnoremap <leader>F :find **/*
 
 " Some mappings which make it faster to replace words throughout a file
 nnoremap <leader>; *``cgn
