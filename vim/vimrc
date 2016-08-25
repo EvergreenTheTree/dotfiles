@@ -15,13 +15,39 @@ let g:user_config_dir = split(&rtp, ',')[0]
 " Load matchit plugin that is bundled with vim
 runtime macros/matchit.vim
 
-""" PATHOGEN
-execute pathogen#infect('runtimes/{}')
-" Only load python dependant modules if python support exists
+""" PLUGINS
+" Use pathogen to manage manually installed plugins
+execute pathogen#infect('plugins-dev/{}')
+" Generate helptags for manually installed plugins
+Helptags
+
+" Use vim-plug for all other plugins
+call plug#begin(g:user_config_dir . "/plugins")
+
+" Toml file syntax highlighting (toml files are used in cargo)
+Plug 'cespare/vim-toml'
+" Better syntax highlighting, autoindentation, linting, folding, and more for haskell
+Plug 'dag/vim2hs'
+" Type inspection and documentation lookup for haskell
+Plug 'lukerandall/haskellmode-vim'
+" Provides syntax highlighting, formatting, and compiler definitions  for rust
+Plug 'rust-lang/rust.vim'
+" Easily comment stuff out
+Plug 'tpope/vim-commentary'
+" Git integration
+Plug 'tpope/vim-fugitive'
+" Support for '.' repetition in plugins
+Plug 'tpope/vim-repeat'
+" Mappings for easily surrounding text with quotes, barcesm parentheses, etc.
+Plug 'tpope/vim-surround'
+" Provides many convenient bracket mappings
+Plug 'tpope/vim-unimpaired'
+
 if has('python')
-    execute pathogen#infect('runtimes-python/{}')
+    Plug 'artur-shaik/vim-javacomplete2'
 endif
-execute pathogen#helptags()
+
+call plug#end()
 
 """ COLORSCHEME
 if &t_Co > 16 || has("gui_running") " 256 color scheme
