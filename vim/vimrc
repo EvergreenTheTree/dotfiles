@@ -30,6 +30,8 @@ Plug 'cespare/vim-toml'
 Plug 'dag/vim2hs'
 " Type inspection and documentation lookup for haskell
 Plug 'lukerandall/haskellmode-vim'
+" Gruvbox colorscheme
+Plug 'morhetz/gruvbox'
 " Provides syntax highlighting, formatting, and compiler definitions  for rust
 Plug 'rust-lang/rust.vim'
 " Easily comment stuff out
@@ -56,7 +58,18 @@ call plug#end()
 
 """ COLORSCHEME
 if &t_Co > 16 || has("gui_running") " 256 color scheme
-    colorscheme spacegray
+    set background=dark
+    let g:gruvbox_bold = 0
+    let g:gruvbox_italic = 0
+    let g:gruvbox_italicize_comments = 0
+    let g:gruvbox_undercurl = 0
+    let g:gruvbox_contrast_dark = 'hard'
+    let g:gruvbox_contrast_light = 'hard'
+    try
+        colorscheme gruvbox
+    catch /E185/
+        colorscheme spacegray
+    endtry
 else " 16 color scheme
     colorscheme desert
 endif
