@@ -42,6 +42,11 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 " Provides many convenient bracket mappings
 Plug 'tpope/vim-unimpaired'
+" Provides text objects and folding for indented languages
+Plug 'tweekmonster/braceless.vim'
+if exists(':BracelessEnable')
+    autocmd Filetype python BracelessEnable
+endif
 
 if has('python')
     Plug 'artur-shaik/vim-javacomplete2'
