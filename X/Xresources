@@ -1,0 +1,133 @@
+! Evergreen's Xresources file !
+
+!!! Preprocessor
+! Colors (Spacegray.vim)
+#define mybg #111314
+#define myfg #B7BBB7
+#define myblack #2C2F33
+#define myblack_light #4B5056
+#define myred #B04C50
+#define mygreen #919652
+#define myyellow #E2995C
+#define myblue #66899D
+#define mymagenta #8D6494
+#define mycyan #527C77
+#define mywhite #606360
+#define mywhite_light #DDE3DC
+
+! Fonts
+#define myfont Ubuntu Mono
+#define myfontsize 9
+
+!!! Applications
+!!!! Xft
+Xft.autohint: false
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintslight
+Xft.hinting: true
+Xft.antialias: true
+Xft.rgba: rgb
+
+!!!! xterm
+xterm*VT100.geometry: 80x25
+xterm*faceName: myfont:style=Regular:size=myfontsize
+xterm*dynamicColors: true
+xterm*utf8: 2
+xterm*eightBitInput: true
+xterm*saveLines: 512
+xterm*scrollKey: true
+xterm*scrollTtyOutput: false
+xterm*scrollBar: true
+xterm*rightScrollBar: true
+xterm*jumpScroll: true
+xterm*multiScroll: true
+xterm*toolBar: false
+
+!!!! URxvt
+! Enable xft double buffering to increase performance
+URxvt.buffered: true
+
+! Create the window with 80 columns and 24 lines
+URxvt.geometry: 80x24
+
+! Scroll every time a line is received
+URxvt.jumpScroll: false
+
+! Do not skip any lines
+URxvt.skipScroll: false
+
+! Fade by 10% when focus is lost
+URxvt.fading: 10
+
+! Fonts
+URxvt.font: xft:myfont:autohint=true:size=myfontsize
+URxvt.boldFont: xft:myfont:bold:size=myfontsize
+URxvt.italicFont: xft:myfont:italic:size=myfontsize
+URxvt.boldItalicFont: xft:myfont:bold:italic:size=myfontsize
+
+! Tighter letter spacing
+URxvt.letterSpace: -1
+
+! Set window title to "URxvt"
+URxvt.title: URxvt
+
+! Start as a login shell
+! URxvt.loginShell: boolean
+
+! Use plain scrollbar
+URxvt.scrollstyle: plain
+
+! Set the scrollbar width in pixels.
+URxvt.thickness: 8
+
+! Put the scrollbar on the right
+URxvt.scrollBar_right: true
+
+! Start scrolling to the bottom if a key is pressed, but don't automatically
+! scroll if any scrolling is done manually.
+URxvt.scrollTtyOutput: false
+URxvt.scrollWithBuffer: true
+URxvt.scrollTtyKeypress: true
+
+! For tmux 256 colors
+URxvt.termName: screen-256color
+
+! Enable blinking cursor
+URxvt.cursorBlink: true
+
+! True: Make the cursor underlined. False: Make the cursor a box [default]; option -uc.
+URxvt.cursorUnderline: true
+
+! Colors
+URxvt.background: mybg
+URxvt.foreground: myfg
+URxvt.fadeColor: mybg
+URxvt.pointerColor: myfg
+URxvt.pointerColor2: mybg
+URxvt.scrollColor: myfg
+! black
+URxvt.color0: myblack
+URxvt.color8: myblack_light
+! red
+URxvt.color1: myred
+URxvt.color9: myred
+! green
+URxvt.color2: mygreen
+URxvt.color10: mygreen
+! yellow
+URxvt.color3: myyellow
+URxvt.color11: myyellow
+! blue
+URxvt.color4: myblue
+URxvt.color12: myblue
+! magenta
+URxvt.color5: mymagenta
+URxvt.color13: mymagenta
+! cyan
+URxvt.color6: mycyan
+URxvt.color14: mycyan
+! white
+URxvt.color7: mywhite
+URxvt.color15: mywhite_light
+
+!! vim:fde=getline(v\:lnum)=~'^!!'?'>'.(matchend(getline(v\:lnum),'!!*')-2)\:'=':fdm=expr
