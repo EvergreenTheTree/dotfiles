@@ -1,11 +1,13 @@
+! --------------------------- !
 ! Evergreen's Xresources file !
+! --------------------------- !
 
 !!! Preprocessor
 ! Colors (Spacegray.vim)
 #define mybg #111314
 #define myfg #B7BBB7
 #define myblack #2C2F33
-#define myblack_light #4B5056
+#define myblack_bright #4B5056
 #define myred #B04C50
 #define mygreen #919652
 #define myyellow #E2995C
@@ -13,35 +15,51 @@
 #define mymagenta #8D6494
 #define mycyan #527C77
 #define mywhite #606360
-#define mywhite_light #DDE3DC
+#define mywhite_bright #DDE3DC
 
 ! Fonts
-#define myfont Ubuntu Mono
+#define myfont Ubuntu
+#define mymonofont Ubuntu Mono
 #define myfontsize 9
 
 !!! Applications
-!!!! Xft
-Xft.autohint: false
-Xft.lcdfilter: lcddefault
-Xft.hintstyle: hintslight
-Xft.hinting: true
-Xft.antialias: true
-Xft.rgba: rgb
+!!!! Rofi
+! Font
+rofi.font: myfont 12
 
-!!!! xterm
-xterm*VT100.geometry: 80x25
-xterm*faceName: myfont:style=Regular:size=myfontsize
-xterm*dynamicColors: true
-xterm*utf8: 2
-xterm*eightBitInput: true
-xterm*saveLines: 512
-xterm*scrollKey: true
-xterm*scrollTtyOutput: false
-xterm*scrollBar: true
-xterm*rightScrollBar: true
-xterm*jumpScroll: true
-xterm*multiScroll: true
-xterm*toolBar: false
+! Use urxvt as terminal emulator
+rofi.terminal: urxvt
+
+! Don't use ssh modi
+rofi.modi: window,run,drun
+
+! Enable list of modes at the bottom
+rofi.sidebar-mode: true
+
+! Use regex matching
+rofi.regex: true
+
+! No scrollbar
+rofi.hide-scrollbar: true
+
+! Center scrolling
+rofi.scroll-method: 1
+
+! ---------------- !
+! Arc color scheme !
+! ---------------- !
+! Use extended color scheme
+rofi.color-enabled:                  true
+! Color scheme for normal row
+rofi.color-normal:                   #ffffff,#525d76,#f5f5f5,#5294e2,#ffffff
+! Color scheme for urgent row
+rofi.color-urgent:                   #ffffff,#dc322f,#f5f5f5,#5294e2,#dc322f
+! Color scheme for active row
+rofi.color-active:                   #ffffff,#c2cad0,#f5f5f5,#5294e2,#c2cad0
+! Color scheme window
+rofi.color-window:                   #ffffff,#f5f5f5
+! Separator style (none, dash, solid)
+rofi.separator-style:                solid
 
 !!!! URxvt
 ! Enable xft double buffering to increase performance
@@ -60,10 +78,10 @@ URxvt.skipScroll: false
 URxvt.fading: 10
 
 ! Fonts
-URxvt.font: xft:myfont:autohint=true:size=myfontsize
-URxvt.boldFont: xft:myfont:bold:size=myfontsize
-URxvt.italicFont: xft:myfont:italic:size=myfontsize
-URxvt.boldItalicFont: xft:myfont:bold:italic:size=myfontsize
+URxvt.font: xft:mymonofont:autohint=true:size=myfontsize
+URxvt.boldFont: xft:mymonofont:bold:size=myfontsize
+URxvt.italicFont: xft:mymonofont:italic:size=myfontsize
+URxvt.boldItalicFont: xft:mymonofont:bold:italic:size=myfontsize
 
 ! Tighter letter spacing
 URxvt.letterSpace: -1
@@ -95,10 +113,12 @@ URxvt.termName: screen-256color
 ! Enable blinking cursor
 URxvt.cursorBlink: true
 
+
+
 ! True: Make the cursor underlined. False: Make the cursor a box [default]; option -uc.
 URxvt.cursorUnderline: true
 
-! Colors
+! Colors (Spacegray.vim)
 URxvt.background: mybg
 URxvt.foreground: myfg
 URxvt.fadeColor: mybg
@@ -107,7 +127,7 @@ URxvt.pointerColor2: mybg
 URxvt.scrollColor: myfg
 ! black
 URxvt.color0: myblack
-URxvt.color8: myblack_light
+URxvt.color8: myblack_bright
 ! red
 URxvt.color1: myred
 URxvt.color9: myred
@@ -128,6 +148,28 @@ URxvt.color6: mycyan
 URxvt.color14: mycyan
 ! white
 URxvt.color7: mywhite
-URxvt.color15: mywhite_light
+URxvt.color15: mywhite_bright
 
+!!!! Xft
+Xft.autohint: false
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintslight
+Xft.hinting: true
+Xft.antialias: true
+Xft.rgba: rgb
+
+!!!! xterm
+xterm*VT100.geometry: 80x25
+xterm*faceName: mymonofont:style=Regular:size=myfontsize
+xterm*dynamicColors: true
+xterm*utf8: 2
+xterm*eightBitInput: true
+xterm*saveLines: 512
+xterm*scrollKey: true
+xterm*scrollTtyOutput: false
+xterm*scrollBar: true
+xterm*rightScrollBar: true
+xterm*jumpScroll: true
+xterm*multiScroll: true
+xterm*toolBar: false
 !! vim:fde=getline(v\:lnum)=~'^!!'?'>'.(matchend(getline(v\:lnum),'!!*')-2)\:'=':fdm=expr
