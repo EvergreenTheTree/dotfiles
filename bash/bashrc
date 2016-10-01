@@ -32,6 +32,15 @@ if [[ $- != *i* ]]; then
 	return
 fi
 
+#############
+# FUNCTIONS #
+#############
+
+progexists() {
+	command -v "$1" >/dev/null 2>&1
+	return
+}
+
 ###########
 # OPTIONS #
 ###########
@@ -70,7 +79,7 @@ alias e="$EDITOR"
 use_color=false
 use_256color=false
 # Check to see if output is a terminal and see if tput exists
-if [[ -t 1 ]] && type -P tput >/dev/null; then
+if [[ -t 1 ]] && progexists "tput"; then
 	# Get number of colors, and set use_color to true if it is greater than 8
 	ncolors="$(tput colors)"
 	[[ -n $ncolors && $ncolors -ge 8 ]] && use_color=true
