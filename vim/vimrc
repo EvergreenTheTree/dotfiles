@@ -27,29 +27,44 @@ call plug#begin(g:user_config_dir . "/plugins")
 
 " Toml file syntax highlighting (toml files are used in cargo)
 Plug 'cespare/vim-toml'
+
 " Better syntax highlighting, autoindentation, linting, folding, and more for haskell
 Plug 'dag/vim2hs'
+
 " Type inspection and documentation lookup for haskell
 Plug 'lukerandall/haskellmode-vim'
+
 " Gruvbox colorscheme
 Plug 'morhetz/gruvbox'
+
 " Provides syntax highlighting, formatting, and compiler definitions  for rust
 Plug 'rust-lang/rust.vim'
+
 " Easily comment stuff out
 Plug 'tpope/vim-commentary'
+
 " Git integration
 Plug 'tpope/vim-fugitive'
+
 " Support for '.' repetition in plugins
 Plug 'tpope/vim-repeat'
+
 " Mappings for easily surrounding text with quotes, barcesm parentheses, etc.
 Plug 'tpope/vim-surround'
+
 " Provides many convenient bracket mappings
 Plug 'tpope/vim-unimpaired'
+
 " Provides text objects and folding for indented languages
 Plug 'tweekmonster/braceless.vim'
 if exists(':BracelessEnable')
     autocmd Filetype python BracelessEnable
 endif
+
+" Provides pandoc markdown highlighting
+Plug 'https://github.com/vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+autocmd! BufNewFile,BufFilePRe,BufRead *.md set filetype=markdown.pandoc
 
 if has('python')
     Plug 'artur-shaik/vim-javacomplete2'
@@ -133,9 +148,6 @@ set path=.,**
 
 " Set completion menu height
 set pumheight=10
-
-" Relative numbers make jumping easier
-set relativenumber
 
 " Set margin for scrolling and scroll distance when margin is hit
 set scrolloff=3
