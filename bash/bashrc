@@ -67,7 +67,7 @@ alias cp="cp -i"
 # human-readable sizes
 alias df="df -h"
 # editor shortcut
-alias e="$EDITOR"
+alias e="\$EDITOR"
 
 #####################
 # COLORS AND PROMPT #
@@ -146,3 +146,16 @@ unset use_color safe_term
 
 # Use bash_completion if it is available.
 [ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
+
+# Source local settings
+[[ -f $HOME/.bashrc.local ]] && source "$HOME/.bashrc.local"
+
+########
+# TMUX #
+########
+
+if progexists "tmux"; then
+	# Automatically attach to a session named after the user if not already in
+	# tmux, and create the session if it doesn't exist.
+	[[ -z $TMUX ]] && tmux new -A -s "$USER"
+fi
