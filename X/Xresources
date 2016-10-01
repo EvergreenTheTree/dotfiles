@@ -30,6 +30,7 @@ rofi.font: myfont 12
 ! Use urxvt as terminal emulator
 rofi.terminal: urxvt
 
+
 ! Don't use ssh modi
 rofi.modi: window,run,drun
 
@@ -71,8 +72,8 @@ URxvt.geometry: 80x24
 ! Scroll every time a line is received
 URxvt.jumpScroll: false
 
-! Do not skip any lines
-URxvt.skipScroll: false
+! For speed
+URxvt.skipScroll: true
 
 ! Fade by 10% when focus is lost
 URxvt.fading: 10
@@ -106,6 +107,9 @@ URxvt.scrollBar_right: true
 URxvt.scrollTtyOutput: false
 URxvt.scrollWithBuffer: true
 URxvt.scrollTtyKeypress: true
+
+! Don't need line saving since I use tmux
+URxvt.saveLines: 0
 
 ! For tmux 256 colors
 URxvt.termName: screen-256color
