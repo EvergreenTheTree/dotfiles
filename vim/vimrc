@@ -31,6 +31,9 @@ Plug 'cespare/vim-toml'
 " Better syntax highlighting, autoindentation, linting, folding, and more for haskell
 Plug 'dag/vim2hs'
 
+" Easier line navigation than the clunky '/'
+Plug 'easymotion/vim-easymotion'
+
 " Type inspection and documentation lookup for haskell
 Plug 'lukerandall/haskellmode-vim'
 
@@ -294,7 +297,7 @@ function! Refresh()
 endf
 
 " Temporarily disable search highlighting and refresh
-nnoremap <silent> <leader><space> :call Refresh()<cr>:nohlsearch<cr>
+nnoremap <silent> <leader>c :call Refresh()<cr>:nohlsearch<cr>
 
 " Make <c-l> do the same thing as <leader><space>
 nnoremap <silent> <c-l> :call Refresh()<cr>:nohlsearch<cr>
