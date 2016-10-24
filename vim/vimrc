@@ -60,9 +60,6 @@ Plug 'tpope/vim-unimpaired'
 
 " Provides text objects and folding for indented languages
 Plug 'tweekmonster/braceless.vim'
-if exists(':BracelessEnable')
-    autocmd Filetype python BracelessEnable
-endif
 
 " Provides pandoc markdown highlighting
 Plug 'https://github.com/vim-pandoc/vim-pandoc'

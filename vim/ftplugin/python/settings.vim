@@ -45,3 +45,7 @@ if executable("pyflakes")
     setlocal makeprg=pyflakes
     command! -buffer Make silent make! % | silent redraw! | silent wincmd p
 endif
+
+if exists(':BracelessEnable')
+    BracelessEnable
+endif
