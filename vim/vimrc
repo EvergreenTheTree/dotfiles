@@ -64,7 +64,6 @@ Plug 'tweekmonster/braceless.vim'
 " Provides pandoc markdown highlighting
 Plug 'https://github.com/vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
-autocmd! BufNewFile,BufFilePRe,BufRead *.md set filetype=markdown.pandoc
 
 if has('python')
     Plug 'artur-shaik/vim-javacomplete2'
@@ -189,6 +188,13 @@ set wildmenu
 set wildmode=full
 
 """ PLUGIN OPTIONS
+"""" Haskellmode
+if executable("/usr/bin/firefox")
+    let g:haddock_browser = "/usr/bin/firefox"
+endif
+
+let g:haddock_docdir = "/usr/share/doc/ghc/html/"
+
 """" netrw
 " Use tree style browser
 let g:netrw_liststyle = 3
@@ -199,16 +205,14 @@ let g:netrw_use_errorwindow = 0
 " Don't show banner
 let g:netrw_banner = 0
 
+"""" Pandoc
+if exists('pandoc#loaded')
+    autocmd! BufNewFile,BufFilePRe,BufRead *.md set filetype=markdown.pandoc
+endif
+
 """" Rust
 " Disable default settings
 let g:rust_recommended_style = 0
-
-"""" Haskellmode
-if executable("/usr/bin/firefox")
-    let g:haddock_browser = "/usr/bin/firefox"
-endif
-
-let g:haddock_docdir = "/usr/share/doc/ghc/html/"
 
 """" snipMate
 " Use my custom snippets instead of defaults
