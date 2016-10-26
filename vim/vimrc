@@ -34,6 +34,9 @@ Plug 'dag/vim2hs'
 " Easier line navigation than the clunky '/'
 Plug 'easymotion/vim-easymotion'
 
+" Highlight all search results while typing
+Plug 'haya14busa/incsearch.vim'
+
 " Type inspection and documentation lookup for haskell
 Plug 'lukerandall/haskellmode-vim'
 
@@ -188,12 +191,30 @@ set wildmenu
 set wildmode=full
 
 """ PLUGIN OPTIONS
+"""" EasyMotion
+" Use <Tab> as easymotion leader
+map <Tab> <Plug>(easymotion-prefix)
+
 """" Haskellmode
 if executable("/usr/bin/firefox")
     let g:haddock_browser = "/usr/bin/firefox"
 endif
 
 let g:haddock_docdir = "/usr/share/doc/ghc/html/"
+
+"""" incsearch
+" Replace default mappings with incsearch mappings
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+
+" Search without moving cursor
+map g/ <Plug>(incsearch-stay)
+
+" Don't save search error messages to message history
+let g:incsearch#do_not_save_error_message_history = 1
+
+" Use very magic mode by default
+let g:incsearch#magic = '\v'
 
 """" netrw
 " Use tree style browser
@@ -298,7 +319,7 @@ function! Refresh()
 endf
 
 " Temporarily disable search highlighting and refresh
-nnoremap <silent> <leader>c :call Refresh()<cr>:nohlsearch<cr>
+nnoremap <silent> <leader><space> :call Refresh()<cr>:nohlsearch<cr>
 
 " Make <c-l> do the same thing as <leader><space>
 nnoremap <silent> <c-l> :call Refresh()<cr>:nohlsearch<cr>
