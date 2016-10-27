@@ -65,7 +65,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tweekmonster/braceless.vim'
 
 " Provides pandoc markdown highlighting
-Plug 'https://github.com/vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 
 if has('python')
@@ -194,6 +194,13 @@ set wildmode=full
 """" EasyMotion
 " Use <Tab> as easymotion leader
 map <Tab> <Plug>(easymotion-prefix)
+
+" Better colors for gruvbox
+if colors_name ==# 'gruvbox'
+    highlight link EasyMotionTarget Search
+    highlight link EasyMotionTarget2First Search
+    highlight link EasyMotionTarget2Second IncSearch
+endif
 
 """" Haskellmode
 if executable("/usr/bin/firefox")
