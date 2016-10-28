@@ -37,6 +37,9 @@ Plug 'easymotion/vim-easymotion'
 " Highlight all search results while typing
 Plug 'haya14busa/incsearch.vim'
 
+" Improved 'f' motion and much more precise 's' motion
+Plug 'justinmk/vim-sneak'
+
 " Type inspection and documentation lookup for haskell
 Plug 'lukerandall/haskellmode-vim'
 
@@ -241,6 +244,23 @@ endif
 """" Rust
 " Disable default settings
 let g:rust_recommended_style = 0
+
+"""" sneak
+" Use sneak for f and F
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+
+" Use sneak for t and T
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
 
 """" snipMate
 " Use my custom snippets instead of defaults
