@@ -1,23 +1,30 @@
 [core]
+	# Recommended SHA minimum length  https://lkml.org/lkml/2013/9/30/365
+	abbrev = 12
 	editor = vim
 	excludesfile = ~/.gitignore
-
+	askPass =
+[advice]
+	# Don't need to see status hints
+	statusHints = false
 [color]
+	ui = auto
 	branch = auto
 	diff = auto
 	status = auto
-
 [color "branch"]
-	current = yellow reverse
-	local = yellow
-	remote = green
-
+	current = green reverse
+	local = green
+	remote = blue
+	upstream = blue
+	plain = yellow
 [color "diff"]
 	meta = yellow bold
 	frag = magenta bold
 	old = red bold
 	new = green bold
-
+	commit = blue bold
+	whitespace = red bold reverse
 [color "status"]
 	added = yellow
 	changed = green
@@ -29,5 +36,14 @@
 [push]
 	default = simple
 [alias]
-	st = status --short --branch
-	grog = log --graph --abbrev-commit --decorate --all --format=format:\"%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n %s%C(reset)\"
+	s = status --short --branch
+	st = status
+	# Fancy log
+	l = log --graph --abbrev-commit --decorate --all --format=format:\"%C(bold blue)%h%Creset - %C(bold cyan)%aD%Creset - %C(bold white)%an%Creset %C(bold green)(%ar)%C(bold yellow)%d%Creset%n %s\"
+	ll = log --stat --decorate --source -p
+	b = branch -vv
+	d = diff
+	dc = diff --cached
+[include]
+	# Machine local settings
+	path = ~/.gitconfig.local
