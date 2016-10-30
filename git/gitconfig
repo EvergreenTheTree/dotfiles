@@ -39,7 +39,7 @@
 	s = status --short --branch
 	st = status
 	# Fancy log
-	l = log --graph --abbrev-commit --decorate --all --format=format:\"%C(bold blue)%h%Creset - %C(bold cyan)%aD%Creset - %C(bold white)%an%Creset %C(bold green)(%ar)%C(bold yellow)%d%Creset%n %s\"
+	l = log --graph --abbrev-commit --decorate --all --format=format:\"%Cred%h%Creset - %C(yellow)%aD%Creset - %C(bold blue)<%an>%Creset %C(bold green)(%ar)%C(bold white)%d%Creset%n %w(80,8,9)%s\"
 	ll = log --stat --decorate --source -p
 	b = branch -vv
 	d = diff
