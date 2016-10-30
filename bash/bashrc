@@ -69,12 +69,9 @@ alias df="df -h"
 # editor shortcut
 alias e="\$EDITOR"
 
-#####################
-# COLORS AND PROMPT #
-#####################
-
-# This sets up dircolors and the prompt based on whether a colorful terminal is
-# being used,
+##########
+# COLORS #
+##########
 
 use_color=false
 use_256color=false
@@ -86,6 +83,14 @@ if [[ -t 1 ]] && progexists "tput"; then
 	[[ -n $ncolors && $ncolors -ge 256 ]] && use_256color=true
 fi
 
+# Set color variables to empty strings so that they will do nothing when in a
+# terminal that supports < 8 colors.
+RED=""
+GREEN=""
+MAGENTA=""
+CYAN=""
+RESET=""
+BOLD=""
 if ${use_color}; then
 	# Do stuff for 8+ color terminals.
 
@@ -101,44 +106,63 @@ if ${use_color}; then
 		fi
 	fi
 
-	# Get whether the user is root or not, and change prompt accordingly.
-	if [[ "$EUID" -eq 0 ]]; then
-		# Root prompt.
-		PS1='\n┌(\[$(tput setaf 1)\]\u@\H\[$(tput sgr0)\])-(\[$(tput setaf 6)\]\@ \d\[$(tput sgr0)\])\n└(\[$(tput bold)\]\w\[$(tput sgr0)\])-# '
-	else
-		# Regular user prompt.
-		PS1='\n┌(\[$(tput setaf 2)\]\u@\H\[$(tput sgr0)\])-(\[$(tput setaf 6)\]\@ \d\[$(tput sgr0)\])\n└(\[$(tput bold)\]\w\[$(tput sgr0)\])-$ '
-	fi
+	# Colors for prompt
+	RED="$(tput setaf 1)"
+	GREEN="$(tput setaf 2)"
+	MAGENTA="$(tput setaf 5)"
+	CYAN="$(tput setaf 6)"
+	RESET="$(tput sgr0)"
+	BOLD="$(tput bold)"
 
 	# Make ls and grep use color.
 	alias ls='ls --color=auto'
 	alias grep='grep --colour=auto'
 	alias egrep='egrep --colour=auto'
 	alias fgrep='fgrep --colour=auto'
-else
-	# Do stuff for non-colorful terminals.
-
-	if [[ "$EUID" -eq 0 ]]; then
-		# Non-colored root prompt
-		PS1='\n┌(\u@\H)-(\@ \d)\n└(\w)-# '
-	else
-		# Non-colored regular user prompt
-		PS1='\n┌(\u@\H)-(\@ \d)\n└(\w)-$ '
-	fi
-fi
-
-# Sanitize term by replacing all non-alphanumeric characters with "?".
-safe_term=${TERM//[^[:alnum:]]/?}
-
-if [[ ${use_256color} || "$safe_term" == *"256"* ]]; then
-	# Do stuff for 256 color terminals
+elif ${use_256color}; then
+	# Do stuff for 256+ color terminals
 
 	# Make tmux use 256 colors
 	export TERM="screen-256color"
 fi
 
-# Unset use_color
-unset use_color safe_term
+# In the rare case that a terminal supports 256 colors but tput doesn't report
+# it, it is safe to assume it supports 256 colors if "256" is in the $TERM
+# environment variable.
+
+# Sanitize term by replacing all non-alphanumeric characters with "?".
+safe_term=${TERM//[^[:alnum:]]/?}
+if [[ "$safe_term" == *"256"* ]]; then 
+	export TERM="screen-256color"
+fi
+
+##########
+# PROMPT #
+##########
+
+__ps1_git_branch() {
+	if progexists "git" && git branch >/dev/null 2>&1; then
+		printf "%s\n" "-[${MAGENTA}$(git rev-parse --abbrev-ref HEAD)${RESET}]"
+	else
+		printf "\n"
+	fi
+}
+
+# The character(s) right in front of where input is taken
+PREFIX="$ "
+# The color of the user/hostname portion of the prompt
+USRCOLOR=$GREEN
+
+# Get whether the user is root or not, and change prompt accordingly.
+if [[ "$EUID" -eq 0 ]]; then
+	USRCOLOR=$RED
+	PREFIX="# "
+fi
+
+# Set prompt
+PS1="\n┌(${USRCOLOR}\u@\H${RESET})-(${CYAN}\@ \d${RESET})\$(__ps1_git_branch)\n└(${BOLD}\w${RESET})-${PREFIX}"
+
+unset use_color use_256color safe_term
 
 ########
 # MISC #
