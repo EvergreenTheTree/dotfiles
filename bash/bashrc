@@ -85,12 +85,14 @@ fi
 
 # Set color variables to empty strings so that they will do nothing when in a
 # terminal that supports < 8 colors.
-RED=""
-GREEN=""
-MAGENTA=""
-CYAN=""
-RESET=""
-BOLD=""
+R=""
+G=""
+Y=""
+B=""
+M=""
+C=""
+X=""
+BD=""
 if ${use_color}; then
 	# Do stuff for 8+ color terminals.
 
@@ -107,12 +109,22 @@ if ${use_color}; then
 	fi
 
 	# Colors for prompt
-	RED="$(tput setaf 1)"
-	GREEN="$(tput setaf 2)"
-	MAGENTA="$(tput setaf 5)"
-	CYAN="$(tput setaf 6)"
-	RESET="$(tput sgr0)"
-	BOLD="$(tput bold)"
+	# Red
+	R="\[$(tput setaf 1)\]"
+	# Green
+	G="\[$(tput setaf 2)\]"
+	# Yellow
+	Y="\[$(tput setaf 3)\]"
+	# Blue
+	B="\[$(tput setaf 4)\]"
+	# Magenta
+	M="\[$(tput setaf 5)\]"
+	# Cyan
+	C="\[$(tput setaf 6)\]"
+	# Reset
+	X="\[$(tput sgr0)\]"
+	# Bold
+	BD="\[$(tput bold)\]"
 
 	# Make ls and grep use color.
 	alias ls='ls --color=auto'
@@ -142,7 +154,7 @@ fi
 
 __ps1_git_branch() {
 	if progexists "git" && git branch >/dev/null 2>&1; then
-		printf "%s\n" "-[${MAGENTA}$(git rev-parse --abbrev-ref HEAD)${RESET}]"
+		printf "%s\n" "(git:$(git rev-parse --abbrev-ref HEAD))"
 	else
 		printf "\n"
 	fi
@@ -151,18 +163,19 @@ __ps1_git_branch() {
 # The character(s) right in front of where input is taken
 PREFIX="$ "
 # The color of the user/hostname portion of the prompt
-USRCOLOR=$GREEN
+USRCOLOR=$G
 
 # Get whether the user is root or not, and change prompt accordingly.
 if [[ "$EUID" -eq 0 ]]; then
-	USRCOLOR=$RED
+	USRCOLOR=$R
 	PREFIX="# "
 fi
 
 # Set prompt
-PS1="\n┌(${USRCOLOR}\u@\H${RESET})-(${CYAN}\@ \d${RESET})\$(__ps1_git_branch)\n└(${BOLD}\w${RESET})-${PREFIX}"
+PS1="\n┌(${USRCOLOR}\u@\H${X})-(${B}\@ \d${X}) ${M}\$(__ps1_git_branch)${X}\n└(${BD}\w${X})-${PREFIX}"
 
-unset use_color use_256color safe_term
+# Unset variables used for prompt/colors
+unset R G Y B M C X BD PREFIX USRCOLOR use_color use_256color safe_term
 
 ########
 # MISC #
