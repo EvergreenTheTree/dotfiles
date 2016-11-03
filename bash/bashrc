@@ -175,11 +175,12 @@ __ps1_virtualenv() {
 }
 
 bash_prompt() {
+	local exit_code="$?"
+
 	# Helps separate the prompt from stdout/stderr.
 	PS1="\n"
 
 	# Exit code indicator.  Green if zero, red if otherwise.
-	local exit_code="$?"
 	local exit_color=$GREEN
 	[[ "$exit_code" != 0 ]] && local exit_color=$RED
 	PS1="$PS1┌(${BOLD}${exit_color}${exit_code}${RESET})-"
