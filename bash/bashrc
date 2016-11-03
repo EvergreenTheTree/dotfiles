@@ -152,17 +152,6 @@ fi
 # PROMPT #
 ##########
 
-# The character(s) right in front of where input is taken
-PREFIX="$ "
-# The color of the user/hostname portion of the prompt
-USRCOLOR=$GREEN
-
-# Get whether the user is root or not, and change prompt accordingly.
-if [[ "$EUID" -eq 0 ]]; then
-	USRCOLOR=$RED
-	PREFIX="# "
-fi
-
 __ps1_git_branch() {
 	if progexists "git" && git branch >/dev/null 2>&1; then
 		printf "%s" "$(git rev-parse --abbrev-ref HEAD)"
@@ -188,41 +177,47 @@ __ps1_virtualenv() {
 bash_prompt() {
 	# Helps separate the prompt from stdout/stderr.
 	PS1="\n"
-	# username
-	PS1="$PS1┌(${USRCOLOR}\u${RESET})"
+
+	# Exit code indicator.  Green if zero, red if otherwise.
+	local exit_code="$?"
+	local exit_color=$GREEN
+	[[ "$exit_code" != 0 ]] && local exit_color=$RED
+	PS1="$PS1┌(${BOLD}${exit_color}${exit_code}${RESET})-"
+
+	# Username and hostname
+	local user_color=$GREEN
+	[[ "$UID" == 0 ]] && local user_color=$RED
+	PS1="$PS1(${user_color}\u@\H${RESET})"
+
 	# Time and date
-	PS1="$PS1-(${BLUE}\@ \d${RESET})"
+	PS1="$PS1-(${BLUE}\D{%H:%M} \d${RESET})"
+
 	# Current git branch
-	PS1="$PS1${__ps1_branch}"
+	local git_branch="$(__ps1_git_branch)"
+	if [[ -n "$git_branch" ]]; then
+		local git_branch="${MAGENTA}${git_branch}${RESET}"
+		PS1="$PS1-(${git_branch})"
+	fi
+
 	# Current virtualenv
-	PS1="$PS1${__ps1_virtualenv}"
+	local virtualenv="$(__ps1_virtualenv)"
+	if [[ -n "$virtualenv" ]]; then
+		local virtualenv="${YELLOW}${virtualenv}${RESET}"
+		PS1="$PS1-(${__ps1_virtualenv})"
+	fi
+
 	# Newline.  The $'' notation is necessary due to a bug in msys2 bash.
 	PS1="$PS1"$'\n'
+
 	# Working directory
 	PS1="$PS1$RESET└(${BOLD}\w${RESET})-"
+
 	# Prefix character before input.
-	PS1="$PS1${PREFIX}"
-}
-
-prompt_command() {
-	local branch="$(__ps1_git_branch)"
-	local virtualenv="$(__ps1_virtualenv)"
-	
-	__ps1_branch=""
-	if [[ -n "$branch" ]]; then
-		__ps1_branch="-(${MAGENTA}${branch}${RESET})"
-	fi
-
-	__ps1_virtualenv=""
-	if [[ -n "$virtualenv" ]]; then
-		__ps1_virtualenv="-(${YELLOW}${virtualenv}${RESET})"
-	fi
-
-	bash_prompt
+	PS1="$PS1\$ "
 }
 
 # Set prompt
-PROMPT_COMMAND='prompt_command'
+PROMPT_COMMAND='bash_prompt'
 
 # Unset variables used for prompt/colors
 unset use_color use_256color safe_term
