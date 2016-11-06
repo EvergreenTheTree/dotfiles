@@ -68,6 +68,22 @@ This is a list of software that I find myself using very regularly.
 - **[WINDOWS]** AHK Studio: Nice AutoHotkey script editor written in AutoHotkey.
 - PuTTY: SSH/Telnet client and terminal emulator, plus much more.
 
+# Linux Distributions
+
+- Arch Linux _(or Manjaro)_: My personal favorite.
+- Ubuntu _(any spinoff)_: The best for compatibility.
+
+# Window Managers and Desktop Environments
+
+- Cinnamon: My personal favorite.
+- i3: My favorite tiling window manager.
+- Xfce: My favorite light-weight stacking window manager/DE.
+
+# Fonts
+
+- Microsoft Core Fonts: A necessary evil.
+- Ubuntu: One of my favorite sans-serif and mono fonts.
+
 # Games
 
 - Steam: For a single game that I bought.
