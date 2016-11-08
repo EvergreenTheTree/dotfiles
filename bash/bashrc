@@ -248,8 +248,12 @@ unset use_color use_256color safe_term
 # TMUX #
 ########
 
-if progexists "tmux"; then
+user_tmux () {
+	tmux new -A -s "$USER"
+}
+
+if progexists "tmux" && [[ -z "$TMUX" ]] && ! __is_ssh; then
 	# Automatically attach to a session named after the user if not already in
-	# tmux, and create the session if it doesn't exist.
-	[[ -z $TMUX ]] && tmux new -A -s "$USER"
+	# tmux and not in an ssh session, and create the session if it doesn't exist.
+	user_tmux
 fi
