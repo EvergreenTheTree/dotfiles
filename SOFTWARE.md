@@ -31,6 +31,7 @@ This is a list of software that I find myself using very regularly.
 - CMake: A really popular alternative to configure scripts.
 - **[WINDOWS]** msys2 _(or Git for Windows SDK)_: Linux on windows.  _(better
   than cygwin)_
+- Haskell Platform: A necessity for haskell development.
 
 # School/Office
 
@@ -41,7 +42,8 @@ This is a list of software that I find myself using very regularly.
   though evince is okay. I would use okular on KDE.
 - Sumatra PDF: Another PDF viewer.  It is the only good open source viwewer
   I could find for windows _(and linux)_, though it is kind of ugly.
-- Gutenprint Drivers: Printer drivers.  'Nuff said.
+- Epson escpr: Printer driver.  'Nuff said.
+- Pandoc: An awesome document converter.
 
 # Multimedia
 
