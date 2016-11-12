@@ -2,6 +2,8 @@
 # Evergreen's bash_profile #
 ############################
 
+[[ -f ~/.bash_profile.local ]] && source ~/.bash_profile.local
+
 # Source bashrc if it exists.  Environment variables are set in bashrc before
 # the interactivity check.
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+[[ -f ~/.bashrc ]] && source ~/.bashrc
