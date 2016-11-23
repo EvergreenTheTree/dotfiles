@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+height="${1:-400}"
+width="$(xdpyinfo | awk '/dimensions:/ {print $2}' | cut -d 'x' -f '1')"
+i3-msg "resize set $width px $height px"
+
