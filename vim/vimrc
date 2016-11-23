@@ -50,6 +50,9 @@ Plug 'lukerandall/haskellmode-vim'
 " Gruvbox colorscheme
 Plug 'morhetz/gruvbox'
 
+" i3 config syntax higlighting
+Plug 'PotatoesMaster/i3-vim-syntax'
+
 " Provides syntax highlighting, formatting, and compiler definitions  for rust
 Plug 'rust-lang/rust.vim'
 
