@@ -97,7 +97,9 @@ URxvt.title: URxvt
 URxvt.scrollstyle: plain
 
 ! Set the scrollbar width in pixels.
-URxvt.thickness: 8
+URxvt.thickness: 5
+
+URxvt.scrollBar: false
 
 ! Put the scrollbar on the right
 URxvt.scrollBar_right: true
@@ -108,16 +110,13 @@ URxvt.scrollTtyOutput: false
 URxvt.scrollWithBuffer: true
 URxvt.scrollTtyKeypress: true
 
-! Don't need line saving since I use tmux
-URxvt.saveLines: 0
+URxvt.saveLines: 10000
 
 ! For tmux 256 colors
 URxvt.termName: screen-256color
 
 ! Enable blinking cursor
 URxvt.cursorBlink: true
-
-
 
 ! True: Make the cursor underlined. False: Make the cursor a box [default]; option -uc.
 URxvt.cursorUnderline: true
