@@ -1,13 +1,24 @@
 #!/usr/bin/env bash
+
+lock () {
+	if command -v scrot >/dev/null 2>&1; then
+		~/.i3/i3lock-fancy -- scrot
+	else
+		~/.i3/i3lock-fancy
+	fi
+}
+
 case "$1" in
 	lock)
-		i3lock
+		lock
 		;;
 	logout)
 		i3-msg exit
 		;;
 	suspend)
-		i3lock && sleep 1 && systemctl suspend
+		lock
+		sleep 1
+		systemctl suspend
 		;;
 	hibernate)
 		systemctl hibernate
