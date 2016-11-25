@@ -73,7 +73,7 @@ bindsym $mod+a focus parent
 # Workspaces
 set $ws1 "1: "
 set $ws2 "2: "
-set $ws3 "3: "
+set $ws3 "3: "
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
@@ -139,14 +139,14 @@ exec_always --no-startup-id sh ~/.fehbg
 # Assign applications to workspaces
 assign [class="(?i)firefox"] $ws1
 assign [class="(?i)thunderbird"] $ws9
+assign [class="(?i)libreoffice"] $ws3
 
 # Disable border on some applications
 for_window [class="^Firefox$"] border none
-for_window [class="^Firefox$"] border none
-for_window [class="^Thunderbird$"] border none
 
 # Make some applications floating
 for_window [class="(?i)pavucontrol"] floating enable
+for_window [instance="__nmtui"] floating enable, border none, resize set 470 px 400 px, move absolute position mouse
 
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
@@ -222,7 +222,7 @@ bar {
   colors {
     background          $grey
     statusline          $mgrey
-    separator           $blue
+    separator           $white
     #                   border  background  text
     focused_workspace   $grey   $dark       $white
     active_workspace    $grey   $dark       $mgrey
