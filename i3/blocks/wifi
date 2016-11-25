@@ -1,4 +1,5 @@
 #!/bin/bash
+# Copyright (C) 2014 Julien Bonjean <julien@bonjean.info>
 # Copyright (C) 2014 Alexander Keller <github@nycroth.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -16,31 +17,35 @@
 
 #------------------------------------------------------------------------
 
-INTERFACE="${BLOCK_INSTANCE:-wlan0}"
+# Use the provided interface, otherwise the device used for the default route.
+if [[ -n $BLOCK_INSTANCE ]]; then
+  IF=$BLOCK_INSTANCE
+else
+  IF=$(ip route | awk '/^default/ { print $5 ; exit }')
+fi
 
 #------------------------------------------------------------------------
 
 # As per #36 -- It is transparent: e.g. if the machine has no battery or wireless
 # connection (think desktop), the corresponding block should not be displayed.
-[[ ! -d /sys/class/net/${INTERFACE}/wireless ]] ||
-    [[ "$(cat /sys/class/net/$INTERFACE/operstate)" = 'down' ]] && exit
+# [[ ! -d /sys/class/net/${IF} ]] && exit
 
 #------------------------------------------------------------------------
 
-QUALITY=$(grep $INTERFACE /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
-
-#------------------------------------------------------------------------
-
-echo $QUALITY% # full text
-echo $QUALITY% # short text
-
-# color
-if [[ $QUALITY -ge 80 ]]; then
-    echo "#00FF00"
-elif [[ $QUALITY -lt 80 ]]; then
-    echo "#FFF600"
-elif [[ $QUALITY -lt 60 ]]; then
-    echo "#FFAE00"
-elif [[ $QUALITY -lt 40 ]]; then
-    echo "#FF0000"
+TEXT=""
+if [[ -z "$IF" ]]; then
+  COLOR="#FF0000" # color
+else
+  COLOR="#00FF00"
 fi
+
+case $BLOCK_BUTTON in
+  1) termite -e 'nmtui-connect' --name '__nmtui' >/dev/null 2>&1 &;;
+  3) termite -e 'nmtui-edit' --name '__nmtui' >/dev/null 2>&1 &;;
+esac
+
+#------------------------------------------------------------------------
+
+echo "$TEXT" # full text
+echo "$TEXT" # short text
+echo "$COLOR"
