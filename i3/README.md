@@ -12,6 +12,18 @@ These are my configuration files for the i3 window manager.
 - termite
 - pavucontrol
 - lm-sensors
+- imagemagick
+- bash
+- perl
+- python 3
+
+# Optional Dependencies
+
+- scrot
+- i3lock-color: https://github.com/chrjguill/i3lock-color
+- Breeze cursor theme
+- Arc Darker Gtk theme
+- Paper Icons theme
 
 # Installation
 Link this directory to `~/.i3`, and link `conf` to `~/.config/i3/conf`.  Note that you need to have
