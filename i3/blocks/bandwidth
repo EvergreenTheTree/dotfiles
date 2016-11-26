@@ -24,8 +24,7 @@ else
 fi
 
 # Issue #36 compliant.
-if ! [ -e "/sys/class/net/${INTERFACE}/operstate" ] || ! [ "$(cat /sys/class/net/"${INTERFACE}"/operstate)" = "up" ] || [[ -z $INTERFACE ]]
-then
+if [[ -z $INTERFACE ]]; then
 	printf "\n\n"
     exit 0
 fi
