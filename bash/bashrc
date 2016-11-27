@@ -7,6 +7,11 @@ progexists() {
     return
 }
 
+notify() {
+    eval "$@"
+    notify-send "Command Finished" "$*"
+}
+
 ### ENVIRONMENT VARIABLES ###
 
 # This script is sourced by bash_profile, so this is a reasonable place to
