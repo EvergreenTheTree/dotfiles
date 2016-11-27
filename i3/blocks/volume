@@ -60,10 +60,16 @@ format() {
 #------------------------------------------------------------------------
 
 case $BLOCK_BUTTON in
-  1) pavucontrol --name="__volumectl" ;;
-  3) amixer -q -D "$MIXER" sset "$SCONTROL" "$(capability)" toggle ;;  # right click, mute/unmute
-  4) amixer -q -D "$MIXER" sset "$SCONTROL" "$(capability)" "${STEP}+" unmute ;; # scroll up, increase
-  5) amixer -q -D "$MIXER" sset "$SCONTROL" "$(capability)" "${STEP}-" unmute ;; # scroll down, decrease
+    1)
+        if xlsclients -l | grep -q "Instance.*__volumectl"; then
+            i3-msg '[instance="__volumectl"] kill' >/dev/null
+        else
+            pavucontrol --name="__volumectl" >/dev/null 2>&1 &
+        fi
+        ;;
+    3) amixer -q -D "$MIXER" sset "$SCONTROL" "$(capability)" toggle ;;  # right click, mute/unmute
+    4) amixer -q -D "$MIXER" sset "$SCONTROL" "$(capability)" "${STEP}+" unmute ;; # scroll up, increase
+    5) amixer -q -D "$MIXER" sset "$SCONTROL" "$(capability)" "${STEP}-" unmute ;; # scroll down, decrease
 esac
 
 volume | format
