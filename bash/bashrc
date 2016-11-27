@@ -1,19 +1,13 @@
-######################
 # Evergreen's bashrc #
-######################
 
-#############
-# FUNCTIONS #
-#############
+### FUNCTIONS ###
 
 progexists() {
 	command -v "$1" >/dev/null 2>&1
 	return
 }
 
-#########################
-# ENVIRONMENT VARIABLES #
-#########################
+### ENVIRONMENT VARIABLES ###
 
 # This script is sourced by bash_profile, so this is a reasonable place to
 # put them.  (and it is before the interactivity check)
@@ -44,9 +38,7 @@ if [[ $- != *i* ]]; then
 	return
 fi
 
-###########
-# OPTIONS #
-###########
+### OPTIONS ###
 
 # Bash won't get SIGWINCH if another process is in the foreground.
 # Enable checkwinsize so that bash will check the terminal size when
@@ -61,9 +53,7 @@ shopt -s globstar
 # Enable history appending instead of overwriting.
 shopt -s histappend
 
-###########
-# ALIASES #
-###########
+### ALIASES ###
 
 # confirm before overwriting something
 alias cp="cp -i"
@@ -274,9 +264,7 @@ PROMPT_COMMAND='bash_prompt'
 # Unset variables used for prompt/colors
 unset use_color use_256color safe_term
 
-########
-# MISC #
-########
+### MISC ###
 
 # Use bash_completion if it is available.
 [ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
@@ -284,12 +272,13 @@ unset use_color use_256color safe_term
 # Source local settings
 [[ -f $HOME/.bashrc.local ]] && source "$HOME/.bashrc.local"
 
-########
-# TMUX #
-########
+### TMUX ###
 
 tmux_user () {
 	tmux new -A -s "$USER"
 }
 
 alias t="tmux_user"
+
+## vim:fdm=expr:fdl=0:fdc=3:
+## vim:fde=getline(v\:lnum)=~'^##'?'>'.(matchend(getline(v\:lnum),'##*')-2)\:'='
