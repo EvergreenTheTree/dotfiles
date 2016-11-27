@@ -142,12 +142,18 @@ assign [class="(?i)thunderbird"] $ws9
 assign [class="(?i)libreoffice"] $ws3
 
 # Disable border on some applications
-for_window [class="^Firefox$"] border none
+for_window [class="^Firefox$" title="Firefox"] border none
+for_window [class="^Thunderbird$" title="Thunderbird" window_role="3pane"] border none
 
 # Make some applications floating
+for_window [class="^Firefox$" window_role="Organizer"] floating enable
 for_window [class="(?i)pavucontrol"] floating enable
-for_window [instance="__nmtui"] floating enable, border none, resize set 470 px 400 px, move absolute position mouse
-for_window [instance="__volumectl"] floating enable, border none, resize set 500 px 400 px, move absolute position mouse
+for_window [instance="__nmtui"] floating enable, border none, resize set 470 px 400 px, move absolute position mouse, move up 22 px, sticky enable
+for_window [instance="__volumectl"] floating enable, border pixel 3, resize set 510 px 400 px, move absolute position mouse, move up 22 px, sticky enable
+
+# weird workaround for steam, see https://github.com/ValveSoftware/steam-for-linux/issues/597
+for_window [class="Steam"] floating enable
+for_window [class="Steam" title="^Steam$"] floating disable
 
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
