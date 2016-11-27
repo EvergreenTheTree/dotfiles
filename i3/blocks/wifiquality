@@ -27,13 +27,13 @@ fi
 # As per #36 -- It is transparent: e.g. if the machine has no battery or wireless
 # connection (think desktop), the corresponding block should not be displayed.
 if [[ -n $INTERFACE ]]; then
-  QUALITY=$(grep "$INTERFACE" /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
+    QUALITY=$(grep "$INTERFACE" /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
 
-  echo "$QUALITY%" # full text
-  echo "$QUALITY%" # short text
+    echo "$QUALITY%" # full text
+    echo "$QUALITY%" # short text
 
-  # color
-  [[ $QUALITY -lt 40 ]] && echo "#FF0000"
+    # color
+    [[ $QUALITY -lt 40 ]] && echo "#FF0000"
 
-  exit 0
+    exit 0
 fi

@@ -3,8 +3,8 @@
 ### FUNCTIONS ###
 
 progexists() {
-	command -v "$1" >/dev/null 2>&1
-	return
+    command -v "$1" >/dev/null 2>&1
+    return
 }
 
 ### ENVIRONMENT VARIABLES ###
@@ -21,12 +21,12 @@ progexists termite && export TERMINAL=termite
 
 # List of directories to add to PATH if they exist.
 path_add=( \
-	"$HOME/bin" "$HOME/.gem/ruby/2.3.0/bin" "$HOME/.gem/ruby/2.2.0/bin" \
-	"$HOME/.cargo/bin" "$HOME/.cabal/bin" "$HOME/.local/bin" \
+    "$HOME/bin" "$HOME/.gem/ruby/2.3.0/bin" "$HOME/.gem/ruby/2.2.0/bin" \
+    "$HOME/.cargo/bin" "$HOME/.cabal/bin" "$HOME/.local/bin" \
 )
 
 for dir in "${path_add[@]}"; do
-	[[ -d $dir ]] && PATH+=:"$dir"
+    [[ -d $dir ]] && PATH+=:"$dir"
 done
 export PATH
 
@@ -35,7 +35,7 @@ export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1
 
 # Shell is non-interactive.  Be done now!
 if [[ $- != *i* ]]; then
-	return
+    return
 fi
 
 ### OPTIONS ###
@@ -62,18 +62,16 @@ alias df="df -h"
 # editor shortcut
 alias e="\$EDITOR"
 
-##########
-# COLORS #
-##########
+### COLORS ###
 
 use_color=false
 use_256color=false
 # Check to see if output is a terminal and see if tput exists
 if [[ -t 1 ]] && progexists "tput"; then
-	# Get number of colors, and set use_color to true if it is greater than 8
-	ncolors="$(tput colors)"
-	[[ -n $ncolors && $ncolors -ge 8 ]] && use_color=true
-	[[ -n $ncolors && $ncolors -ge 256 ]] && use_256color=true
+    # Get number of colors, and set use_color to true if it is greater than 8
+    ncolors="$(tput colors)"
+    [[ -n $ncolors && $ncolors -ge 8 ]] && use_color=true
+    [[ -n $ncolors && $ncolors -ge 256 ]] && use_256color=true
 fi
 
 # Set color variables to empty strings so that they will do nothing when in a
@@ -87,48 +85,48 @@ CYAN=""
 RESET=""
 BOLD=""
 if ${use_color}; then
-	# Do stuff for 8+ color terminals.
+    # Do stuff for 8+ color terminals.
 
-	# Set colors for ls using dircolors.  Prefer ~/.dir_colors over
-	# /etc/DIR_COLORS, and use defaults if no configs are available.
-	if type -P dircolors >/dev/null; then
-		if [[ -f ~/.dir_colors ]]; then
-			eval $(dircolors -b ~/.dir_colors)
-		elif [[ -f /etc/DIR_COLORS ]]; then
-			eval $(dircolors -b /etc/DIR_COLORS)
-		else
-			eval $(dircolors -b)
-		fi
-	fi
+    # Set colors for ls using dircolors.  Prefer ~/.dir_colors over
+    # /etc/DIR_COLORS, and use defaults if no configs are available.
+    if type -P dircolors >/dev/null; then
+        if [[ -f ~/.dir_colors ]]; then
+            eval $(dircolors -b ~/.dir_colors)
+        elif [[ -f /etc/DIR_COLORS ]]; then
+            eval $(dircolors -b /etc/DIR_COLORS)
+        else
+            eval $(dircolors -b)
+        fi
+    fi
 
-	# Colors for prompt
-	# Red
-	RED="\[$(tput setaf 1)\]"
-	# Green
-	GREEN="\[$(tput setaf 2)\]"
-	# Yellow
-	YELLOW="\[$(tput setaf 3)\]"
-	# Blue
-	BLUE="\[$(tput setaf 4)\]"
-	# Magenta
-	MAGENTA="\[$(tput setaf 5)\]"
-	# Cyan
-	CYAN="\[$(tput setaf 6)\]"
-	# Reset
-	RESET="\[$(tput sgr0)\]"
-	# Bold
-	BOLD="\[$(tput bold)\]"
+    # Colors for prompt
+    # Red
+    RED="\[$(tput setaf 1)\]"
+    # Green
+    GREEN="\[$(tput setaf 2)\]"
+    # Yellow
+    YELLOW="\[$(tput setaf 3)\]"
+    # Blue
+    BLUE="\[$(tput setaf 4)\]"
+    # Magenta
+    MAGENTA="\[$(tput setaf 5)\]"
+    # Cyan
+    CYAN="\[$(tput setaf 6)\]"
+    # Reset
+    RESET="\[$(tput sgr0)\]"
+    # Bold
+    BOLD="\[$(tput bold)\]"
 
-	# Make ls and grep use color.
-	alias ls='ls --color=auto'
-	alias grep='grep --colour=auto'
-	alias egrep='egrep --colour=auto'
-	alias fgrep='fgrep --colour=auto'
+    # Make ls and grep use color.
+    alias ls='ls --color=auto'
+    alias grep='grep --colour=auto'
+    alias egrep='egrep --colour=auto'
+    alias fgrep='fgrep --colour=auto'
 elif ${use_256color}; then
-	# Do stuff for 256+ color terminals
+    # Do stuff for 256+ color terminals
 
-	# Make tmux use 256 colors
-	export TERM="screen-256color"
+    # Make tmux use 256 colors
+    export TERM="screen-256color"
 fi
 
 # In the rare case that a terminal supports 256 colors but tput doesn't report
@@ -137,125 +135,123 @@ fi
 
 # Sanitize term by replacing all non-alphanumeric characters with "?".
 safe_term=${TERM//[^[:alnum:]]/?}
-if [[ "$safe_term" == *"256"* ]]; then 
-	export TERM="screen-256color"
+if [[ "$safe_term" == *"256"* ]]; then
+    export TERM="screen-256color"
 fi
 
-##########
-# PROMPT #
-##########
+### PROMPT ###
 
 __ps1_git_branch() {
-	if progexists "git" && git branch >/dev/null 2>&1; then
-		printf "%s" "$(git rev-parse --abbrev-ref HEAD)"
-		return 0
-	else
-		printf ""
-		return 1
-	fi
+    if progexists "git" && git branch >/dev/null 2>&1; then
+        printf "%s" "$(git rev-parse --abbrev-ref HEAD)"
+        return 0
+    else
+        printf ""
+        return 1
+    fi
 }
 
 
 __ps1_git_parse_status () {
-	local gitstatus=$( LC_ALL=C git status --untracked-files=all --porcelain --branch )
+    local gitstatus=$( LC_ALL=C git status --untracked-files=all --porcelain --branch )
 
-	# if the status is fatal, exit now
-	[[ "$?" -ne 0 ]] && return 1
+    # if the status is fatal, exit now
+    [[ "$?" -ne 0 ]] && return 1
 
-	local num_staged=0
-	local num_changed=0
-	local num_conflicts=0
-	local num_untracked=0
-	while IFS='' read -r line || [[ -n "$line" ]]; do
-		local status=${line:0:2}
-		while [[ -n $status ]]; do
-			case "$status" in
-				\#\#) local branch_line="${line}"; break ;;
-				\?\?) ((num_untracked++)); break ;;
-				U?) ((num_conflicts++)); break;;
-				?U) ((num_conflicts++)); break;;
-				DD) ((num_conflicts++)); break;;
-				AA) ((num_conflicts++)); break;;
-				?M) ((num_changed++)) ;;
-				?D) ((num_changed++)) ;;
-				?\ ) ;;
-				U) ((num_conflicts++)) ;;
-				\ ) ;;
-				*) ((num_staged++)) ;;
-			esac
-			status=${status:0:(${#status}-1)}
-		done
-	done <<< "$gitstatus"
-	
-	printf '%s\n%s\n%s\n%s\n' $num_staged $num_changed $num_conflicts $num_untracked
-	return 0
+    local num_staged=0
+    local num_changed=0
+    local num_conflicts=0
+    local num_untracked=0
+    while IFS='' read -r line || [[ -n "$line" ]]; do
+        local status=${line:0:2}
+        while [[ -n $status ]]; do
+            case "$status" in
+                \#\#) local branch_line="${line}"; break ;;
+                \?\?) ((num_untracked++)); break ;;
+                U?) ((num_conflicts++)); break;;
+                ?U) ((num_conflicts++)); break;;
+                DD) ((num_conflicts++)); break;;
+                AA) ((num_conflicts++)); break;;
+                ?M) ((num_changed++)) ;;
+                ?D) ((num_changed++)) ;;
+                ?\ ) ;;
+                U) ((num_conflicts++)) ;;
+                \ ) ;;
+                *) ((num_staged++)) ;;
+            esac
+            status=${status:0:(${#status}-1)}
+        done
+    done <<< "$gitstatus"
+
+    printf '%s\n%s\n%s\n%s\n' $num_staged $num_changed $num_conflicts $num_untracked
+    return 0
 }
 
 
 __ps1_virtualenv() {
-	if [[ -n "$VIRTUAL_ENV" ]]; then
-		# Remove trailing slash
-		local virtual_env="${VIRTUAL_ENV%/}"
-		printf "%s" "${virtual_env##*/}"
-		return 0
-	else
-		printf ""
-		return 1
-	fi
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        # Remove trailing slash
+        local virtual_env="${VIRTUAL_ENV%/}"
+        printf "%s" "${virtual_env##*/}"
+        return 0
+    else
+        printf ""
+        return 1
+    fi
 }
 
 
 __is_ssh() {
-	[[ -n "$SSH_TTY" || -n "$SSH_CLIENT" ]]
+    [[ -n "$SSH_TTY" || -n "$SSH_CLIENT" ]]
 }
 
 
 bash_prompt() {
-	local exit_code="$?"
+    local exit_code="$?"
 
-	# Helps separate the prompt from stdout/stderr.
-	PS1="\n"
+    # Helps separate the prompt from stdout/stderr.
+    PS1="\n"
 
-	# Exit code indicator.  Green if zero, red if otherwise.
-	local exit_color=$GREEN
-	[[ "$exit_code" != 0 ]] && local exit_color=$RED
-	PS1="$PS1┌(${BOLD}${exit_color}${exit_code}${RESET})-"
+    # Exit code indicator.  Green if zero, red if otherwise.
+    local exit_color=$GREEN
+    [[ "$exit_code" != 0 ]] && local exit_color=$RED
+    PS1="$PS1┌(${BOLD}${exit_color}${exit_code}${RESET})-"
 
-	# Username and hostname
-	local user_color=$GREEN
-	[[ "$UID" == 0 ]] && local user_color=$RED
-	# Only need to show hostname if using ssh
-	if __is_ssh; then
-		PS1="$PS1(${user_color}\u@\H${RESET})"
-	else
-		PS1="$PS1(${user_color}\u${RESET})"
-	fi
+    # Username and hostname
+    local user_color=$GREEN
+    [[ "$UID" == 0 ]] && local user_color=$RED
+    # Only need to show hostname if using ssh
+    if __is_ssh; then
+        PS1="$PS1(${user_color}\u@\H${RESET})"
+    else
+        PS1="$PS1(${user_color}\u${RESET})"
+    fi
 
-	# Time
-	PS1="$PS1-(${BLUE}\D{%H:%M:%S}${RESET})"
+    # Time
+    PS1="$PS1-(${BLUE}\D{%H:%M:%S}${RESET})"
 
-	# Current git branch
-	local git_branch="$(__ps1_git_branch)"
-	if [[ -n "$git_branch" ]]; then
-		local git_branch="${MAGENTA}${git_branch}${RESET}"
-		PS1="$PS1-(${git_branch})"
-	fi
+    # Current git branch
+    local git_branch="$(__ps1_git_branch)"
+    if [[ -n "$git_branch" ]]; then
+        local git_branch="${MAGENTA}${git_branch}${RESET}"
+        PS1="$PS1-(${git_branch})"
+    fi
 
-	# Current virtualenv
-	local virtualenv="$(__ps1_virtualenv)"
-	if [[ -n "$virtualenv" ]]; then
-		local virtualenv="${YELLOW}${virtualenv}${RESET}"
-		PS1="$PS1-(${__ps1_virtualenv})"
-	fi
+    # Current virtualenv
+    local virtualenv="$(__ps1_virtualenv)"
+    if [[ -n "$virtualenv" ]]; then
+        local virtualenv="${YELLOW}${virtualenv}${RESET}"
+        PS1="$PS1-(${__ps1_virtualenv})"
+    fi
 
-	# Newline.  The $'' notation is necessary due to a bug in msys2 bash.
-	PS1="$PS1"$'\n'
+    # Newline.  The $'' notation is necessary due to a bug in msys2 bash.
+    PS1="$PS1"$'\n'
 
-	# Working directory
-	PS1="$PS1$RESET└(${BOLD}\w${RESET})-"
+    # Working directory
+    PS1="$PS1$RESET└(${BOLD}\w${RESET})-"
 
-	# Prefix character before input.
-	PS1="$PS1\$ "
+    # Prefix character before input.
+    PS1="$PS1\$ "
 }
 
 # Set prompt
@@ -275,7 +271,7 @@ unset use_color use_256color safe_term
 ### TMUX ###
 
 tmux_user () {
-	tmux new -A -s "$USER"
+    tmux new -A -s "$USER"
 }
 
 alias t="tmux_user"
