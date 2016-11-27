@@ -121,11 +121,9 @@ bindsym XF86AudioLowerVolume exec amixer -c 0 set Master 1- && pkill -RTMIN+10 i
 bindsym XF86AudioMute exec amixer set Master toggle && pkill -RTMIN+10 i3blocks
 
 # Quake-like terminal
-exec --no-startup-id termite --name '__quake'
-for_window [instance="__quake" tiling] move to scratchpad
-for_window [instance="__quake"] border pixel 2, sticky enable, move position 0 px 0 px
 for_window [instance="__quake"] exec --no-startup-id ~/.i3/quakeify
 bindsym F12 [instance="__quake"] scratchpad show
+exec --no-startup-id termite --name '__quake' &
 
 # Autostart programs
 exec --no-startup-id ~/.i3/dex/dex -a -s ~/.i3/autostart

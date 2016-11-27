@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 height="${1:-400}"
 width="$(xdpyinfo | awk '/dimensions:/ {print $2}' | cut -d 'x' -f '1')"
-i3-msg "resize set $width px $height px"
-
+i3-msg '[instance="__quake" tiling] move to scratchpad'
+i3-msg "[instance=\"__quake\"] border pixel 2, sticky enable"
+i3-msg "[instance=\"__quake\"] resize set $width px $height px, move position 0 px 0 px"
