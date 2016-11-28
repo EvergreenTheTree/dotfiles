@@ -61,7 +61,7 @@ format() {
 
 case $BLOCK_BUTTON in
     1)
-        ~/.i3/i3dialog -e 'move up 22' -t -- 'pavucontrol' &
+        ~/.i3/i3dialog -t -o '0,-22' -- 'pavucontrol' &
         ;;
     3) amixer -q -D "$MIXER" sset "$SCONTROL" "$(capability)" toggle ;;  # right click, mute/unmute
     4) amixer -q -D "$MIXER" sset "$SCONTROL" "$(capability)" "${STEP}+" unmute ;; # scroll up, increase

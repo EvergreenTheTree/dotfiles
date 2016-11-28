@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 if [[ $BLOCK_BUTTON = 1 ]] && command -v htop >/dev/null; then
-    ~/.i3/i3dialog -e 'move up 22' -s 500,500 -t -- 'termite -e "htop"' &
+    ~/.i3/i3dialog -t -s 500,500 -o '0,-22' -- 'termite -e "htop"' &
 fi
 
 load="$(cut -d ' ' -f1 /proc/loadavg)"

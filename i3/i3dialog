@@ -3,7 +3,7 @@
 # Turns an application into a dialog window using i3.  Only gtk apps are
 # supported.
 
-usage="Usage: i3dialog [-ht] [-e CMD] [-p X,Y] [-s W,H] [--] APPLICATION"
+usage="Usage: i3dialog [-ht] [-e CMD] [-o X,Y] [-p X,Y] [-s W,H] [--] APPLICATION"
 read -r -d '' help <<EOF
 Runs an application as a dialog window using i3. (APPLICATION must accept gtk
 arguments)
@@ -11,6 +11,11 @@ arguments)
 $usage
 
   -e CMD  Extra i3 command to run on the dialog window after it opens.
+  -o X,Y  Offset dialog position.  If X is positive the dialog will be moved to
+          the right, and if it is negative it will be moved to the left.  If Y
+          is positive the dialog will be moved down, and if it is negative the
+          dialog will be moved up.  If this option is not given, no offset will
+          take place.
   -p X,Y  Set position of dialog.  Defaults to mouse position.
   -s W,H  Set size of dialog to width and height.  If not given the window's
           default size is used.
@@ -21,7 +26,7 @@ $usage
   -h      Show this help message.
 
 EOF
-optstring=":e:hp:s:t-"
+optstring=":e:ho:p:s:t-"
 
 ### FUNCTIONS ###
 # Show an error message along with a short usage message and exit.
@@ -60,6 +65,8 @@ HEIGHT=""
 EXTCMD=""
 X=""
 Y=""
+XOFFSET="0"
+YOFFSET="0"
 TOGGLE=false
 while getopts $optstring opt; do
     case $opt in
@@ -68,6 +75,11 @@ while getopts $optstring opt; do
         h)
             printf '%s\n' "$help"
             exit 0
+            ;;
+        o)
+            IFS=','; offset=($OPTARG); unset IFS
+            XOFFSET="${offset[0]}"
+            YOFFSET="${offset[1]}"
             ;;
         p)
             IFS=','; pos=($OPTARG); unset IFS
@@ -93,8 +105,6 @@ CMD="$1"
 [[ -z $CMD ]] && error "application name is required"
 
 ### SCRIPT ###
-# exec >/dev/null 2>&1
-
 instance="$(getinstance "$CMD")"
 
 if [[ $TOGGLE = true ]] && instanceexists "$instance"; then
@@ -119,6 +129,17 @@ if [[ -z $X || -z $Y ]]; then
     instancecmd "$instance" "move absolute position mouse"
 else
     instancecmd "$instance" "move position $X px $Y px"
+fi
+
+if (( XOFFSET < 0 )); then
+    instancecmd "$instance" "move left $(tr -d - <<<"$XOFFSET") px"
+elif (( XOFFSET > 0 )); then
+    instancecmd "$instance" "move right $XOFFSET px"
+fi
+if (( YOFFSET < 0 )); then
+    instancecmd "$instance" "move up $(tr -d - <<<"$YOFFSET") px"
+elif (( YOFFSET > 0 )); then
+    instancecmd "$instance" "move down $YOFFSET px"
 fi
 
 instancecmd "$instance" "sticky enable"

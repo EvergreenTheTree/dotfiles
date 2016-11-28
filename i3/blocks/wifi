@@ -2,10 +2,10 @@
 
 case $BLOCK_BUTTON in
     1)
-        ~/.i3/i3dialog -t -e 'move up 22' -- 'termite -e "nmtui-connect"' &
+        ~/.i3/i3dialog -t -o '0,-22' -- 'termite -e "nmtui-connect"' &
         ;;
     3)
-        ~/.i3/i3dialog -t -e 'move up 22' -- 'termite -e "nmtui-edit"' &
+        ~/.i3/i3dialog -t -o '0,-22' -- 'termite -e "nmtui-edit"' &
         ;;
 esac
 
