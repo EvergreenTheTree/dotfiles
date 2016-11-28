@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 # Turns an application into a dialog window using i3.  Only gtk apps are
-# supported.  IF this script is called twice with the same parameters and the
-# previous dialog is still open, the open dialog will be closed instead of
-# launching a new instance.
+# supported.
 
 usage="Usage: i3dialog [-ht] [-e CMD] [-p X,Y] [-s W,H] [--] APPLICATION"
 read -r -d '' help <<EOF
@@ -17,7 +15,9 @@ $usage
   -s W,H  Set size of dialog to width and height.  If not given the window's
           default size is used.
   -t      Toggle.  This will close the dialog if it already exists, but will
-          launch the dialog normally if it does not exist.
+          launch the dialog normally if it does not exist.  If this option is
+          not given and the window already exists, the existing will be foucsed
+          and the script will exit.
   -h      Show this help message.
 
 EOF
@@ -99,6 +99,9 @@ instance="$(getinstance "$CMD")"
 
 if [[ $TOGGLE = true ]] && instanceexists "$instance"; then
     instancecmd "$instance" "kill"
+    exit 0
+elif instanceexists "$instance"; then
+    instancecmd "$instance" "focus"
     exit 0
 fi
 
