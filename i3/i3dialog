@@ -108,14 +108,14 @@ until instanceexists "$instance"; do :; done;
 
 i3-msg "[instance=\"$instance\" tiling] floating enable" >/dev/null 2>&1
 
+if [[ -n $HEIGHT || -n $WIDTH ]]; then
+    instancecmd "$instance" "resize set $WIDTH px $HEIGHT px"
+fi
+
 if [[ -z $X || -z $Y ]]; then
     instancecmd "$instance" "move absolute position mouse"
 else
     instancecmd "$instance" "move position $X px $Y px"
-fi
-
-if [[ -n $HEIGHT || -n $WIDTH ]]; then
-    instancecmd "$instance" "resize set $WIDTH px $HEIGHT px"
 fi
 
 instancecmd "$instance" "sticky enable"
