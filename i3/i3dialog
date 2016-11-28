@@ -1,0 +1,128 @@
+#!/usr/bin/env bash
+
+# Turns an application into a dialog window using i3.  Only gtk apps are
+# supported.  IF this script is called twice with the same parameters and the
+# previous dialog is still open, the open dialog will be closed instead of
+# launching a new instance.
+
+usage="Usage: i3dialog [-ht] [-e CMD] [-p X,Y] [-s W,H] [--] APPLICATION"
+read -r -d '' help <<EOF
+Runs an application as a dialog window using i3. (APPLICATION must accept gtk
+arguments)
+
+$usage
+
+  -e CMD  Extra i3 command to run on the dialog window after it opens.
+  -p X,Y  Set position of dialog.  Defaults to mouse position.
+  -s W,H  Set size of dialog to width and height.  If not given the window's
+          default size is used.
+  -t      Toggle.  This will close the dialog if it already exists, but will
+          launch the dialog normally if it does not exist.
+  -h      Show this help message.
+
+EOF
+optstring=":e:hp:s:t-"
+
+### FUNCTIONS ###
+# Show an error message along with a short usage message and exit.
+error() {
+    printf 'ERROR: %s\n' "$1" >&2
+    printf '%s\n' "$usage" >&2
+    exit 1
+}
+
+# Generate the instance name for an application base on its name.
+getinstance() {
+    if command -v md5sum >/dev/null; then
+        local instance
+        instance="$(md5sum <<<"$1" | cut -d ' ' -f 1)"
+    else
+        local instance
+        instance="$(cksum <<<"$1" | cut -d ' ' -f 1)"
+    fi
+    printf '__dialog_%s\n' "$instance"
+}
+
+# Takes an instance name and an i3 command and runs the command on the window
+# with the given instance name.
+instancecmd() {
+    i3-msg "[instance=\"$1\"] $2" >/dev/null 2>&1
+}
+
+# Determines whether window with instance name exists yet.
+instanceexists() {
+    i3-msg -t get_tree | grep -q "instance.:.$1"
+}
+
+### OPTION HANDLING ###
+WIDTH=""
+HEIGHT=""
+EXTCMD=""
+X=""
+Y=""
+TOGGLE=false
+while getopts $optstring opt; do
+    case $opt in
+        e)
+            EXTCMD="$OPTARG";;
+        h)
+            printf '%s\n' "$help"
+            exit 0
+            ;;
+        p)
+            IFS=','; pos=($OPTARG); unset IFS
+            X="${pos[0]}"
+            Y="${pos[1]}"
+            ;;
+        s)
+            IFS=','; size=($OPTARG); unset IFS
+            WIDTH="${size[0]}"
+            HEIGHT="${size[1]}"
+            ;;
+        t)
+            TOGGLE=true;;
+        -) :;;
+        \?) error "invalid option: \"-$OPTARG\"";;
+        :) error "option \"-$OPTARG\" requires an argument";;
+    esac
+done
+
+shift $((OPTIND-1))
+CMD="$1"
+
+[[ -z $CMD ]] && error "application name is required"
+
+### SCRIPT ###
+# exec >/dev/null 2>&1
+
+instance="$(getinstance "$CMD")"
+
+if [[ $TOGGLE = true ]] && instanceexists "$instance"; then
+    instancecmd "$instance" "kill"
+    exit 0
+fi
+
+eval "$CMD" --name="$instance" '>/dev/null 2>&1 &'
+
+until instanceexists "$instance"; do :; done;
+
+i3-msg "[instance=\"$instance\" tiling] floating enable" >/dev/null 2>&1
+
+if [[ -z $X || -z $Y ]]; then
+    instancecmd "$instance" "move absolute position mouse"
+else
+    instancecmd "$instance" "move position $X px $Y px"
+fi
+
+if [[ -n $HEIGHT || -n $WIDTH ]]; then
+    instancecmd "$instance" "resize set $WIDTH px $HEIGHT px"
+fi
+
+instancecmd "$instance" "sticky enable"
+
+[[ -n $EXTCMD ]] && instancecmd "$instance" "$EXTCMD"
+
+exit 0
+
+## vim:fdm=expr:fdl=0:fdc=3:
+## vim:fde=getline(v\:lnum)=~'^##'?'>'.(matchend(getline(v\:lnum),'##*')-2)\:'='

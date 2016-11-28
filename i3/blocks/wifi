@@ -2,18 +2,10 @@
 
 case $BLOCK_BUTTON in
     1)
-        if xlsclients -l | grep -q "Instance.*__nmtui"; then
-            i3-msg '[instance="__nmtui"] kill' >/dev/null
-        else
-            termite -e 'nmtui-connect' --name '__nmtui' >/dev/null 2>&1 &
-        fi
+        ~/.i3/i3dialog -t -e 'move up 22' -- 'termite -e "nmtui-connect"' &
         ;;
     3)
-        if xlsclients -l | grep -q "Instance.*__nmtui"; then
-            i3-msg '[instance="__nmtui"] kill' >/dev/null
-        else
-            termite -e 'nmtui-edit' --name '__nmtui' >/dev/null 2>&1 &
-        fi
+        ~/.i3/i3dialog -t -e 'move up 22' -- 'termite -e "nmtui-edit"' &
         ;;
 esac
 

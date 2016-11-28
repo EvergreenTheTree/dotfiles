@@ -154,6 +154,7 @@ for_window [instance="__volumectl"] floating enable, border pixel 3, resize set 
 # weird workaround for steam, see https://github.com/ValveSoftware/steam-for-linux/issues/597
 for_window [class="Steam"] floating enable
 for_window [class="Steam" title="^Steam$"] floating disable
+for_window [instance="__dialog.*"] floating enable, move absolute position mouse
 
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
