@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if command -v orage >/dev/null && [[ $BLOCK_BUTTON = 1 ]]; then
+    ~/.i3/i3dialog -t -o '0,-22' -- orage
+fi
+
+date +"$BLOCK_INSTANCE"
