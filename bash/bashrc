@@ -145,14 +145,30 @@ if [[ "$safe_term" == *"256"* ]]; then
 fi
 
 ### PROMPT ###
+__in_git_repo() {
+    progexists "git" && git rev-parse --is-inside-work-tree >/dev/null 2>&1
+}
+
 
 __ps1_git_branch() {
-    if progexists "git" && git branch >/dev/null 2>&1; then
+    if __in_git_repo; then
         printf "%s" "$(git rev-parse --abbrev-ref HEAD)"
         return 0
     else
         printf ""
         return 1
+    fi
+}
+
+
+__ps1_cwd() {
+    if __in_git_repo; then
+        local root="$(git rev-parse --show-toplevel)"
+        local repo_name="${root##*/}"
+        [[ $PWD = /home/* ]] && local home="~/"
+        printf "%s" "$home.../${repo_name}${PWD##*${repo_name}}"
+    else
+        printf '\w'
     fi
 }
 
@@ -253,11 +269,13 @@ bash_prompt() {
     PS1="$PS1"$'\n'
 
     # Working directory
-    PS1="$PS1$RESET└(${BOLD}\w${RESET})-"
+    PS1="$PS1$RESET└(${BOLD}$(__ps1_cwd)${RESET})-"
 
     # Prefix character before input.
     PS1="$PS1\$ "
 }
+
+PROMPT_DIRTRIM=3
 
 # Set prompt
 PROMPT_COMMAND='bash_prompt'
