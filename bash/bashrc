@@ -151,13 +151,20 @@ __in_git_repo() {
 
 
 __ps1_git_branch() {
+    local branch=""
     if __in_git_repo; then
-        printf "%s" "$(git rev-parse --abbrev-ref HEAD)"
-        return 0
-    else
-        printf ""
-        return 1
+        if git symbolic-ref --short HEAD >/dev/null 2>&1; then
+            branch="$(git symbolic-ref --short HEAD)"
+        else
+            local tag="$(git describe --tags --exact-match)"
+            if [[ -n "$tag" ]]; then
+                branch="$tag"
+            else
+                branch="#$(git rev-parse --short=0 HEAD)"
+            fi
+        fi
     fi
+    printf "$branch"
 }
 
 
