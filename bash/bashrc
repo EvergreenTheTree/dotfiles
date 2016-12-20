@@ -269,7 +269,7 @@ bash_prompt() {
     local virtualenv="$(__ps1_virtualenv)"
     if [[ -n "$virtualenv" ]]; then
         local virtualenv="${YELLOW}${virtualenv}${RESET}"
-        PS1="$PS1-(${__ps1_virtualenv})"
+        PS1="$PS1-(${virtualenv})"
     fi
 
     # Newline.  The $'' notation is necessary due to a bug in msys2 bash.
