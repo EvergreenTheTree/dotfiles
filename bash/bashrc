@@ -168,54 +168,6 @@ __ps1_git_branch() {
 }
 
 
-__ps1_cwd() {
-    if __in_git_repo; then
-        local root="$(git rev-parse --show-toplevel)"
-        local repo_name="${root##*/}"
-        [[ $PWD = /home/* ]] && local home="~/"
-        printf "%s" "$home.../${repo_name}${PWD##*${repo_name}}"
-    else
-        printf '\w'
-    fi
-}
-
-
-__ps1_git_parse_status () {
-    local gitstatus=$( LC_ALL=C git status --untracked-files=all --porcelain --branch )
-
-    # if the status is fatal, exit now
-    [[ "$?" -ne 0 ]] && return 1
-
-    local num_staged=0
-    local num_changed=0
-    local num_conflicts=0
-    local num_untracked=0
-    while IFS='' read -r line || [[ -n "$line" ]]; do
-        local status=${line:0:2}
-        while [[ -n $status ]]; do
-            case "$status" in
-                \#\#) local branch_line="${line}"; break ;;
-                \?\?) ((num_untracked++)); break ;;
-                U?) ((num_conflicts++)); break;;
-                ?U) ((num_conflicts++)); break;;
-                DD) ((num_conflicts++)); break;;
-                AA) ((num_conflicts++)); break;;
-                ?M) ((num_changed++)) ;;
-                ?D) ((num_changed++)) ;;
-                ?\ ) ;;
-                U) ((num_conflicts++)) ;;
-                \ ) ;;
-                *) ((num_staged++)) ;;
-            esac
-            status=${status:0:(${#status}-1)}
-        done
-    done <<< "$gitstatus"
-
-    printf '%s\n%s\n%s\n%s\n' $num_staged $num_changed $num_conflicts $num_untracked
-    return 0
-}
-
-
 __ps1_virtualenv() {
     if [[ -n "$VIRTUAL_ENV" ]]; then
         # Remove trailing slash
@@ -226,11 +178,6 @@ __ps1_virtualenv() {
         printf ""
         return 1
     fi
-}
-
-
-__is_ssh() {
-    [[ -n "$SSH_TTY" || -n "$SSH_CLIENT" ]]
 }
 
 
@@ -249,7 +196,7 @@ bash_prompt() {
     local user_color=$GREEN
     [[ "$UID" == 0 ]] && local user_color=$RED
     # Only need to show hostname if using ssh
-    if __is_ssh; then
+    if [[ -n "$SSH_TTY" || -n "$SSH_CLIENT" ]]; then
         PS1="$PS1(${user_color}\u@\H${RESET})"
     else
         PS1="$PS1(${user_color}\u${RESET})"
@@ -276,7 +223,7 @@ bash_prompt() {
     PS1="$PS1"$'\n'
 
     # Working directory
-    PS1="$PS1$RESET└(${BOLD}$(__ps1_cwd)${RESET})-"
+    PS1="$PS1$RESET└(${BOLD}\w${RESET})-"
 
     # Prefix character before input.
     PS1="$PS1\$ "
