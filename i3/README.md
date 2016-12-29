@@ -10,7 +10,6 @@ These are my configuration files for the i3 window manager.
 - dunst
 - NetworkManager
 - termite
-- pavucontrol
 - lm-sensors
 - imagemagick
 - bash
@@ -24,6 +23,10 @@ These are my configuration files for the i3 window manager.
 - Breeze cursor theme
 - Arc Darker Gtk theme
 - Paper Icons theme
+- pavucontrol
+- orage
+- htop
+- pacaur
 
 # Installation
 Link this directory to `~/.i3`, and link `conf` to `~/.config/i3/conf`.  Note that you need to have

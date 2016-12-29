@@ -76,7 +76,7 @@ bindsym $mod+a focus parent
 set $ws1 "1: "
 set $ws2 "2: "
 set $ws3 "3: "
-set $ws4 "4"
+set $ws4 "4: "
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
@@ -212,10 +212,12 @@ set $dark     #262a33
 # top bar color
 set $grey     #2f343f
 # colors
-set $blue     #5294e2
 set $red      #cc575d
 set $green    #76bc50
+set $blue     #5294e2
+set $yellow   #ccc657
 # some lighter grey
+# NOTE: Switch lgrey and mgrey
 set $lgrey    #3e424d
 set $white    #ffffff
 # side panel color
