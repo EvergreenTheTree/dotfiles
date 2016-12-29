@@ -1,2 +1,2 @@
 call SetIndentWidth(4)
-set noexpandtab
+set expandtab

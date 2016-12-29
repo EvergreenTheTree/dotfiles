@@ -56,6 +56,9 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 " Provides syntax highlighting, formatting, and compiler definitions  for rust
 Plug 'rust-lang/rust.vim'
 
+" Better lua indentation and syntax highlighting
+Plug 'tbastos/vim-lua'
+
 " Easily comment stuff out
 Plug 'tpope/vim-commentary'
 
