@@ -74,15 +74,45 @@ alias e="\$EDITOR"
 
 ### COLORS ###
 
+#### DETECTION ####
+
 use_color=false
 use_256color=false
+ncolors=0
+
 # Check to see if output is a terminal and see if tput exists
-if [[ -t 1 ]] && progexists "tput"; then
-    # Get number of colors, and set use_color to true if it is greater than 8
-    ncolors="$(tput colors)"
-    [[ -n $ncolors && $ncolors -ge 8 ]] && use_color=true
-    [[ -n $ncolors && $ncolors -ge 256 ]] && use_256color=true
+[[ -t 1 ]] && progexists "tput" && ncolors="$(tput colors)"
+
+# Only do this somewhat slow algorithm if it is likely that the terminal is
+# lying about how many colors it can support.
+if [[ $ncolors -lt 256 ]] && [[ $ncolors -ge 8 ]]; then
+    # color detection courtesy of https://github.com/l0b0/xterm-color-count
+    printf '\e]4;%d;?\a' 0
+    read -d $'\a' -s -t 0.1 </dev/tty
+    if [ -n "$REPLY" ]; then
+        # OSC 4 is supported, so use it for a binary search
+        min=0
+        max=256
+        while [[ $((min+1)) -lt $max ]]
+        do
+            i=$(( (min+max)/2 ))
+            printf '\e]4;%d;?\a' $i
+            read -d $'\a' -s -t 0.1 </dev/tty
+            if [ -z "$REPLY" ]
+            then
+                max=$i
+            else
+                min=$i
+            fi
+        done
+        ncolors=$max
+        unset min max
+    fi
 fi
+[[ $ncolors -ge 256 ]] && use_256color=true
+[[ $ncolors -ge 8 ]] && use_color=true
+
+#### CONFIGURATION ####
 
 # Set color variables to empty strings so that they will do nothing when in a
 # terminal that supports < 8 colors.
@@ -94,7 +124,7 @@ MAGENTA=""
 CYAN=""
 RESET=""
 BOLD=""
-if ${use_color}; then
+if [[ $use_color == true ]]; then
     # Do stuff for 8+ color terminals.
 
     # Set colors for ls using dircolors.  Prefer ~/.dir_colors over
@@ -132,20 +162,12 @@ if ${use_color}; then
     alias grep='grep --colour=auto'
     alias egrep='egrep --colour=auto'
     alias fgrep='fgrep --colour=auto'
-elif ${use_256color}; then
+fi
+
+if [[ $use_256color == true ]]; then
     # Do stuff for 256+ color terminals
 
     # Make tmux use 256 colors
-    export TERM="screen-256color"
-fi
-
-# In the rare case that a terminal supports 256 colors but tput doesn't report
-# it, it is safe to assume it supports 256 colors if "256" is in the $TERM
-# environment variable.
-
-# Sanitize term by replacing all non-alphanumeric characters with "?".
-safe_term=${TERM//[^[:alnum:]]/?}
-if [[ "$safe_term" == *"256"* ]]; then
     export TERM="screen-256color"
 fi
 
@@ -240,7 +262,7 @@ PROMPT_DIRTRIM=3
 PROMPT_COMMAND='bash_prompt'
 
 # Unset variables used for prompt/colors
-unset use_color use_256color safe_term
+unset use_color use_256color safe_term ncolors
 
 ### MISC ###
 
