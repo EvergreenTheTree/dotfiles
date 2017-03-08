@@ -19,7 +19,7 @@
 
 ! Fonts
 #define myfont Ubuntu
-#define mymonofont Ubuntu Mono
+#define mymonofont Terminus
 #define myfontsize 9
 
 !!! Applications
@@ -85,7 +85,7 @@ URxvt.italicFont: xft:mymonofont:italic:size=myfontsize
 URxvt.boldItalicFont: xft:mymonofont:bold:italic:size=myfontsize
 
 ! Tighter letter spacing
-URxvt.letterSpace: -1
+! URxvt.letterSpace: -1
 
 ! Set window title to "URxvt"
 URxvt.title: URxvt
