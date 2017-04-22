@@ -17,7 +17,8 @@ runtime macros/matchit.vim
 
 """ PLUGINS
 " Use pathogen to manage manually installed plugins
-execute pathogen#infect('plugins-dev/{}')
+execute pathogen#infect('plugins-dev/{}', 'plugins-local/{}')
+
 " Generate helptags for manually installed plugins
 Helptags
 
