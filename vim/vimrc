@@ -440,10 +440,6 @@ augroup vimrc
     " Automatically open quickfix window when :helpgrep is run
     autocmd QuickFixCmdPost helpgrep copen
 
-    " Automatically source vimrc after writing it
-    autocmd BufWritePost vimrc,.vimrc,init.vim let l = winsaveview() | source $MYVIMRC
-                \ | call winrestview(l) | normal! zMzv
-
     " Automatically reload all snippets on save
     autocmd BufWritePost *.snippets call ReloadAllSnippets()
 augroup END
