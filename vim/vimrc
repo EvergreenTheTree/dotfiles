@@ -256,38 +256,6 @@ xmap T <Plug>Sneak_T
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 
-"""" snipMate
-" Use my custom snippets instead of defaults
-let g:snippets_dir = g:user_config_dir . "/snippets/"
-
-" Mini plugin which lets you easily edit snippets for the filetype of the
-" current file.
-
-" Control where snippet editing window is opened. (see :vertical and the like)
-let g:snippets_edit_winpos = "botright"
-
-" Size of snippet editing window
-let g:snippets_edit_winsize = 25
-
-command! -nargs=0 SnipEdit call s:SnipEdit()
-
-function! s:SnipEdit()
-    let snip_file = g:snippets_dir . &filetype . '.snippets'
-    echo snip_file
-    call s:GoToSnipBuffer(snip_file)
-endfunction
-
-function! s:GoToSnipBuffer(snip_file)
-    let winnr = bufwinnr(fnamemodify(a:snip_file, ":t"))
-    if winnr < 0
-        silent! execute g:snippets_edit_winpos . ' new ' . a:snip_file
-    else
-        silent! execute winnr . "wincmd w"
-    endif
-    execute g:snippets_edit_winsize . "wincmd _"
-    execute g:snippets_edit_winsize . "wincmd |"
-endfunction
-
 """ INDENTATION
 " Automatically indent when creating new line
 set autoindent
