@@ -383,12 +383,6 @@ endfunction
 " Map this function
 nnoremap <leader>sw :call StripTrailingWhitespace()<cr>
 
-""" ABBREVIATIONS
-" Abbreviation for current time.  Example: 14:46:23 (hours:minutes:seconds)
-iabbr _t <c-r>=strftime("%H:%M:%S")<cr>
-" Abbreviation for current date.  Example: July 09, 2015 (month day, year)
-iabbr _d <c-r>=strftime("%B %d, %Y")<cr>
-
 """ AUTOCOMMANDS
 if has('autocmd')
 " This will set certain options for really large files, which results in
