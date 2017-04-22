@@ -26,6 +26,9 @@ Helptags
 let g:plug_window = 'botright new'
 call plug#begin(g:user_config_dir . "/plugins")
 
+" Seamless vim/tmux naviagation
+Plug 'christoomey/vim-tmux-navigator'
+
 " Better syntax highlighting, autoindentation, linting, folding, and more for haskell
 Plug 'dag/vim2hs'
 
