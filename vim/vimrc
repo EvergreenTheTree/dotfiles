@@ -47,6 +47,11 @@ Plug 'morhetz/gruvbox'
 " i3 config syntax higlighting
 Plug 'PotatoesMaster/i3-vim-syntax'
 
+" Linting
+if v:version >= 800 || has('nvim')
+    Plug 'w0rp/ale'
+endif
+
 " Better lua indentation and syntax highlighting
 Plug 'tbastos/vim-lua'
 

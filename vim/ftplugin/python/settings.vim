@@ -39,12 +39,7 @@ endif
 " Map it
 nnoremap <silent> <localleader>v :call TogglePythonVersion()<cr>
 
-" Use :make to check for syntax errors using pyflakes
-if executable("pyflakes")
-    setlocal errorformat=%f:%l:%c:\ %m
-    setlocal makeprg=pyflakes
-    command! -buffer Make silent make! % | silent redraw! | silent wincmd p
-endif
+let g:ale_python_pylint_options = "--init-hook='import sys; sys.path.append(\".\")'"
 
 if exists(':BracelessEnable')
     BracelessEnable
