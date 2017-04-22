@@ -50,9 +50,10 @@ Plug 'morhetz/gruvbox'
 " i3 config syntax higlighting
 Plug 'PotatoesMaster/i3-vim-syntax'
 
-" Linting
-if v:version >= 800 || has('nvim')
-    Plug 'w0rp/ale'
+" Snippets
+if has('python') || has('python3')
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
 endif
 
 " Better lua indentation and syntax highlighting
@@ -79,6 +80,11 @@ Plug 'tweekmonster/braceless.vim'
 " Provides pandoc markdown highlighting
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
+
+" Linting
+if v:version >= 800 || has('nvim')
+    Plug 'w0rp/ale'
+endif
 
 call plug#end()
 
@@ -255,6 +261,14 @@ xmap t <Plug>Sneak_t
 xmap T <Plug>Sneak_T
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
+
+"""" UltiSnips
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsListSnippets="<c-r><c-j>"
+
+let g:UltiSnipsEditSplit="horizontal"
 
 """ INDENTATION
 " Automatically indent when creating new line
