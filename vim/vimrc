@@ -305,6 +305,7 @@ let maplocalleader = ","
 nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>et :e ~/.tmux.conf<cr>
 nnoremap <leader>eb :e ~/.bashrc<cr>
+nnoremap <leader>ez :e ~/.zshrc<cr>
 
 " Quick vimrc reload
 nnoremap <leader>R :mkview<cr>:source $MYVIMRC<cr>:loadview<cr>
