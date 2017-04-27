@@ -59,6 +59,14 @@ endif
 " Better lua indentation and syntax highlighting
 Plug 'tbastos/vim-lua'
 
+" A temporary workaround until this patch is merged:
+" https://groups.google.com/forum/#!topic/vim_dev/ASn8QqQqVe0
+Plug 'tmux-plugins/vim-tmux-focus-events'
+
+" Causes the default register to be synchronized with the tmux paste buffer when
+" text is yanked. (requires vim-tmux-focus-events)
+Plug 'roxma/vim-tmux-clipboard'
+
 " Easily comment stuff out
 Plug 'tpope/vim-commentary'
 
