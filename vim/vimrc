@@ -308,10 +308,10 @@ nnoremap <leader>eb :e ~/.bashrc<cr>
 
 " Easily open files that can be found in the current directory or subdirectories
 " of it.
-nnoremap <leader>f :find *
+nnoremap <leader>f :find **/*
 
 " Same, except only include file names instead of relative path
-nnoremap <leader>F :find **/*
+nnoremap <leader>F :find *
 
 " Some mappings which make it faster to replace words throughout a file
 nnoremap <leader>; *``cgn
