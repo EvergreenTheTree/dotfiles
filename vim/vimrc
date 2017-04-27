@@ -306,6 +306,9 @@ nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>et :e ~/.tmux.conf<cr>
 nnoremap <leader>eb :e ~/.bashrc<cr>
 
+" Quick vimrc reload
+nnoremap <leader>R :mkview<cr>:source $MYVIMRC<cr>:loadview<cr>
+
 " Easily open files that can be found in the current directory or subdirectories
 " of it.
 nnoremap <leader>f :find **/*
@@ -331,9 +334,6 @@ endf
 
 " Temporarily disable search highlighting and refresh
 nnoremap <silent> <leader><space> :call Refresh()<cr>:nohlsearch<cr>
-
-" Make <c-l> do the same thing as <leader><space>
-nnoremap <silent> <c-l> :call Refresh()<cr>:nohlsearch<cr>
 
 " Focus current fold.  (close all folds that aren't beneath the cursor)
 nnoremap <leader>z zMzv
