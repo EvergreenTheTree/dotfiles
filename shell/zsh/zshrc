@@ -7,7 +7,6 @@ zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' completions 1
 zstyle ':completion:*' glob 1
 zstyle ':completion:*' insert-unambiguous true
-zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' matcher-list '+' '+m:{[:lower:]}={[:upper:]}'
 zstyle ':completion:*' max-errors 1
@@ -17,8 +16,6 @@ zstyle ':completion:*' preserve-prefix '//[^/]##/'
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' substitute 1
-eval "$(dircolors -b ~/.dir_colors)"
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 ### OPTIONS ###
 
@@ -115,14 +112,14 @@ if $use_color; then
         fi
     fi
 
+    # Use the same colors as ls for autocompletion
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
     # Make ls and grep use color.
     alias ls='ls --color=auto'
     alias grep='grep --colour=auto'
     alias egrep='egrep --colour=auto'
     alias fgrep='fgrep --colour=auto'
-
-    # NOTE: don't know if this is necessary
-    ZSH_COLORS=$LS_COLORS
 fi
 
 if $use_256color; then
@@ -197,6 +194,7 @@ PROMPT='%(0?|%F{green}|%F{red})%?%f %F{white}%B%(4~|%-1~/…/%3~|%3~)%f%b ${vim_
 #### RIGHT PROMPT ####
 
 RPROMPT='$(__git_branch)$(__virtualenv)'
+
 ### ALIASES ###
 
 # Confirm before overwriting
