@@ -1,0 +1,232 @@
+# Evergreen's zshrc #
+
+### COMPLETION ###
+
+# TODO: describe what each option does
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' completions 1
+zstyle ':completion:*' glob 1
+zstyle ':completion:*' insert-unambiguous true
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '+' '+m:{[:lower:]}={[:upper:]}'
+zstyle ':completion:*' max-errors 1
+zstyle ':completion:*' menu select
+zstyle ':completion:*' original true
+zstyle ':completion:*' preserve-prefix '//[^/]##/'
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' squeeze-slashes true
+zstyle ':completion:*' substitute 1
+eval "$(dircolors -b ~/.dir_colors)"
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+### OPTIONS ###
+
+# This makes the vi mode indicator in the prompt update faster
+KEYTIMEOUT=1
+
+# History options (pretty self-explanatory)
+HISTFILE=~/.histfile
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Change directories without typing "cd"
+setopt autocd
+
+# Better globbing for more fun!
+setopt extended_glob
+
+# Save extra information about commands in the history
+setopt extended_history
+
+# Remove superfluous items from history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_ignore_space
+
+# Do history expnasion inline instead of immediately executing
+setopt hist_verify
+
+# Add lines to history file as they are entered and share between zsh sessions
+setopt inc_append_history
+
+# Immediately select the first option when autocompleting
+setopt menu_complete
+
+# Allow command and variable subtitution in prompt
+setopt prompt_subst
+
+### ZSH MODULES ###
+
+# TODO: describe what each module does
+autoload -Uz compinit complist promptinit run-help zcalc
+compinit
+promptinit
+
+### FUNCTIONS ###
+
+function progexists() {
+    command -v "$1" >/dev/null 2>&1
+    return
+}
+
+function notify() {
+    eval "$@"
+    notify-send "Command Finished" "$*"
+}
+
+### KEY BINDINGS ###
+
+# Vi keys pls
+bindkey -v
+
+# Use CTRL-R to do incremental reverse history search
+bindkey '^R' history-incremental-search-backward
+
+# Make backspace always delete a character
+bindkey "^?" backward-delete-char
+
+# Shift-tab goes to the previous completion option
+bindkey '^[[Z' reverse-menu-complete
+
+### COLORS ###
+
+#### DETECTION ####
+
+# TODO: write 8 color and 256 color detection algorithm
+# For now I'll just be naive
+use_color=true
+use_256color=true
+
+#### CONFIGURATION ####
+
+if $use_color; then
+    # Do stuff for 8+ color terminals.
+
+    # Set colors for ls using dircolors.  Prefer ~/.dir_colors over
+    # /etc/DIR_COLORS, and use defaults if no configs are available.
+    if progexists dircolors; then
+        if [[ -f ~/.dir_colors ]]; then
+            eval $(dircolors -b ~/.dir_colors)
+        elif [[ -f /etc/DIR_COLORS ]]; then
+            eval $(dircolors -b /etc/DIR_COLORS)
+        else
+            eval $(dircolors -b)
+        fi
+    fi
+
+    # Make ls and grep use color.
+    alias ls='ls --color=auto'
+    alias grep='grep --colour=auto'
+    alias egrep='egrep --colour=auto'
+    alias fgrep='fgrep --colour=auto'
+
+    # NOTE: don't know if this is necessary
+    ZSH_COLORS=$LS_COLORS
+fi
+
+if $use_256color; then
+    # Do stuff for 256+ color terminals
+
+    # Make tmux use 256 colors
+    export TERM="screen-256color"
+fi
+
+### PROMPT ###
+
+#### VI MODE INDICATOR ####
+
+# See https://superuser.com/questions/151803/how-do-i-customize-zshs-vim-mode/156204
+vim_ins_mode="I"
+vim_cmd_mode="C"
+vim_mode=$vim_ins_mode
+
+function zle-keymap-select {
+  vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
+  zle reset-prompt
+}
+zle -N zle-keymap-select
+
+function zle-line-finish {
+  vim_mode=$vim_ins_mode
+}
+zle -N zle-line-finish
+
+#### GIT BRANCH ####
+
+function __in_git_repo() {
+    progexists "git" && git rev-parse --is-inside-work-tree &>/dev/null
+}
+
+function __git_branch() {
+    local branch=""
+    if __in_git_repo; then
+        if git symbolic-ref --short HEAD &>/dev/null; then
+            branch="$(git symbolic-ref --short HEAD)"
+        else
+            local tag="$(git describe --tags --exact-match)"
+            if [[ -n "$tag" ]]; then
+                branch="$tag"
+            else
+                branch="#$(git rev-parse --short=0 HEAD)"
+            fi
+        fi
+    fi
+    [[ -n "$branch" ]] && echo "*%F{magenta}$branch%f"
+}
+
+#### VIRTUALENV ####
+
+function __virtualenv() {
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        # Remove trailing slash
+        local virtual_env="${VIRTUAL_ENV%/}"
+        echo " %F{yellow}<${virtual_env##*/}>%f"
+        return 0
+    else
+        printf ""
+        return 1
+    fi
+}
+
+#### LEFT PROMPT ####
+
+# TODO: describe how this works and don't do it all in one line
+PROMPT='%(0?|%F{green}|%F{red})%?%f %F{white}%B%(4~|%-1~/…/%3~|%3~)%f%b ${vim_mode}%(!|%F{red}|%F{blue})>%f '
+
+#### RIGHT PROMPT ####
+
+RPROMPT='$(__git_branch)$(__virtualenv)'
+### ALIASES ###
+
+# Confirm before overwriting
+alias cp="cp -i"
+
+# Human readable sizes
+alias df="df -h"
+
+# Quick editor shortcut
+alias e="\$EDITOR"
+
+# Use the familiar "help" instead of run-help
+unalias run-help &>/dev/null
+alias help=run-help
+
+### TMUX ###
+
+tmux_user () {
+    tmux new -A -s "$USER"
+}
+
+alias t="tmux_user"
+
+### MISC ###
+
+# Source local settings
+[[ -f $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
+
+# TODO: put this wherever I decide to put environment variables
+export PATH="$PATH:$HOME/bin"
+
+## vim:fdm=expr:fdl=0:fdc=3:
+## vim:fde=getline(v\:lnum)=~'^##'?'>'.(matchend(getline(v\:lnum),'##*')-2)\:'='
