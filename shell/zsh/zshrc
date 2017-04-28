@@ -77,6 +77,9 @@ function notify() {
 # Vi keys pls
 bindkey -v
 
+# Cancel completion and undo up to the point when tab was pressed
+bindkey '^g' vi-undo-change
+
 # Use CTRL-R to do incremental reverse history search
 bindkey '^R' history-incremental-search-backward
 
