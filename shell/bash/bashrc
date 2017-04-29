@@ -14,29 +14,7 @@ notify() {
 
 ### ENVIRONMENT VARIABLES ###
 
-# This script is sourced by bash_profile, so this is a reasonable place to
-# put them.  (and it is before the interactivity check)
-export EDITOR=vim
-
-# use nvim if it is available
-progexists nvim && export EDITOR=nvim
-
-# use termite as terminal emulator if it is available
-progexists termite && export TERMINAL=termite
-
-# List of directories to add to PATH if they exist.
-path_add=( \
-    "$HOME/bin" "$HOME/.gem/ruby/2.3.0/bin" "$HOME/.gem/ruby/2.2.0/bin" \
-    "$HOME/.cargo/bin" "$HOME/.cabal/bin" "$HOME/.local/bin" \
-)
-
-for dir in "${path_add[@]}"; do
-    [[ -d $dir ]] && PATH+=:"$dir"
-done
-export PATH
-
-# better yaourt colors
-export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1;41;5:votes=1;44:dsc=0:other=1;35"
+[[ -f "$HOME/.environment" ]] && source "$HOME/.environment"
 
 # Shell is non-interactive.  Be done now!
 if [[ $- != *i* ]]; then

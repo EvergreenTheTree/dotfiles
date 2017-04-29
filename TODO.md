@@ -1,7 +1,6 @@
 TODO
 ====
 
-* [ ] Figure out a way of doing cross-shell environment variables
 * [ ] Make a script for easy changing of terminal color schemes
 * [ ] Make a more minimalistic tmux statusline
 * [ ] Figure out what is making pandoc highlighting so slow

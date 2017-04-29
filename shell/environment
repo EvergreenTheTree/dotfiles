@@ -1,0 +1,32 @@
+# Evergreen's environment variables                         #
+# NOTE: Everything in this file must be posix sh compatible #
+
+progexists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+pathadd() {
+    for dir in "$@"; do
+        [ -d "$dir" ] && export PATH="$PATH:$dir"
+    done
+}
+
+# If you want a directory added to PATH, put it here
+pathadd "$HOME/bin" "$HOME/.cargo/bin" "$HOME/.cabal/bin" "$HOME/.local/bin"
+
+# Try using vim as editor
+progexists vim && export EDITOR=vim
+
+# If neovim is available, use that instead of normal vim
+progexists nvim && export EDITOR=nvim
+
+# Try using urxvt as terminal emulator
+progexists urxvt && export TERMINAL=urxvt
+
+# If termite is available, use that instead of urxvt
+progexists termite && export TERMINAL=termite
+
+# Source local environment variables
+[[ -f "$HOME/.environment.local" ]] && source "$HOME/.environment.local"
+
+# vim:ft=sh

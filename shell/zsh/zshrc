@@ -1,5 +1,11 @@
 # Evergreen's zshrc #
 
+### ENVIRONMENT VARIABLES ###
+
+if [[ -f "$HOME/.environment" ]]; then
+    emulate sh; source "$HOME/.environment"; emulate zsh
+fi
+
 ### COMPLETION ###
 
 # TODO: describe what each option does
@@ -226,8 +232,7 @@ alias t="tmux_user"
 # Source local settings
 [[ -f $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
 
-# TODO: put this wherever I decide to put environment variables
-export PATH="$PATH:$HOME/bin"
+true
 
 ## vim:fdm=expr:fdl=0:fdc=3:
 ## vim:fde=getline(v\:lnum)=~'^##'?'>'.(matchend(getline(v\:lnum),'##*')-2)\:'='
