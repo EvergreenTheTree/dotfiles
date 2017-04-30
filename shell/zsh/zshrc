@@ -36,6 +36,9 @@ SAVEHIST=10000
 # Change directories without typing "cd"
 setopt autocd
 
+# Corrects my mistakes (and makes me lazier)
+setopt correct
+
 # Better globbing for more fun!
 setopt extended_glob
 
