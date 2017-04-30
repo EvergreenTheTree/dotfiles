@@ -64,10 +64,18 @@ setopt prompt_subst
 
 ### ZSH MODULES ###
 
-# TODO: describe what each module does
-autoload -Uz compinit complist promptinit run-help zcalc
+# Initialize completion system
+autoload -Uz compinit
 compinit
-promptinit
+
+# Required for menu-completion widget and many other goodies
+autoload -Uz complist
+
+# help me
+autoload -Uz run-help
+
+# Calculating bliss
+autoload -Uz zcalc
 
 ### FUNCTIONS ###
 
