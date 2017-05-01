@@ -95,16 +95,20 @@ function notify() {
 bindkey -v
 
 # Cancel completion and undo up to the point when tab was pressed
-bindkey '^g' vi-undo-change
+bindkey -M viins '^g' vi-undo-change
 
 # Use CTRL-R to do incremental reverse history search
-bindkey '^R' history-incremental-search-backward
+bindkey -M viins '^R' history-incremental-search-backward
+
+# Do incremental history search instead of non-incremental history search
+bindkey -M vicmd '/' history-incremental-search-backward
+bindkey -M vicmd '?' history-incremental-search-forward
 
 # Make backspace always delete a character
-bindkey "^?" backward-delete-char
+bindkey -M viins "^?" backward-delete-char
 
 # Shift-tab goes to the previous completion option
-bindkey '^[[Z' reverse-menu-complete
+bindkey -M viins '^[[Z' reverse-menu-complete
 
 ### COLORS ###
 
