@@ -51,21 +51,6 @@ if has("clipboard")
     vnoremap <leader>p "+p
 endif
 
-" This allows for repeating wincmds with the Q key
-nnoremap <silent> <C-w> :<C-u>call <SID>Wincmd(v:count, getchar())<CR>
-nnoremap <silent> Q :<C-u> call <SID>WincmdRepeat(v:count)<CR>
-
-function! s:Wincmd(count, key)
-    let if_count = a:count ? a:count : ""
-    let g:last_wincmd = "wincmd " . nr2char(a:key)
-    execute if_count . g:last_wincmd
-endfunction
-
-function! s:WincmdRepeat(count)
-    let if_count = a:count ? a:count : ""
-    execute if_count . g:last_wincmd
-endfunction
-
 " Easily strip trailing whitespace
 function! StripTrailingWhitespace()
     " Save cursor position
