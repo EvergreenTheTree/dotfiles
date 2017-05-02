@@ -413,9 +413,16 @@ set undofile
 " Allow undoing changes not made in the current session
 let &undodir = g:user_config_dir . '/tmp/undo//'
 
+" Put the view directory in the tmp folder
+let &viewdir = g:user_config_dir . '/tmp/view'
+
 " Make those folders automatically if they don't already exist
 if !isdirectory(expand(&undodir))
     call mkdir(expand(&undodir), "p")
+endif
+
+if !isdirectory(expand(&viewdir))
+    call mkdir(expand(&viewdir), "p")
 endif
 
 " Add this folder to wildignore, since I don't need to edit any files from there
