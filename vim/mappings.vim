@@ -50,17 +50,3 @@ if has("clipboard")
     vnoremap <leader>y "+y
     vnoremap <leader>p "+p
 endif
-
-" Easily strip trailing whitespace
-function! StripTrailingWhitespace()
-    " Save cursor position
-    let l:save = winsaveview()
-    " Remove trailing whitespace
-    %s/\v\s+$//e
-    " Move cursor to original position
-    call winrestview(l:save)
-    echo "Stripped trailing whitespace"
-endfunction
-
-" Map this function
-nnoremap <leader>sw :call StripTrailingWhitespace()<cr>
