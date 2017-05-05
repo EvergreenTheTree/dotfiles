@@ -6,3 +6,4 @@ TODO
 * [ ] Figure out what is making pandoc highlighting so slow
 * [ ] Make install scripts for everything (preferrably in a language that is not `sh`)
 * [ ] Make a script for easy changing of terminal color schemes
+* [ ] Use hybrid for all the colors
