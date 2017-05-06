@@ -48,6 +48,9 @@ set mouse=
 " Don't jump to matching bracket
 set noshowmatch
 
+" I never need to use octal with ctrl-a/ctrl-x
+set nrformats-=octal
+
 " Line numbers
 set number
 
