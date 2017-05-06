@@ -1,6 +1,12 @@
 " Load matchit plugin that is bundled with vim
 runtime macros/matchit.vim
 
+" Disable netrw (we use dirvish around these parts)
+let g:loaded_netrwFileHandlers = 1
+let g:loaded_netrwPlugin = 1
+let g:loaded_netrwPlugin = 1
+let g:loaded_netrwSettings = 1
+
 " Use pathogen to manage manually installed plugins
 execute pathogen#infect('plugins-dev/{}', 'plugins-local/{}')
 
@@ -19,6 +25,9 @@ Plug 'dag/vim2hs'
 
 " Highlight all search results while typing
 Plug 'haya14busa/incsearch.vim'
+
+" Better than netrw for file browsing
+Plug 'justinmk/vim-dirvish'
 
 " Improved 'f' motion and much more precise 's' motion
 Plug 'justinmk/vim-sneak'

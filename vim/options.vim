@@ -100,6 +100,24 @@ set wildmenu
 set wildmode=full
 
 """ PLUGIN OPTIONS
+""" Dirvish
+" Put directories on top and sort alphabetically
+let g:dirvish_mode = 'sort ir /[^\/]$/ | /^.*[^\/]$/,$ sort i | nohl | 1'
+
+" Vim <7.4 compatibility
+let g:dirvish_relative_paths = 1
+
+augroup dirvish_settings
+    autocmd!
+
+    " Enable fugitive in dirvish buffers
+    autocmd FileType dirvish call fugitive#detect(@%)
+
+    " Hide hidden files with 'gh'
+    autocmd FileType dirvish nnoremap <silent><buffer>
+                \ gh :silent keeppatterns g@\v^\..+$@d<cr>
+augroup END
+
 """" Haskellmode
 if executable("/usr/bin/firefox")
     let g:haddock_browser = "/usr/bin/firefox"
@@ -118,16 +136,6 @@ let g:incsearch#do_not_save_error_message_history = 1
 
 " Use very magic mode by default
 let g:incsearch#magic = '\v'
-
-"""" netrw
-" Use tree style browser
-let g:netrw_liststyle = 3
-
-" Don't use seperate window for errors
-let g:netrw_use_errorwindow = 0
-
-" Don't show banner
-let g:netrw_banner = 0
 
 """" Pandoc
 if exists('pandoc#loaded')
