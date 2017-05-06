@@ -8,4 +8,3 @@ TODO
 * [ ] Make a script for easy changing of terminal color schemes
 * [ ] Make a personal `spellfile` (and set up vim spell checking)
 * [ ] Possibly use some tmux plugins (mainly https://github.com/tmux-plugins/tmux-copycat)
-* [ ] Only show root git directory (plus lower path items, still limited to 3) when in a git repository
