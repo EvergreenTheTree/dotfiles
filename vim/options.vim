@@ -20,6 +20,9 @@ set helpheight=0
 " Allow abandoning of buffers without writing them
 set hidden
 
+" Increase length of command/search history
+set history=1000
+
 " Ignore case while searching
 set ignorecase
 
