@@ -48,6 +48,9 @@ Plug 'tbastos/vim-lua'
 " text is yanked. (requires vim-tmux-focus-events)
 Plug 'roxma/vim-tmux-clipboard'
 
+" Some conveniences for editing tmux.conf
+Plug 'tmux-plugins/vim-tmux'
+
 " Easily comment stuff out
 Plug 'tpope/vim-commentary'
 
