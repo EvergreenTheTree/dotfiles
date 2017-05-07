@@ -26,6 +26,9 @@ Plug 'dag/vim2hs'
 " Highlight all search results while typing
 Plug 'haya14busa/incsearch.vim'
 
+" Easier buffer switching
+Plug 'jlanzarotta/bufexplorer'
+
 " Better than netrw for file browsing
 Plug 'justinmk/vim-dirvish'
 
