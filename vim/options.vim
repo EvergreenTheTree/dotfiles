@@ -215,6 +215,19 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsListSnippets="<c-r><c-j>"
 let g:UltiSnipsEditSplit="horizontal"
 
+"""" undotree
+nnoremap <f5> :UndotreeToggle<cr>
+
+let g:undotree_WindowLayout = 2
+let g:undotree_ShortIndicators = 1
+let g:undotree_SplitWidth = 24
+let g:undotree_SetFocusWhenToggle = 1
+
+function! g:Undotree_CustomMap()
+    map <buffer> j J
+    map <buffer> k K
+endfunction
+
 """ BACKUP AND UNDO
 " Use undo file
 set undofile

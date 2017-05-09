@@ -52,6 +52,9 @@ Plug 'lukerandall/haskellmode-vim'
 " Gruvbox colorscheme
 Plug 'morhetz/gruvbox'
 
+" Easier undo tree navigation
+Plug 'mbbill/undotree'
+
 " i3 config syntax higlighting
 Plug 'PotatoesMaster/i3-vim-syntax'
 
