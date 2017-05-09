@@ -103,7 +103,7 @@ set wildmenu
 set wildmode=full
 
 """ PLUGIN OPTIONS
-""" Dirvish
+"""" Dirvish
 " Put directories on top and sort alphabetically
 let g:dirvish_mode = 'sort ir /[^\/]$/ | /^.*[^\/]$/,$ sort i | nohl | 1'
 
@@ -140,6 +140,12 @@ let g:incsearch#do_not_save_error_message_history = 1
 " Use very magic mode by default
 let g:incsearch#magic = '\v'
 
+"""" Jedi
+let g:jedi#popup_on_dot = 0
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#show_call_signatures = 2
+let g:jedi#smart_auto_mappings = 0
+
 """" Pandoc
 if exists('pandoc#loaded')
     autocmd! BufNewFile,BufFilePRe,BufRead *.md set filetype=markdown.pandoc
@@ -169,6 +175,38 @@ xmap t <Plug>Sneak_t
 xmap T <Plug>Sneak_T
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
+
+"""" SuperTab
+function! MyContext()
+    let current_line = getline(".")
+    let line_before_cursor = current_line[0:col(".")-2]
+
+    if line_before_cursor =~# '\v\/(\w|\-){-}$'
+        return "\<c-x>\<c-f>"
+    endif
+
+    let ctrlngroups = [".*Comment.*", ".*String.*"]
+    let group_regex = '\v' . join(ctrlngroups, '|')
+
+    " TODO: figure out why this doesn't work with comments
+    for synID in synstack(line("."), col("."))
+        if synIDattr(synIDtrans(synID), "name") =~? group_regex
+            return "\<c-n>"
+        endif
+    endfor
+
+    if &omnifunc != ''
+        return "\<c-x>\<c-o>"
+    elseif &filetype ==# 'vim'
+        return "\<c-x>\<c-v>"
+    else
+        return "\<c-n>"
+    endif
+endfunction
+
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
+let g:SuperTabCompletionContexts = ["MyContext"]
 
 """" UltiSnips
 let g:UltiSnipsExpandTrigger="<c-j>"

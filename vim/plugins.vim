@@ -23,6 +23,14 @@ Plug 'christoomey/vim-tmux-navigator'
 " Better syntax highlighting, autoindentation, linting, folding, and more for haskell
 Plug 'dag/vim2hs'
 
+" Python completion
+if has('python') || has('python3')
+    Plug 'davidhalter/jedi-vim'
+endif
+
+" Use tab to autocomplete (and much more)
+Plug 'ervandew/supertab'
+
 " Highlight all search results while typing
 Plug 'haya14busa/incsearch.vim'
 
