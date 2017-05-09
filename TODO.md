@@ -8,3 +8,4 @@ TODO
 * [ ] Make a script for easy changing of terminal color schemes
 * [ ] Make a personal `spellfile` (and set up vim spell checking)
 * [ ] Possibly use some tmux plugins (mainly https://github.com/tmux-plugins/tmux-copycat)
+* [ ] Fix symlink problems when showing the working directory in zsh
