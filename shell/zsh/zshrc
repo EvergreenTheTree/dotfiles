@@ -210,39 +210,16 @@ function __virtualenv() {
     fi
 }
 
-#### WORKING DIRECTORY ####
-
-function __working_directory() {
-    local working_directory=""
-    if __in_git_repo; then
-        local toplevel="$(git rev-parse --show-toplevel)"
-        local repo_name="${toplevel##*/}"
-        local subdirs="${PWD##${toplevel}}"
-        local slashes="${subdirs//[^\/]}"
-        local num_subdirs="$((${#slashes} + 1))"
-        if ((num_subdirs > 3)); then
-            working_directory="git:$repo_name/…/%2~"
-        else
-            working_directory="git:$repo_name$subdirs"
-        fi
-    else
-        working_directory="%(3~|%-1~/…/%2~|%2~)"
-    fi
-    printf '%s' "$working_directory"
-}
-
 #### LEFT PROMPT ####
 
 # This displays the return code of the previous command (green for success, red
 # for failure)
 PROMPT='%(0?|%F{green}|%F{red})%?%f '
 
-# Displays the current working directory.  If there are 2 or less path
-# components, display them as normal.  If there are 3 or more, display the first
-# path component, …, then the last 2 components.  If the current working
-# directory is in a git repository, do the same, except the first path
-# component is git: then the repository's name.
-PROMPT+='%F{white}%B$(__working_directory)%f%b '
+# Displays the current working directory.  If there are 3 or less path
+# components, display them as normal.  If there are 4 or more, display the first
+# path component, …, then the last 2 components.
+PROMPT+='%F{white}%B%(4~|%-1~/…/%2~|%~)%f%b '
 
 # Display "C" for normal mode and "I" for insert mode (for vi keybindings).
 PROMPT+='${vim_mode}'
