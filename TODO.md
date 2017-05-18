@@ -9,4 +9,3 @@ TODO
 * [ ] Make a script for easy changing of terminal color schemes
 * [ ] Make a personal `spellfile` (and set up vim spell checking)
 * [ ] Possibly use some tmux plugins (mainly https://github.com/tmux-plugins/tmux-copycat)
-* [ ] Update ale's `perl` linter to use `-X -c -Mstrict -Mwarnings -Ilib`

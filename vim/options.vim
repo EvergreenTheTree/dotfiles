@@ -103,6 +103,9 @@ set wildmenu
 set wildmode=full
 
 """ PLUGIN OPTIONS
+"""" ALE
+let g:ale_perl_perl_options = '-X -c -Mstrict -Mwarnings -Ilib'
+
 """" Dirvish
 " Put directories on top and sort alphabetically
 let g:dirvish_mode = 'sort ir /[^\/]$/ | /^.*[^\/]$/,$ sort i | nohl | 1'
