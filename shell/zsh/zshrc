@@ -97,8 +97,13 @@ bindkey -v
 # Cancel completion and undo up to the point when tab was pressed
 bindkey -M viins '^g' vi-undo-change
 
-# Use CTRL-R to do incremental reverse history search
-bindkey -M viins '^R' history-incremental-search-backward
+# Make Home and End keys work properly
+bindkey '\e[1~' vi-beginning-of-line
+bindkey '\eOH' vi-beginning-of-line
+
+# Quickly view help for commands
+bindkey -M vicmd 'H' run-help
+bindkey -M viins '\eh' run-help
 
 # Do incremental history search instead of non-incremental history search
 bindkey -M vicmd '/' history-incremental-search-backward
