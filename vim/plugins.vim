@@ -80,6 +80,9 @@ Plug 'tpope/vim-commentary'
 " Git integration
 Plug 'tpope/vim-fugitive'
 
+" Automatic :mksession (only when done manually first)
+Plug 'tpope/vim-obsession'
+
 " Support for '.' repetition in plugins
 Plug 'tpope/vim-repeat'
 

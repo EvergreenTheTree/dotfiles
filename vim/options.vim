@@ -149,6 +149,10 @@ let g:jedi#auto_vim_configuration = 0
 let g:jedi#show_call_signatures = 2
 let g:jedi#smart_auto_mappings = 0
 
+"""" Obsession
+map <leader>w :Obsess<cr>
+map <leader>q :Obsess!<cr>
+
 """" Pandoc
 if exists('pandoc#loaded')
     autocmd! BufNewFile,BufFilePRe,BufRead *.md set filetype=markdown.pandoc

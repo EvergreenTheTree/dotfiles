@@ -13,9 +13,9 @@ filetype plugin indent on
 let g:user_config_dir = split(&rtp, ',')[0]
 
 exe 'source ' . g:user_config_dir . '/plugins.vim'
+exe 'source ' . g:user_config_dir . '/mappings.vim'
 exe 'source ' . g:user_config_dir . '/options.vim'
 exe 'source ' . g:user_config_dir . '/colorscheme.vim'
 exe 'source ' . g:user_config_dir . '/indentation.vim'
-exe 'source ' . g:user_config_dir . '/mappings.vim'
 exe 'source ' . g:user_config_dir . '/autocommands.vim'
 exe 'source ' . g:user_config_dir . '/statusline.vim'
