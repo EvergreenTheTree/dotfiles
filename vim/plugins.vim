@@ -20,6 +20,9 @@ call plug#begin(g:user_config_dir . "/plugins")
 " Seamless vim/tmux naviagation
 Plug 'christoomey/vim-tmux-navigator'
 
+" Detect indentation automatically
+Plug 'ciaranm/detectindent'
+
 " Better syntax highlighting, autoindentation, linting, folding, and more for haskell
 Plug 'dag/vim2hs'
 

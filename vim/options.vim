@@ -106,6 +106,11 @@ set wildmode=full
 """" ALE
 let g:ale_perl_perl_options = '-X -c -Mstrict -Mwarnings -Ilib'
 
+"""" DetectIndent
+let g:detectindent_preferred_expandtab = 1
+let g:detectindent_preferred_indent = 4
+autocmd BufReadPost * DetectIndent
+
 """" Dirvish
 " Put directories on top and sort alphabetically
 let g:dirvish_mode = 'sort ir /[^\/]$/ | /^.*[^\/]$/,$ sort i | nohl | 1'
