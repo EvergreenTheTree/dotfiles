@@ -3,7 +3,7 @@
 ### ENVIRONMENT VARIABLES ###
 
 if [[ -f "$HOME/.environment" ]]; then
-    emulate sh; source "$HOME/.environment"; emulate zsh
+    source "$HOME/.environment"
 fi
 
 ### COMPLETION ###

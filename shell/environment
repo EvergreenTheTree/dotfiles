@@ -7,12 +7,14 @@ progexists() {
 
 pathadd() {
     for dir in "$@"; do
-        [ -d "$dir" ] && export PATH="$PATH:$dir"
+        [ -d "$dir" ] && PATH="$PATH:$dir"
     done
 }
 
 # If you want a directory added to PATH, put it here
 pathadd "$HOME/bin" "$HOME/.cargo/bin" "$HOME/.cabal/bin" "$HOME/.local/bin"
+
+export PATH
 
 # Try using vim as editor
 progexists vim && export EDITOR=vim
@@ -27,6 +29,6 @@ progexists urxvt && export TERMINAL=urxvt
 progexists termite && export TERMINAL=termite
 
 # Source local environment variables
-[[ -f "$HOME/.environment.local" ]] && source "$HOME/.environment.local"
+[ -f "$HOME/.environment.local" ] && . "$HOME/.environment.local"
 
 # vim:ft=sh
