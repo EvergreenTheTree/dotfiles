@@ -13,6 +13,7 @@ function! s:Wincmd(count, key)
 endfunction
 
 function! s:WincmdRepeat(count)
+    if !exists('g:last_wincmd') | return | endif
     let if_count = a:count ? a:count : ""
     execute if_count . g:last_wincmd
 endfunction
