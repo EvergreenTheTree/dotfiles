@@ -1,6 +1,3 @@
-" Load matchit plugin that is bundled with vim
-runtime macros/matchit.vim
-
 " Disable netrw (we use dirvish around these parts)
 let g:loaded_netrwFileHandlers = 1
 let g:loaded_netrwPlugin = 1
@@ -16,6 +13,9 @@ Helptags
 " Use vim-plug for all other plugins
 let g:plug_window = 'botright new'
 call plug#begin(g:user_config_dir . "/plugins")
+
+" Better matchit
+Plug 'andymass/vim-matchup'
 
 " Seamless vim/tmux naviagation
 Plug 'christoomey/vim-tmux-navigator'
