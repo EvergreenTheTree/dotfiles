@@ -190,7 +190,7 @@ function __git_branch() {
         if git symbolic-ref --short HEAD &>/dev/null; then
             branch="$(git symbolic-ref --short HEAD)"
         else
-            local tag="$(git describe --tags --exact-match)"
+            local tag="$(git describe --tags --exact-match 2>/dev/null)"
             if [[ -n "$tag" ]]; then
                 branch="$tag"
             else
@@ -215,6 +215,26 @@ function __virtualenv() {
     fi
 }
 
+#### SSH HOSTNAME ####
+
+function __is_ssh_session() {
+    if [[ -n "$SSH_CLIENT" || -n "$SSH_TTY" ]]; then
+        return 0
+    else
+        case "$(ps -o comm= -p $PPID)" in
+            sshd|*/sshd) return 0;;
+        esac
+    fi
+
+    return 1
+}
+
+function __ssh_hostname() {
+    if __is_ssh_session; then
+        echo " @%F{green}$HOST%f"
+    fi
+}
+
 #### LEFT PROMPT ####
 
 # This displays the return code of the previous command (green for success, red
@@ -235,7 +255,7 @@ PROMPT+='%(!|%F{red}|%F{blue})>%f '
 
 #### RIGHT PROMPT ####
 
-RPROMPT='$(__git_branch)$(__virtualenv)'
+RPROMPT='$(__git_branch)$(__virtualenv)$(__ssh_hostname)'
 
 ### ALIASES ###
 
