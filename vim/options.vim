@@ -106,6 +106,12 @@ set wildmode=full
 """" ALE
 let g:ale_perl_perl_options = '-X -c -Mstrict -Mwarnings -Ilib'
 
+"""" Denite
+if has('python3') && v:version >= 800
+    nnoremap <leader>f :Denite file_rec<cr>
+    nnoremap <leader>b :Denite buffer<cr>
+endif
+
 """" DetectIndent
 let g:detectindent_preferred_expandtab = 1
 let g:detectindent_preferred_indent = 4

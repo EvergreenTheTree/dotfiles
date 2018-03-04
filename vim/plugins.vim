@@ -37,9 +37,6 @@ Plug 'ervandew/supertab'
 " Highlight all search results while typing
 Plug 'haya14busa/incsearch.vim'
 
-" Easier buffer switching
-Plug 'jlanzarotta/bufexplorer'
-
 " Better than netrw for file browsing
 Plug 'justinmk/vim-dirvish'
 
@@ -52,14 +49,22 @@ Plug 'lervag/vim-latex'
 " Type inspection and documentation lookup for haskell
 Plug 'lukerandall/haskellmode-vim'
 
-" Gruvbox colorscheme
-Plug 'morhetz/gruvbox'
+" Code structure viewer
+Plug 'majutsushi/tagbar'
 
 " Easier undo tree navigation
 Plug 'mbbill/undotree'
 
+" Gruvbox colorscheme
+Plug 'morhetz/gruvbox'
+
 " i3 config syntax higlighting
 Plug 'PotatoesMaster/i3-vim-syntax'
+
+" Multi-purpose fuzzy finder
+if has('python3') && v:version >= 800
+    Plug 'Shougo/denite.nvim'
+endif
 
 " Snippets
 if has('python') || has('python3')
