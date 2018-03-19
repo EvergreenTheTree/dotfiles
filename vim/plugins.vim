@@ -37,6 +37,8 @@ Plug 'ervandew/supertab'
 " Highlight all search results while typing
 Plug 'haya14busa/incsearch.vim'
 
+Plug 'jreybert/vimagit'
+
 " Better than netrw for file browsing
 Plug 'justinmk/vim-dirvish'
 
@@ -45,6 +47,9 @@ Plug 'justinmk/vim-sneak'
 
 " LaTeX
 Plug 'lervag/vim-latex'
+
+" Ctags management
+Plug 'ludovicchabant/vim-gutentags'
 
 " Type inspection and documentation lookup for haskell
 Plug 'lukerandall/haskellmode-vim'
