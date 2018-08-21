@@ -10,7 +10,7 @@ set mouse=a
 " Fonts
 if has('gui_gtk')
     " Gtk2 and Gtk3
-    set guifont=xos4\ Terminus\ 8
+    set guifont=Hack\ 10
 elseif has('gui_win32')
     " Windows
     set guifont=Terminus:h8:cANSI

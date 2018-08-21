@@ -107,9 +107,17 @@ set wildmode=full
 let g:ale_perl_perl_options = '-X -c -Mstrict -Mwarnings -Ilib'
 
 """" Denite
-if has('python3') && v:version >= 800
+if (has('python3') && v:version >= 800) || has('nvim')
     nnoremap <leader>f :Denite file_rec<cr>
     nnoremap <leader>b :Denite buffer<cr>
+endif
+
+"""" Deoplete
+if exists("g:deoplete#enable_at_startup")
+call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
+
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 endif
 
 """" DetectIndent
@@ -155,10 +163,19 @@ let g:incsearch#do_not_save_error_message_history = 1
 let g:incsearch#magic = '\v'
 
 """" Jedi
+if exists("g:deoplete#enable_at_startup")
+    let g:jedi#completions_enabled = 0
+endif
+
 let g:jedi#popup_on_dot = 0
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#show_call_signatures = 2
 let g:jedi#smart_auto_mappings = 0
+
+let g:jedi#goto_command = "<c-]>"
+let g:jedi#goto_assignments_command = "<c-[>"
+let g:jedi#rename_command = "<f2>"
+let g:jedi#usages_command = "<localleader>u"
 
 """" Obsession
 map <leader>w :Obsess<cr>
@@ -172,10 +189,7 @@ endif
 " Hopefully these will help speed pandoc syntax up
 let g:pandoc#syntax#conceal#use = 0
 let g:pandoc#syntax#codeblocks#embeds#use = 0
-
-"""" Rust
-" Disable default settings
-let g:rust_recommended_style = 0
+let g:pandoc#modules#disabled = ["bibliographies"]
 
 """" sneak
 " Use sneak for f and F
@@ -225,6 +239,11 @@ endfunction
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
 let g:SuperTabCompletionContexts = ["MyContext"]
+
+"""" Tagbar
+nnoremap <f9> :TagbarToggle<cr>
+
+let g:tagbar_autofocus = 1
 
 """" UltiSnips
 let g:UltiSnipsExpandTrigger="<c-j>"

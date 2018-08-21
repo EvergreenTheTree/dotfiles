@@ -19,6 +19,9 @@ Plug 'andymass/vim-matchup'
 
 " Seamless vim/tmux naviagation
 Plug 'christoomey/vim-tmux-navigator'
+if has('nvim')
+    nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
+endif
 
 " Detect indentation automatically
 Plug 'ciaranm/detectindent'
@@ -27,26 +30,23 @@ Plug 'ciaranm/detectindent'
 Plug 'dag/vim2hs'
 
 " Python completion
-if has('python') || has('python3')
+if (has('python') || has('python3')) || has('nvim')
     Plug 'davidhalter/jedi-vim'
 endif
 
 " Use tab to autocomplete (and much more)
-Plug 'ervandew/supertab'
+if !has('nvim')
+    Plug 'ervandew/supertab'
+endif
 
 " Highlight all search results while typing
 Plug 'haya14busa/incsearch.vim'
-
-Plug 'jreybert/vimagit'
 
 " Better than netrw for file browsing
 Plug 'justinmk/vim-dirvish'
 
 " Improved 'f' motion and much more precise 's' motion
 Plug 'justinmk/vim-sneak'
-
-" LaTeX
-Plug 'lervag/vim-latex'
 
 " Ctags management
 Plug 'ludovicchabant/vim-gutentags'
@@ -60,8 +60,11 @@ Plug 'majutsushi/tagbar'
 " Easier undo tree navigation
 Plug 'mbbill/undotree'
 
-" Gruvbox colorscheme
-Plug 'morhetz/gruvbox'
+" Nice semantic python syntax highlighting
+if has('nvim')
+    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    let g:semshi#error_sign = v:false
+endif
 
 " i3 config syntax higlighting
 Plug 'PotatoesMaster/i3-vim-syntax'
@@ -69,10 +72,19 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 " Multi-purpose fuzzy finder
 if has('python3') && v:version >= 800
     Plug 'Shougo/denite.nvim'
+elseif has('nvim')
+    Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
+endif
+
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'zchee/deoplete-jedi'
+    Plug 'Shougo/neco-vim'
+    let g:deoplete#enable_at_startup = 1
 endif
 
 " Snippets
-if has('python') || has('python3')
+if (has('python') || has('python3')) || has('nvim')
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
 endif

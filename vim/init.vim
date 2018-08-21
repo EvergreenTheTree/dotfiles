@@ -1,5 +1,8 @@
 " Neovim config file.
 
+" Truecolor baybeee
+set termguicolors
+
 " Source normal vim config file.
 exe "source " . split(&rtp, ',')[0] . "/vimrc"
 
