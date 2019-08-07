@@ -6,8 +6,9 @@ This is a list of software that I find myself using very regularly.
 # Command Line
 
 - tmux: My choice of terminal multiplexer.
-- bash: The shell I know the most about.
-- **[LINUX]** URxvt: The best terminal emulator around.
+- zsh: My favorite shell currently
+- **[LINUX]** Termite: The best terminal emulator around.  Konsole is good too if
+  you are using KDE.
 
 # Web
 
@@ -22,16 +23,21 @@ This is a list of software that I find myself using very regularly.
 - pip: Much better python package management than easy_install, also essential.
 - ipython: The best interactive python interpreter, no question.
 - virtualenv: essential for python development.
+- pipenv: Not as essential, but useful for managing virtualenvs in a cross-platform manner
 - pylama: general purpose python code linter.  It is a wrapper around pycodestyle
   _(previously pep8)_, pydocstyle _(previously pep257)_ and pyflakes.
+- pylint: Very picky python linter; useful for catching code smells but take it with
+  a grain of salt
 - vim: The best text and code editor. Come at me emacs! _(preferrably compiled
-  with `--with-features=huge` and python support)_
+  with `--with-features=huge` and python support)_.  Or just use neovim.
 - git: The version control system I am most familiar with.
 - C/C++ compiler _(gcc)_: For C hacking.
 - CMake: A really popular alternative to configure scripts.
 - **[WINDOWS]** msys2 _(or Git for Windows SDK)_: Linux on windows.  _(better
   than cygwin)_
 - Haskell Platform: A necessity for haskell development.
+- Exuberant ctags: Necessary for some vim plugins
+- keychain: SSH agent handler
 
 # School/Office
 
@@ -40,8 +46,8 @@ This is a list of software that I find myself using very regularly.
 - Speedcrunch: Nice simple calculator
 - **[LINUX]** Atril PDF Viewer: The best light-weight pdf viewer for gnome that I could find,
   though evince is okay. I would use okular on KDE.
-- Sumatra PDF: Another PDF viewer.  It is the only good open source viwewer
-  I could find for windows _(and linux)_, though it is kind of ugly.
+- **[WINDOWS]** Sumatra PDF: Another PDF viewer.  It is the only good open source viewer
+  I could find for windows, though it is kind of ugly.
 - Epson escpr: Printer driver.  'Nuff said.
 - Pandoc: An awesome document converter.
 
@@ -54,7 +60,8 @@ This is a list of software that I find myself using very regularly.
 - VLC: My favorite video player, supports every audio/video format under the sun
 - GIMP: A really nice advanced image editing tool.
 - Inkscape: Vector graphics editor.
-- qTox: Nice tox client.
+- **[WINDOWS]** Greenshot: The best screenshot utility I could find for windows.
+- Bitwig: best DAW on linux
 
 # System
 
@@ -65,10 +72,12 @@ This is a list of software that I find myself using very regularly.
 - **[WINDOWS]** Win32DiskImager: Gui `dd` for windows.
 - **[WINDOWS]** Rufus: USB Image Writer.
 - rsync: Simple file synchronization.
+- unison: More file synchronization
 - **[WINDOWS]** AutoHotkey: Awesome key remapping software.  _(also a
   programming language)_
 - **[WINDOWS]** AHK Studio: Nice AutoHotkey script editor written in AutoHotkey.
 - PuTTY: SSH/Telnet client and terminal emulator, plus much more.
+- **[WINDOWS]** WinSCP: Great FTP client that doesn't bundle adware in its installer
 
 # Linux Distributions
 
@@ -77,18 +86,17 @@ This is a list of software that I find myself using very regularly.
 
 # Window Managers and Desktop Environments
 
-- Cinnamon: My personal favorite.
+- KDE: My personal favorite.
 - i3: My favorite tiling window manager.
 - Xfce: My favorite light-weight stacking window manager/DE.
 
 # Fonts
 
 - Microsoft Core Fonts: A necessary evil.
-- Ubuntu: One of my favorite sans-serif and mono fonts.
 
 # Games
 
-- Steam: For a single game that I bought.
+- Steam: Games n stuff
 - Simon Tatham's Puzzle Collection: The best collection of puzzles ever.
 - Minetest: A fun minecraft-ish game that can be easily modded.
 - OpenTTD: A really fun tycoon game.
