@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Use i3status to get battery status
-line="$(i3status -c $HOME/.i3/blocks/i3status-battery.conf | head -n1)"
+line="$(i3status -c $HOME/.i3/blocks/i3status-battery.conf 2>/dev/null | head -n1)"
 [[ $line = "No battery" ]] && exit 0
 
 PARTS=($line)
@@ -13,19 +13,22 @@ CHARGE="${CHARGE%\%*}"
 }
 
 STATE=""
-[[ "${PARTS[0]}" = "BAT" ]] && {
+if [[ "${PARTS[0]}" = "BAT" ]]; then
     STATE="${PARTS[2]}"
     [[ -n "${STATE}" ]] && {
-        STATE="${STATE:0:-3}"
-        STATE=" (${STATE})"
+        STATE="(${STATE:0:-6})"
     }
-}
+elif [[ "${PARTS[0]}" = "CHR" ]]; then
+    STATE="(charging)"
+fi
 
 LEVEL=$(( (CHARGE - 1) / 20 ))
-ICON="f$(( 244 - LEVEL ))"
+# ICON="f$(( 244 - LEVEL ))"
 
-echo -e "  \u${ICON}  ${CHARGE}${STATE} "
+echo -e "Bat: ${CHARGE}% ${STATE}"
 
 [[ "${LEVEL}" = "0" ]] && {
     [[ -z "${STATE}" ]] || i3-msg "fullscreen disable" >/dev/null
 }
+
+exit 0

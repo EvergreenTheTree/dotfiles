@@ -9,6 +9,6 @@ case $BLOCK_BUTTON in
         ;;
 esac
 
-TEXT=""
+TEXT="Wifi"
 echo "$TEXT"
 echo "$TEXT"

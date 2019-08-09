@@ -77,6 +77,10 @@ autoload -Uz run-help
 # Calculating bliss
 autoload -Uz zcalc
 
+# Syntax highlighting
+ZSHRC="$HOME/.zshrc"
+source "${ZSHRC:A:h}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
 ### FUNCTIONS ###
 
 function progexists() {
@@ -149,6 +153,16 @@ if $use_color; then
     alias grep='grep --colour=auto'
     alias egrep='egrep --colour=auto'
     alias fgrep='fgrep --colour=auto'
+
+    # Color man pages
+    export LESS_TERMCAP_mb=$'\E[01;32m'
+    export LESS_TERMCAP_md=$'\E[01;32m'
+    export LESS_TERMCAP_me=$'\E[0m'
+    export LESS_TERMCAP_se=$'\E[0m'
+    export LESS_TERMCAP_so=$'\E[01;47;34m'
+    export LESS_TERMCAP_ue=$'\E[0m'
+    export LESS_TERMCAP_us=$'\E[01;36m'
+    export LESS=-r
 fi
 
 if $use_256color; then

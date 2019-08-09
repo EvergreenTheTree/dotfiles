@@ -14,6 +14,9 @@ Helptags
 let g:plug_window = 'botright new'
 call plug#begin(g:user_config_dir . "/plugins")
 
+" Git change indications
+Plug 'airblade/vim-gitgutter'
+
 " Better matchit
 Plug 'andymass/vim-matchup'
 

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 if command -v pacman >/dev/null; then
     UPDATES="$(checkupdates | wc -l)"
-    [[ ! $UPDATES = "0" ]] && TEXT="$UPDATES"
-    if command -v pacaur >/dev/null; then
-        AUR="$(pacaur -Qquam | wc -l)"
-        [[ ! $AUR = "0" ]] && TEXT="$TEXT  $AUR"
+    [[ ! $UPDATES = "0" ]] && TEXT="Updates: $UPDATES"
+    if command -v yay >/dev/null; then
+        AUR="$(yay -Qquam | wc -l)"
+        [[ ! $AUR = "0" ]] && TEXT=" $TEXT (AUR: $AUR) "
     fi
 fi
 

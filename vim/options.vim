@@ -44,6 +44,7 @@ set listchars=tab:>\ ,extends:>,precedes:<,nbsp:-,trail:-
 
 " Allow modelines
 set modeline
+set modelineexpr
 
 " Disable mouse
 set mouse=

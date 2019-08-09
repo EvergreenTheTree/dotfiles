@@ -16,6 +16,7 @@ This is a list of software that I find myself using very regularly.
 - Dropbox: An embarassingly essential piece of software for me.
 - Thunderbird: My email client of choice.
 - Bittorrent Client _(Transmission, qBittorrent, KTorrent, etc)_
+- Private Internet Access - A VPN
 
 # Dev
 
@@ -38,6 +39,7 @@ This is a list of software that I find myself using very regularly.
 - Haskell Platform: A necessity for haskell development.
 - Exuberant ctags: Necessary for some vim plugins
 - keychain: SSH agent handler
+- shellcheck: shell script linter
 
 # School/Office
 
@@ -62,6 +64,12 @@ This is a list of software that I find myself using very regularly.
 - Inkscape: Vector graphics editor.
 - **[WINDOWS]** Greenshot: The best screenshot utility I could find for windows.
 - Bitwig: best DAW on linux
+
+# Chat
+
+- Wire (Thomas)
+- Discord (mickey mouse crackhouse)
+- Hexchat (IRC)
 
 # System
 
