@@ -14,9 +14,6 @@ Helptags
 let g:plug_window = 'botright new'
 call plug#begin(g:user_config_dir . "/plugins")
 
-" Git change indications
-Plug 'airblade/vim-gitgutter'
-
 " Better matchit
 Plug 'andymass/vim-matchup'
 
@@ -62,6 +59,9 @@ Plug 'majutsushi/tagbar'
 
 " Easier undo tree navigation
 Plug 'mbbill/undotree'
+
+" VCS change indicators
+Plug 'mhinz/vim-signify'
 
 " Nice semantic python syntax highlighting
 if has('nvim')
