@@ -168,8 +168,12 @@ fi
 if $use_256color; then
     # Do stuff for 256+ color terminals
 
-    # Make tmux use 256 colors
-    export TERM="screen-256color"
+    if grep -q Microsoft /proc/version; then
+        export TERM="xterm-256color"
+    else
+        # Make tmux use 256 colors
+        export TERM="screen-256color"
+    fi
 fi
 
 ### PROMPT ###
@@ -301,5 +305,5 @@ alias t="tmux_user"
 
 true
 
-## vim:fdm=expr:fdl=0:fdc=3:
+## vim:fdm=expr:fdl=0:fdc=3:et:sts=4:ts=4:sw=4
 ## vim:fde=getline(v\:lnum)=~'^##'?'>'.(matchend(getline(v\:lnum),'##*')-2)\:'='
