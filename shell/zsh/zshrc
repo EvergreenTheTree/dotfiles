@@ -235,7 +235,7 @@ function __is_ssh_session() {
     if [[ -n "$SSH_CLIENT" || -n "$SSH_TTY" ]]; then
         return 0
     else
-        case "$(ps -o comm= -p $PPID)" in
+        case "$(ps -p $PPID | awk 'END {print $4}')" in
             sshd|*/sshd) return 0;;
         esac
     fi

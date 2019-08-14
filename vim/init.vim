@@ -3,6 +3,10 @@
 " Truecolor baybeee
 set termguicolors
 
+if has("win32")
+    let g:python3_host_prog = "C:\\Python37\\python.exe"
+endif
+
 " Source normal vim config file.
 exe "source " . split(&rtp, ',')[0] . "/vimrc"
 
@@ -19,3 +23,5 @@ nnoremap <leader>en :e $MYVIMRC<cr>
 command! STerm split | terminal
 command! VTerm vsplit | terminal
 command! TTerm tabnew | terminal
+
+set background=dark

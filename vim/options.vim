@@ -109,7 +109,9 @@ let g:ale_perl_perl_options = '-X -c -Mstrict -Mwarnings -Ilib'
 
 """" Denite
 if (has('python3') && v:version >= 800) || has('nvim')
-    nnoremap <leader>f :Denite file_rec<cr>
+    nnoremap <leader>f :Denite file/rec<cr>
+    call denite#custom#var('file/rec', 'command',
+                         \ ['scantree.py', '--ignore', '.git'])
     nnoremap <leader>b :Denite buffer<cr>
 endif
 
