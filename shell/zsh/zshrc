@@ -258,7 +258,7 @@ PROMPT='%(0?|%F{green}|%F{red})%?%f '
 # Displays the current working directory.  If there are 3 or less path
 # components, display them as normal.  If there are 4 or more, display the first
 # path component, …, then the last 2 components.
-PROMPT+='%F{white}%B%(4~|%-1~/…/%2~|%~)%f%b '
+PROMPT+='%F{white}%B%(4~|%-1~/.../%2~|%~)%f%b '
 
 # Display "C" for normal mode and "I" for insert mode (for vi keybindings).
 PROMPT+='${vim_mode}'

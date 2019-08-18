@@ -195,6 +195,8 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
+bindsym $mod+r mode "resize"
+
 # Move floating containers
 mode "move" {
         # These bindings trigger as soon as you enter the resize mode
@@ -261,7 +263,7 @@ bar {
   separator_symbol "|"
   colors {
     background          $grey
-    statusline          $mgrey
+    statusline          $white
     separator           $white
     #                   border  background  text
     focused_workspace   $grey   $dark       $white

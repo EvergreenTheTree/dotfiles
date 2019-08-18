@@ -1,0 +1,2 @@
+#!/bin/sh
+nohup termite --name '__quake' >/dev/null &
