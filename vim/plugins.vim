@@ -72,12 +72,15 @@ endif
 " i3 config syntax higlighting
 Plug 'PotatoesMaster/i3-vim-syntax'
 
+" Language Server stuff
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
 " Multi-purpose fuzzy finder
-if has('python3') && v:version >= 800
-    Plug 'Shougo/denite.nvim'
-elseif has('nvim')
-    Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
-endif
+Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }

@@ -307,3 +307,5 @@ true
 
 ## vim:fdm=expr:fdl=0:fdc=3:et:sts=4:ts=4:sw=4
 ## vim:fde=getline(v\:lnum)=~'^##'?'>'.(matchend(getline(v\:lnum),'##*')-2)\:'='
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

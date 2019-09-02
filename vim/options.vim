@@ -106,14 +106,7 @@ set wildmode=full
 """ PLUGIN OPTIONS
 """" ALE
 let g:ale_perl_perl_options = '-X -c -Mstrict -Mwarnings -Ilib'
-
-"""" Denite
-if (has('python3') && v:version >= 800) || has('nvim')
-    nnoremap <leader>f :Denite file/rec<cr>
-    call denite#custom#var('file/rec', 'command',
-                         \ ['scantree.py', '--ignore', '.git'])
-    nnoremap <leader>b :Denite buffer<cr>
-endif
+let g:ale_disable_lsp = 1
 
 """" Deoplete
 if exists("g:deoplete#enable_at_startup")
@@ -145,6 +138,10 @@ augroup dirvish_settings
     autocmd FileType dirvish nnoremap <silent><buffer>
                 \ gh :silent keeppatterns g@\v^\..+$@d<cr>
 augroup END
+
+"""" FZF
+nnoremap <leader>f :Files<cr>
+nnoremap <leader>b :Buffers<cr>
 
 """" Haskellmode
 if executable("/usr/bin/firefox")
@@ -179,6 +176,13 @@ let g:jedi#goto_command = "<c-]>"
 let g:jedi#goto_assignments_command = "<c-[>"
 let g:jedi#rename_command = "<f2>"
 let g:jedi#usages_command = "<localleader>u"
+
+"""" Language Server
+let g:LanguageClient_serverCommands = {
+    \ 'java': ['~/.local/share/lsp/java-language-server/dist/mac/bin/launcher', '--quiet']
+    \ }
+
+nnoremap <F6> :call LanguageClient_contextMenu()<cr>
 
 """" Obsession
 map <leader>w :Obsess<cr>
@@ -254,6 +258,7 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsListSnippets="<c-r><c-j>"
 let g:UltiSnipsEditSplit="horizontal"
+let g:UltiSnipsSnippetDir=g:user_config_dir . "/UltiSnips"
 
 """" undotree
 nnoremap <f5> :UndotreeToggle<cr>

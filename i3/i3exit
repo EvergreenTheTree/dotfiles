@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
 
-lock () {
-	if command -v scrot >/dev/null 2>&1; then
-		~/.i3/i3lock-fancy/i3lock-fancy -- scrot
-	else
-		~/.i3/i3lock-fancy/i3lock-fancy
-	fi
+lock() {
+	~/.i3/i3lock-fancy/i3lock-fancy
 }
 
 case "$1" in

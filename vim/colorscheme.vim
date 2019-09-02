@@ -1,6 +1,6 @@
 if has('nvim') || has("gui_running")
     set background=dark
-    colorscheme materialbox
+    colorscheme spacegray
     " Use the terminal background color as the colorscheme background color
     hi Normal guibg=0
 elseif &t_Co > 16 " 256 color scheme
