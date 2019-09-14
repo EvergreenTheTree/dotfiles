@@ -1,7 +1,6 @@
 [core]
 	# Recommended SHA minimum length  https://lkml.org/lkml/2013/9/30/365
 	abbrev = 12
-	editor = vim
 	excludesfile = ~/.gitignore
 	askPass =
 [advice]

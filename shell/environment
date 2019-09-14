@@ -17,10 +17,10 @@ pathadd "$HOME/bin" "$HOME/.cargo/bin" "$HOME/.cabal/bin" "$HOME/.local/bin"
 export PATH
 
 # Try using vim as editor
-progexists vim && export EDITOR=vim
+progexists vim && export EDITOR=vim GIT_EDITOR=vim
 
 # If neovim is available, use that instead of normal vim
-progexists nvim && export EDITOR=nvim
+progexists nvim && export EDITOR=nvim GIT_EDITOR=nvim
 
 # Try using urxvt as terminal emulator
 progexists urxvt && export TERMINAL=urxvt
