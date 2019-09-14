@@ -72,6 +72,11 @@ source "${ZSHRC:A:h}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 export ZSHZ_DATA="$HOME/.config/z"
 source "${ZSHRC:A:h}/zsh-z/zsh-z.plugin.zsh"
 
+# Homebrew
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
 # Initialize completion system
 autoload -Uz compinit
 compinit

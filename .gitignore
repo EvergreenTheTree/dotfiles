@@ -2,6 +2,7 @@ tmp/
 .netrwhist
 tags
 tags.temp
+tags.lock
 i3/autostart/
 i3/did_autostart
 vim/plugins
