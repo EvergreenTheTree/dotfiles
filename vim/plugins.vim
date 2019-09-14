@@ -72,12 +72,6 @@ endif
 " i3 config syntax higlighting
 Plug 'PotatoesMaster/i3-vim-syntax'
 
-" Language Server stuff
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-
 " Multi-purpose fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'

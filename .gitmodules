@@ -4,3 +4,6 @@
 [submodule "i3/i3lock-fancy"]
 	path = i3/i3lock-fancy
 	url = https://github.com/meskarune/i3lock-fancy
+[submodule "shell/zsh/zsh-z"]
+	path = shell/zsh/zsh-z
+	url = https://github.com/agkozak/zsh-z

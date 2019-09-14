@@ -64,6 +64,14 @@ setopt prompt_subst
 
 ### ZSH MODULES ###
 
+# Plugins
+ZSHRC="$HOME/.zshrc"
+# Syntax highlighting
+source "${ZSHRC:A:h}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# Better cd command
+export ZSHZ_DATA="$HOME/.config/z"
+source "${ZSHRC:A:h}/zsh-z/zsh-z.plugin.zsh"
+
 # Initialize completion system
 autoload -Uz compinit
 compinit
@@ -76,10 +84,6 @@ autoload -Uz run-help
 
 # Calculating bliss
 autoload -Uz zcalc
-
-# Syntax highlighting
-ZSHRC="$HOME/.zshrc"
-source "${ZSHRC:A:h}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 ### FUNCTIONS ###
 

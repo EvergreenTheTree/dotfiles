@@ -112,6 +112,9 @@ let g:ale_disable_lsp = 1
 if exists("g:deoplete#enable_at_startup")
 call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
 
+let g:deoplete#omni_patterns = {}
+let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
+
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 endif
@@ -177,12 +180,6 @@ let g:jedi#goto_assignments_command = "<c-[>"
 let g:jedi#rename_command = "<f2>"
 let g:jedi#usages_command = "<localleader>u"
 
-"""" Language Server
-let g:LanguageClient_serverCommands = {
-    \ 'java': ['~/.local/share/lsp/java-language-server/dist/mac/bin/launcher', '--quiet']
-    \ }
-
-nnoremap <F6> :call LanguageClient_contextMenu()<cr>
 
 """" Obsession
 map <leader>w :Obsess<cr>
