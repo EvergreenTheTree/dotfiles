@@ -2,6 +2,9 @@
 " Make backspace work
 set backspace=indent,eol,start
 
+" Better display for messages
+set cmdheight=2
+
 " Don't search tags file when using insert completion
 set complete=.,w,b,u,i
 
@@ -73,6 +76,9 @@ set sidescroll=1
 " a habit of creating mappings mid session that I want to use later.
 set sessionoptions-=options
 
+" Don't give |ins-completion-menu| messages
+set shortmess+=c
+
 " Only ignore case if there are no uppercase letters in pattern
 set smartcase
 
@@ -89,6 +95,9 @@ set ttimeoutlen=100
 
 " I generally have a fast terminal connection
 set ttyfast
+
+" Play nicely with coc diagnostic messages
+set updatetime=300
 
 " Allow selections beyond end of line when in visual block mode
 set virtualedit=block
@@ -107,6 +116,22 @@ set wildmode=full
 """" ALE
 let g:ale_perl_perl_options = '-X -c -Mstrict -Mwarnings -Ilib'
 let g:ale_disable_lsp = 1
+
+""" coc
+inoremap <silent><expr> <tab>
+            \ pumvisible() ? "\<c-n>" :
+            \ <sid>check_back_space() ? "\<tab>" :
+            \ coc#refresh()
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<c-h>"
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <c-space> coc#refresh()
+
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 """" Deoplete
 if exists("g:deoplete#enable_at_startup")
@@ -273,6 +298,10 @@ endfunction
 """ BACKUP AND UNDO
 " Use undo file
 set undofile
+
+" Backup files don't play nicely with language servers
+set nobackup
+set nowritebackup
 
 " Allow undoing changes not made in the current session
 let &undodir = g:user_config_dir . '/tmp/undo//'

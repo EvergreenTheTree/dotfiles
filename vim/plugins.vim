@@ -29,11 +29,6 @@ Plug 'ciaranm/detectindent'
 " Better syntax highlighting, autoindentation, linting, folding, and more for haskell
 Plug 'dag/vim2hs'
 
-" Python completion
-if (has('python') || has('python3')) || has('nvim')
-    Plug 'davidhalter/jedi-vim'
-endif
-
 " Use tab to autocomplete (and much more)
 if !has('nvim')
     Plug 'ervandew/supertab'
@@ -63,6 +58,11 @@ Plug 'mbbill/undotree'
 " VCS change indicators
 Plug 'mhinz/vim-signify'
 
+" Language server and autocompletion
+Plug 'Shougo/neco-vim'
+Plug 'neoclide/coc-neco'
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() }}
+
 " Nice semantic python syntax highlighting
 if has('nvim')
     Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
@@ -75,13 +75,6 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 " Multi-purpose fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
-if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'zchee/deoplete-jedi'
-    Plug 'Shougo/neco-vim'
-    let g:deoplete#enable_at_startup = 1
-endif
 
 " Snippets
 if (has('python') || has('python3')) || has('nvim')
