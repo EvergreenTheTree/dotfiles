@@ -139,26 +139,34 @@ use_256color=true
 
 #### CONFIGURATION ####
 
+if $use_256color; then
+    # Do stuff for 256+ color terminals
+
+    if grep -q Microsoft /proc/version; then
+        export TERM="xterm-256color"
+    else
+        # Make tmux use 256 colors
+        export TERM="screen-256color"
+    fi
+fi
+
 if $use_color; then
     # Do stuff for 8+ color terminals.
 
     # Set colors for ls using dircolors.  Prefer ~/.dir_colors over
     # /etc/DIR_COLORS, and use defaults if no configs are available.
-    if progexists dircolors; then
-        if [[ -f ~/.dir_colors ]]; then
-            eval $(dircolors -b ~/.dir_colors)
-        elif [[ -f /etc/DIR_COLORS ]]; then
-            eval $(dircolors -b /etc/DIR_COLORS)
-        else
-            eval $(dircolors -b)
-        fi
+    if [[ -e ~/.dir_colors ]]; then
+        eval $(dircolors -b "$HOME/.dir_colors")
+    elif [[ -f /etc/DIR_COLORS ]]; then
+        eval $(dircolors -b /etc/DIR_COLORS)
+    else
+        eval $(dircolors -b)
     fi
 
     # Use the same colors as ls for autocompletion
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-    # Make ls and grep use color.
-    alias ls='ls --color=auto'
+    # Make grep use color.
     alias grep='grep --colour=auto'
     alias egrep='egrep --colour=auto'
     alias fgrep='fgrep --colour=auto'
@@ -184,17 +192,6 @@ if $use_color; then
     export LESS_TERMCAP_ue=$'\E[0m'
     export LESS_TERMCAP_us=$'\E[01;36m'
     export LESS=-r
-fi
-
-if $use_256color; then
-    # Do stuff for 256+ color terminals
-
-    if grep -q Microsoft /proc/version; then
-        export TERM="xterm-256color"
-    else
-        # Make tmux use 256 colors
-        export TERM="screen-256color"
-    fi
 fi
 
 ### PROMPT ###
