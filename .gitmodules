@@ -7,3 +7,6 @@
 [submodule "shell/zsh/zsh-z"]
 	path = shell/zsh/zsh-z
 	url = https://github.com/agkozak/zsh-z
+[submodule "shell/zsh/zsh-autoenv"]
+	path = shell/zsh/zsh-autoenv
+	url = https://github.com/Tarrasch/zsh-autoenv

@@ -71,6 +71,7 @@ source "${ZSHRC:A:h}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 # Better cd command
 export ZSHZ_DATA="$HOME/.config/z"
 source "${ZSHRC:A:h}/zsh-z/zsh-z.plugin.zsh"
+source "${ZSHRC:A:h}/zsh-autoenv/autoenv.zsh"
 
 # Homebrew
 if type brew &>/dev/null; then
