@@ -46,9 +46,6 @@ Plug 'justinmk/vim-sneak'
 " Ctags management
 Plug 'ludovicchabant/vim-gutentags'
 
-" Type inspection and documentation lookup for haskell
-Plug 'lukerandall/haskellmode-vim'
-
 " Code structure viewer
 Plug 'majutsushi/tagbar'
 
@@ -112,6 +109,10 @@ Plug 'tpope/vim-unimpaired'
 
 " Provides text objects and folding for indented languages
 Plug 'tweekmonster/braceless.vim'
+
+" Nice status line
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " Provides pandoc markdown highlighting
 Plug 'vim-pandoc/vim-pandoc'

@@ -113,11 +113,59 @@ set wildmenu
 set wildmode=full
 
 """ PLUGIN OPTIONS
+"""" Airline
+" I like this theme, minimalist is good too
+let g:airline_theme = "distinguished"
+
+" No powerline symbols up in here
+let g:airline_symbols_ascii = 1
+
+" Don't like the default line/col display, use the one from my old statusline
+let g:airline_section_z = "%l/%L-%v %P"
+
+" Only enable airline extensions as I need them.
+let g:airline_extensions = ["branch", "fugitiveline", "tabline"]
+
+" Don't show a bufferlist when only tab is open
+let g:airline#extensions#tabline#show_buffers = 0
+
+" Show tabs when only one tab is open
+let g:airline#extensions#tabline#show_tabs = 1
+
+" Show the tab index instead of the number of splits in the tab
+let g:airline#extensions#tabline#tab_nr_type = 1
+
+" Don't need a label for tabs
+let g:airline#extensions#tabline#tabs_label = ''
+
+" Custom mode names, mainly to make all the insert modes the same
+let g:airline_mode_map = {
+            \ '__' : '------',
+            \ 'c'  : 'COMMAND',
+            \ 'i'  : 'INSERT',
+            \ 'ic' : 'INSERT',
+            \ 'ix' : 'INSERT',
+            \ 'multi' : 'MULTI',
+            \ 'n'  : 'NORMAL',
+            \ 'ni' : '(INSERT)',
+            \ 'no' : 'OP PENDING',
+            \ 'R'  : 'REPLACE',
+            \ 'Rv' : 'V REPLACE',
+            \ 's'  : 'SELECT',
+            \ 'S'  : 'S-LINE',
+            \ '' : 'S-BLOCK',
+            \ 't'  : 'TERMINAL',
+            \ 'v'  : 'VISUAL',
+            \ 'V'  : 'V-LINE',
+            \ '' : 'V-BLOCK',
+            \ }
+
 """" ALE
 let g:ale_perl_perl_options = '-X -c -Mstrict -Mwarnings -Ilib'
+let g:ale_java_checkstyle_config = g:user_config_dir . "/ftplugin/java/google_checks.xml"
 let g:ale_disable_lsp = 1
 
-""" coc
+"""" coc
 inoremap <silent><expr> <tab>
             \ pumvisible() ? "\<c-n>" :
             \ <sid>check_back_space() ? "\<tab>" :
