@@ -13,8 +13,6 @@ floating_modifier $mod
 
 focus_follows_mouse yes
 
-hide_edge_borders smart
-
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
@@ -121,6 +119,12 @@ bindsym $mod+Shift+r restart
 bindsym XF86AudioRaiseVolume exec amixer -c 0 set Master 1+ && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec amixer -c 0 set Master 1- && pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute exec amixer set Master toggle && pkill -RTMIN+10 i3blocks
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 # Quake-like terminal
 for_window [instance="__quake"] exec --no-startup-id ~/.i3/quakeify
@@ -273,4 +277,4 @@ client.urgent            $dark   $grey       $mgrey   $lgrey
 # You can also use any non-zero value if you'd like to have a border
 for_window [class=".*"] border pixel 2
 gaps inner 10
-smart_gaps on
+gaps bottom 30
