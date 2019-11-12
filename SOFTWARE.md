@@ -20,11 +20,11 @@ This is a list of software that I find myself using very regularly.
 
 # Dev
 
-- python 2.7+ and 3.4+: I do a lot of stuff with python, so it is essential.
+- python 3.4+: I do a lot of stuff with python, so it is essential.
 - pip: Much better python package management than easy_install, also essential.
 - ipython: The best interactive python interpreter, no question.
 - virtualenv: essential for python development.
-- pipenv: Not as essential, but useful for managing virtualenvs in a cross-platform manner
+- poetry: Not as essential, but useful for managing virtualenvs in a cross-platform manner
 - pylama: general purpose python code linter.  It is a wrapper around pycodestyle
   _(previously pep8)_, pydocstyle _(previously pep257)_ and pyflakes.
 - pylint: Very picky python linter; useful for catching code smells but take it with
@@ -38,6 +38,7 @@ This is a list of software that I find myself using very regularly.
   than cygwin)_
 - Haskell Platform: A necessity for haskell development.
 - Exuberant ctags: Necessary for some vim plugins
+- ag or "the silver searcher": Used by FZF to get gitignore-sensitive results
 - keychain: SSH agent handler
 - shellcheck: shell script linter
 
@@ -50,12 +51,13 @@ This is a list of software that I find myself using very regularly.
   though evince is okay. I would use okular on KDE.
 - **[WINDOWS]** Sumatra PDF: Another PDF viewer.  It is the only good open source viewer
   I could find for windows, though it is kind of ugly.
-- Epson escpr: Printer driver.  'Nuff said.
 - Pandoc: An awesome document converter.
 
 # Multimedia
 
 - Audacity: Best audio editor out there.
+- Spotiy: My favorite music streaming service, though the client is a bit heavy
+- spotifyd/spotify-tui: Light weight daemon/TUI for spotify that works nicely on laptops
 - Clementine: My music player of choice.
 - **[LINUX]** simplescreenrecorder: The only option (IMO) for screen recording.  It just
   blows everything else out of the water
@@ -69,6 +71,7 @@ This is a list of software that I find myself using very regularly.
 
 - Wire (Thomas)
 - Discord (mickey mouse crackhouse)
+- Ripcord if you don't want heavy electron clients for slack or discord
 - Hexchat (IRC)
 
 # System

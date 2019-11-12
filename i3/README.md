@@ -7,7 +7,7 @@ These are my configuration files for the i3 window manager.
 
 - i3-gaps
 - i3lock
-- i3blocks
+- polybar
 - feh
 - dunst
 - compton
@@ -18,13 +18,12 @@ These are my configuration files for the i3 window manager.
 - lm-sensors
 - imagemagick
 - bash
-- perl
 - python 3
+- scrot
+- i3lock-color: https://github.com/chrjguill/i3lock-color
 
 # Optional Dependencies
 
-- scrot
-- i3lock-color: https://github.com/chrjguill/i3lock-color
 - Breeze cursor theme
 - Arc Darker Gtk theme
 - Papirus Icon theme
