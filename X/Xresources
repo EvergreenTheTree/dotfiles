@@ -30,11 +30,25 @@ rofi.font: mymonofont 9
 ! Use urxvt as terminal emulator
 rofi.terminal: termite
 
-! Put at top middle of the screen
+! Put at the middle of the screen
 rofi.location: 2
 
+! Hide top border off-screen
+rofi.yoffset: -2
+
+rofi.columns: 2
+
+rofi.width: 40
+
+! a e s t h e t i c
+rofi.padding: 30
+rofi.line-padding: 4
+
+! No scrollbar plz
+rofi.hide-scrollbar: true
+
 ! Don't use ssh modi
-rofi.modi: window,run,drun
+rofi.modi: run,drun
 
 ! Enable list of modes at the bottom
 rofi.sidebar-mode: true
@@ -48,21 +62,18 @@ rofi.hide-scrollbar: true
 ! Center scrolling
 rofi.scroll-method: 1
 
-rofi.drun-display-format:            <b>{name}</b> {generic}
+rofi.drun-display-format:            {name}
 
-! ---------------- !
-! Arc color scheme !
-! ---------------- !
 ! Use extended color scheme
 rofi.color-enabled:                  true
 ! Color scheme for normal row
-rofi.color-normal:                   #2f343f,#ffffff,#2f343f,#5294e2,#ffffff
+rofi.color-normal:                   #111314,#dfdfdf,#111314,#919652,#dfdfdf
 ! Color scheme for urgent row
-rofi.color-urgent:                   #2f343f,#ffffff,#525d76,#dc322f,#5294e2
+rofi.color-urgent:                   #111314,#dfdfdf,#525d76,#dc322f,#5294e2
 ! Color scheme for active row
-rofi.color-active:                   #c2cad0,#ffffff,#f5f5f5,#c2cad0,#5294e2
+rofi.color-active:                   #c2cad0,#dfdfdf,#f5f5f5,#c2cad0,#5294e2
 ! Color scheme window
-rofi.color-window:                   #2f343f,#525d76,#f5f5f5
+rofi.color-window:                   #111314,#525d76,#f5f5f5
 ! Separator style (none, dash, solid)
 rofi.separator-style:                none
 
