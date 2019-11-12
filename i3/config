@@ -144,6 +144,9 @@ exec --no-startup-id cadence &
 # Wallpaper
 exec_always --no-startup-id sh ~/.fehbg
 
+# Bar
+exec_always --no-startup-id ~/.config/polybar/launcher.sh
+
 # Assign applications to workspaces
 assign [class="(?i)firefox"] $ws1
 assign [class="(?i)qutebrowser"] $ws1
@@ -259,23 +262,6 @@ set $lgrey    #3e424d
 set $white    #ffffff
 # side panel color
 set $mgrey    #b9c2cd
-
-bar {
-  status_command i3blocks -c ~/.i3/i3blocks.conf
-  font pango:Misc Ohsnap 12
-  separator_symbol "|"
-  colors {
-    background          $grey
-    statusline          $white
-    separator           $white
-    #                   border  background  text
-    focused_workspace   $grey   $dark       $white
-    active_workspace    $grey   $dark       $mgrey
-    inactive_workspace  $grey   $grey       $mgrey
-    urgent_workspace    $grey   $blue       $white
-    binding_mode        $grey   $blue       $white
-  }
-}
 
 #                        border  background  text     indicator
 client.focused           $dark   $grey       $white   $lgrey
