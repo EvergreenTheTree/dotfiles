@@ -28,6 +28,8 @@ progexists urxvt && export TERMINAL=urxvt
 # If termite is available, use that instead of urxvt
 progexists termite && export TERMINAL=termite
 
+export FZF_DEFAULT_COMMAND='ag -g ""'
+
 # Source local environment variables
 [ -f "$HOME/.environment.local" ] && . "$HOME/.environment.local"
 
