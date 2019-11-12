@@ -1,5 +1,4 @@
-let b:detectindent_preferred_indent = 4
-let b:detectindent_preferred_expandtab = 0
+setlocal ts=4 sw=4 sts=4 noexpandtab
 
 " set love2d errorformat
 set errorformat=Error:%*[^:]:\ %f:%l:%m,Error:\ %f:%l:%m,%f:%l:%m

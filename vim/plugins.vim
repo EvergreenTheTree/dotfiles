@@ -23,9 +23,6 @@ if has('nvim')
     nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 endif
 
-" Detect indentation automatically
-Plug 'ciaranm/detectindent'
-
 " Better syntax highlighting, autoindentation, linting, folding, and more for haskell
 Plug 'dag/vim2hs'
 

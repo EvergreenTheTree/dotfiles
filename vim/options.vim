@@ -192,11 +192,6 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 endif
 
-"""" DetectIndent
-let g:detectindent_preferred_expandtab = 1
-let g:detectindent_preferred_indent = 4
-autocmd BufReadPost * DetectIndent
-
 """" Dirvish
 " Put directories on top and sort alphabetically
 let g:dirvish_mode = 'sort ir /[^\/]$/ | /^.*[^\/]$/,$ sort i | nohl | 1'

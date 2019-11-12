@@ -1,5 +1,4 @@
-let b:detectindent_preferred_expandtab = 1
-let b:detectindent_preferred_indent = 2
+setlocal ts=2 sw=2 sts=2 expandtab
 
 " Compile C files using :make, even when there is no makefile
 if glob('[Mm]akefile') == "" 
