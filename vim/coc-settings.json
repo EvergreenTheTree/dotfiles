@@ -17,6 +17,11 @@
                     "hlintOn": true
                 }
             }
+        },
+        "nim": {
+            "command": "nimlsp",
+            "filetypes": ["nim"]
         }
-    }
+    },
+    "java.errors.incompleteClasspath.severity": "ignore"
 }

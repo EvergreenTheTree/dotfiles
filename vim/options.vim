@@ -163,7 +163,11 @@ let g:airline_mode_map = {
 """" ALE
 let g:ale_perl_perl_options = '-X -c -Mstrict -Mwarnings -Ilib'
 let g:ale_java_checkstyle_config = g:user_config_dir . "/ftplugin/java/google_checks.xml"
-let g:ale_disable_lsp = 1
+let g:ale_linters = {
+\   'python': ['black', 'remove_trailing_lines', 'trim_whitespace', 'isort'],
+\   'haskell': ['hie']
+\}
+let g:ale_haskell_hie_executable = 'hie-wrapper'
 
 """" coc
 inoremap <silent><expr> <tab>
@@ -180,6 +184,49 @@ endfunction
 inoremap <silent><expr> <c-space> coc#refresh()
 
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
+endfunction
+
+function! s:coc_mappings()
+    " Use `[g` and `]g` to navigate diagnostics
+    nmap <silent> [g <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+    " Remap keys for gotos
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references) code
+
+    " Use K to show documentation in preview window
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    " Remap for rename current word
+    nmap <leader>rn <Plug>(coc-rename)
+
+    " Remap for format selected region
+    " xmap <leader>f  <Plug>(coc-format-selected)
+    " nmap <leader>f  <Plug>(coc-format-selected)
+endf
+
+augroup coc
+    autocmd BufReadPost * call <SID>coc_mappings()
+augroup end
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 """" Deoplete
 if exists("g:deoplete#enable_at_startup")

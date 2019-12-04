@@ -115,6 +115,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 
+" Provides nim support for vim
+Plug 'zah/nim.vim'
+
 " Linting
 if v:version >= 800 || has('nvim')
     Plug 'w0rp/ale'
