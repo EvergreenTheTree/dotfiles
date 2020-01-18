@@ -163,8 +163,9 @@ let g:airline_mode_map = {
 """" ALE
 let g:ale_perl_perl_options = '-X -c -Mstrict -Mwarnings -Ilib'
 let g:ale_java_checkstyle_config = g:user_config_dir . "/ftplugin/java/google_checks.xml"
+let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 let g:ale_linters = {
-\   'python': ['black', 'remove_trailing_lines', 'trim_whitespace', 'isort'],
+\   'python': ['mypy', 'pylint'],
 \   'haskell': ['hie']
 \}
 let g:ale_haskell_hie_executable = 'hie-wrapper'
@@ -193,7 +194,7 @@ function! s:show_documentation()
     endif
 endfunction
 
-function! s:coc_mappings()
+function! Coc_mappings()
     " Use `[g` and `]g` to navigate diagnostics
     nmap <silent> [g <Plug>(coc-diagnostic-prev)
     nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -215,10 +216,6 @@ function! s:coc_mappings()
     " nmap <leader>f  <Plug>(coc-format-selected)
 endf
 
-augroup coc
-    autocmd BufReadPost * call <SID>coc_mappings()
-augroup end
-
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
 
@@ -227,17 +224,6 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-"""" Deoplete
-if exists("g:deoplete#enable_at_startup")
-call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
-
-let g:deoplete#omni_patterns = {}
-let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
-
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-endif
 
 """" Dirvish
 " Put directories on top and sort alphabetically
@@ -261,13 +247,6 @@ augroup END
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>b :Buffers<cr>
 
-"""" Haskellmode
-if executable("/usr/bin/firefox")
-    let g:haddock_browser = "/usr/bin/firefox"
-endif
-
-let g:haddock_docdir = "/usr/share/doc/ghc/html/"
-
 """" incsearch
 " Replace default mappings with incsearch mappings
 map /  <Plug>(incsearch-forward)
@@ -279,22 +258,6 @@ let g:incsearch#do_not_save_error_message_history = 1
 
 " Use very magic mode by default
 let g:incsearch#magic = '\v'
-
-"""" Jedi
-if exists("g:deoplete#enable_at_startup")
-    let g:jedi#completions_enabled = 0
-endif
-
-let g:jedi#popup_on_dot = 0
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#show_call_signatures = 2
-let g:jedi#smart_auto_mappings = 0
-
-let g:jedi#goto_command = "<c-]>"
-let g:jedi#goto_assignments_command = "<c-[>"
-let g:jedi#rename_command = "<f2>"
-let g:jedi#usages_command = "<localleader>u"
-
 
 """" Obsession
 map <leader>w :Obsess<cr>

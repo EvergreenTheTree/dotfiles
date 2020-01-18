@@ -4,3 +4,5 @@ setlocal ts=2 sw=2 sts=2 expandtab
 if glob('[Mm]akefile') == "" 
     let &mp="gcc -o %< %"
 endif
+
+inoremap gd <c-]>
