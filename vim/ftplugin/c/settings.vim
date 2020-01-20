@@ -5,4 +5,17 @@ if glob('[Mm]akefile') == ""
     let &mp="gcc -o %< %"
 endif
 
-inoremap gd <c-]>
+nnoremap gd <c-]>
+
+" Easy source/header switching
+if !exists('*SwitchSourceHeader')
+    function! SwitchSourceHeader()
+        if expand("%:e") == "c"
+        find %:t:r.h
+        else
+        find %:t:r.c
+        endif
+    endfunction
+endif
+
+nnoremap <localleader>s :call SwitchSourceHeader()<cr>
