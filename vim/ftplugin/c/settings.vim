@@ -19,3 +19,5 @@ if !exists('*SwitchSourceHeader')
 endif
 
 nnoremap <localleader>s :call SwitchSourceHeader()<cr>
+
+setlocal textwidth=79
