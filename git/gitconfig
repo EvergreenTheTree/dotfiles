@@ -43,6 +43,10 @@
 	b = branch -vv
 	d = diff
 	dc = diff --cached
+	identity = "! git config user.name \"$(git config user.$1.name)\"; git config user.email \"$(git config user.$1.email)\"; :"
 [include]
 	# Machine local settings
 	path = ~/.gitconfig.local
+[user "github"]
+	name = 4Evergreen4
+	email = 4Evergreen4@users.noreply.github.com
