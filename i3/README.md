@@ -37,6 +37,7 @@ These are my configuration files for the i3 window manager.
 - system-config-printer
 - clipit
 - blueman
+- teiler (screenshots)
 
 # Installation
 Link this directory to `~/.i3`, and link `conf` to `~/.config/i3/conf`.  Note that you need to have

@@ -21,6 +21,9 @@ bindsym $mod+Shift+q kill
 
 bindsym $mod+d exec rofi -show drun
 bindsym $mod+Shift+d exec rofi -show run
+bindsym Print exec teiler --screenshot
+bindsym $mod+g exec bash ~/.i3/roll.sh
+bindsym $mod+Shift+g exec bash -c 'printf "\n" > ~/dice.txt'
 
 # change focus
 bindsym $mod+j focus left
