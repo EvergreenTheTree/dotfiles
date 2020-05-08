@@ -4,6 +4,8 @@ let g:loaded_netrwPlugin = 1
 let g:loaded_netrwPlugin = 1
 let g:loaded_netrwSettings = 1
 
+if has('nvim') | packadd termdebug | endif
+
 " Use pathogen to manage manually installed plugins
 execute pathogen#infect('plugins-dev/{}', 'plugins-local/{}')
 
