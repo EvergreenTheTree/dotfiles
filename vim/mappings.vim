@@ -10,6 +10,12 @@ nnoremap <leader>et :e ~/.tmux.conf<cr>
 nnoremap <leader>eb :e ~/.bashrc<cr>
 nnoremap <leader>ez :e ~/.zshrc<cr>
 
+" Hex read
+nnoremap <leader>hr :%!xxd<cr> :set filetype=xxd<cr>
+
+" Hex write
+nnoremap <leader>hw :%!xxd -r<cr> :set binary<cr> :set filetype=<cr>
+
 " Quick vimrc reload
 nnoremap <leader>R :mkview<cr>:source $MYVIMRC<cr>:loadview<cr>
 

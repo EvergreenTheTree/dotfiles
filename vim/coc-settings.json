@@ -23,5 +23,6 @@
             "filetypes": ["nim"]
         }
     },
+    "rust.clippy_preference": "on",
     "java.errors.incompleteClasspath.severity": "ignore"
 }

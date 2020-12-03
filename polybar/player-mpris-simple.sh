@@ -1,11 +1,15 @@
 #!/bin/sh
 
-player_status=$(playerctl status 2> /dev/null)
+function player() {
+    playerctl --player=spotify,clementine "$@"
+}
+
+player_status=$(player status 2> /dev/null)
 
 if [ "$player_status" = "Playing" ]; then
-    echo " $(playerctl metadata artist) - $(playerctl metadata title)"
+    echo " $(player metadata artist) - $(player metadata title)"
 elif [ "$player_status" = "Paused" ]; then
-    echo " $(playerctl metadata artist) - $(playerctl metadata title)"
+    echo " $(player metadata artist) - $(player metadata title)"
 else
-    echo " -"
+    echo " -"
 fi

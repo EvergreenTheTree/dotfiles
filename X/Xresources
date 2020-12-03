@@ -19,13 +19,13 @@
 
 ! Fonts
 #define myfont Ubuntu
-#define mymonofont Misc Ohsnap
-#define myfontsize 9
+#define mymonofont Iosevka Fixed
+#define myfontsize 10
 
 !!! Applications
 !!!! Rofi
 ! Font
-rofi.font: mymonofont 9
+rofi.font: mymonofont myfontsize
 
 ! Use urxvt as terminal emulator
 rofi.terminal: termite

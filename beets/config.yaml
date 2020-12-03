@@ -1,0 +1,10 @@
+directory: ~/NotDropbox/Music
+library: ~/NotDropbox/musiclibrary.db
+plugins: convert
+import:
+    move: yes
+convert:
+    copy_album_art: yes
+    dest: "~/NotDropbox/Converted Music"
+
+# vim:et:ts=4:sts=4:sw=4

@@ -164,11 +164,16 @@ let g:airline_mode_map = {
 let g:ale_perl_perl_options = '-X -c -Mstrict -Mwarnings -Ilib'
 let g:ale_java_checkstyle_config = g:user_config_dir . "/ftplugin/java/google_checks.xml"
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
+let g:ale_fixers = {
+\   'rust': ['rustfmt']
+\}
 let g:ale_linters = {
 \   'python': ['mypy', 'pylint'],
-\   'haskell': ['hie']
+\   'haskell': ['hie'],
+\   'rust': ['cargo', 'rustc']
 \}
 let g:ale_haskell_hie_executable = 'hie-wrapper'
+let g:ale_rust_rustc_options = ''
 
 """" coc
 inoremap <silent><expr> <tab>

@@ -34,6 +34,8 @@
 	tool = vimdiff
 [push]
 	default = simple
+[pull]
+	ff = only
 [alias]
 	s = status --short --branch
 	st = status
@@ -50,3 +52,5 @@
 [user "github"]
 	name = 4Evergreen4
 	email = 4Evergreen4@users.noreply.github.com
+[user]
+	useConfigOnly = true
