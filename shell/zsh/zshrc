@@ -268,7 +268,7 @@ function __is_ssh_session() {
 
 function __ssh_hostname() {
     if __is_ssh_session; then
-        echo "@%F{yellow}$HOST%f "
+        echo "@%F{yellow}$HOST%f:"
     fi
 }
 

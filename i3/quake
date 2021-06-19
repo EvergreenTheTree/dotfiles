@@ -1,0 +1,2 @@
+#!/bin/bash
+i3-msg 'exec --no-startup-id kitty --name "__quake" &'
