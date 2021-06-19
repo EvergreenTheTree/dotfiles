@@ -240,9 +240,6 @@ let g:dirvish_relative_paths = 1
 augroup dirvish_settings
     autocmd!
 
-    " Enable fugitive in dirvish buffers
-    autocmd FileType dirvish call fugitive#detect(@%)
-
     " Hide hidden files with 'gh'
     autocmd FileType dirvish nnoremap <silent><buffer>
                 \ gh :silent keeppatterns g@\v^\..+$@d<cr>
