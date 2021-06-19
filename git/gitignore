@@ -30,3 +30,4 @@ Session.vim
 .bowerrc
 .autoenv.zsh
 .autoenv_leave.zsh
+.ccls-cache/

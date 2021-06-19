@@ -132,7 +132,7 @@ bindsym XF86AudioPrev exec playerctl previous
 # Quake-like terminal
 for_window [instance="__quake"] exec --no-startup-id ~/.i3/quakeify
 bindsym F12 [instance="__quake"] scratchpad show
-exec --no-startup-id termite --name '__quake' &
+exec --no-startup-id kitty --name '__quake' &
 
 # Autostart programs
 exec --no-startup-id ~/.i3/dex/dex -a -s ~/.i3/autostart
@@ -140,7 +140,6 @@ exec --no-startup-id dunst &
 exec --no-startup-id nm-applet &
 exec --no-startup-id safeeyes &
 exec --no-startup-id redshift-gtk &
-exec --no-startup-id dropbox &
 exec --no-startup-id compton &
 exec --no-startup-id xfce4-power-manager &
 exec --no-startup-id system-config-printer-applet &
@@ -148,6 +147,7 @@ exec --no-startup-id clipit &
 exec --no-startup-id blueman-applet &
 exec --no-startup-id cadence &
 exec --no-startup-id kdeconnect-indicator &
+exec --no-startup-id nextcloud --background &
 
 # Wallpaper
 exec_always --no-startup-id sh ~/.fehbg

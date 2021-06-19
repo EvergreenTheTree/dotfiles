@@ -268,7 +268,7 @@ function __is_ssh_session() {
 
 function __ssh_hostname() {
     if __is_ssh_session; then
-        echo " @%F{green}$HOST%f"
+        echo "@%F{yellow}$HOST%f "
     fi
 }
 
@@ -277,6 +277,9 @@ function __ssh_hostname() {
 # This displays the return code of the previous command (green for success, red
 # for failure)
 PROMPT='%(0?|%F{green}|%F{red})%?%f '
+
+# Displays SSH hostname if in an SSH session
+PROMPT+='$(__ssh_hostname)'
 
 # Displays the current working directory.  If there are 3 or less path
 # components, display them as normal.  If there are 4 or more, display the first
@@ -292,7 +295,7 @@ PROMPT+='%(!|%F{red}|%F{blue})>%f '
 
 #### RIGHT PROMPT ####
 
-RPROMPT='$(__git_branch)$(__virtualenv)$(__ssh_hostname)'
+RPROMPT='$(__git_branch)$(__virtualenv)'
 
 ### ALIASES ###
 

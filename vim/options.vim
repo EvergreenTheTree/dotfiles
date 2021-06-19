@@ -252,17 +252,15 @@ augroup END
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>b :Buffers<cr>
 
-"""" incsearch
-" Replace default mappings with incsearch mappings
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-
 " Don't save search error messages to message history
 let g:incsearch#do_not_save_error_message_history = 1
 
 " Use very magic mode by default
 let g:incsearch#magic = '\v'
+
+nmap <leader>% <plug>(matchup-z%)
+omap <leader>% <Plug>(matchup-o_)<plug>(matchup-z%)
+xmap <leader>% <plug>(matchup-z%)
 
 """" Obsession
 map <leader>w :Obsess<cr>
@@ -279,21 +277,7 @@ let g:pandoc#syntax#codeblocks#embeds#use = 0
 let g:pandoc#modules#disabled = ["bibliographies"]
 
 """" sneak
-" Use sneak for f and F
-nmap f <Plug>Sneak_f
-nmap F <Plug>Sneak_F
-xmap f <Plug>Sneak_f
-xmap F <Plug>Sneak_F
-omap f <Plug>Sneak_f
-omap F <Plug>Sneak_F
-
-" Use sneak for t and T
-nmap t <Plug>Sneak_t
-nmap T <Plug>Sneak_T
-xmap t <Plug>Sneak_t
-xmap T <Plug>Sneak_T
-omap t <Plug>Sneak_t
-omap T <Plug>Sneak_T
+let g:sneak#s_next = 1
 
 """" SuperTab
 function! MyContext()

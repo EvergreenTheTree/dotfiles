@@ -25,8 +25,8 @@ progexists nvim && export EDITOR=nvim GIT_EDITOR=nvim
 # Try using urxvt as terminal emulator
 progexists urxvt && export TERMINAL=urxvt
 
-# If termite is available, use that instead of urxvt
-progexists termite && export TERMINAL=termite
+# If kitty is available, use that instead of urxvt
+progexists kitty && export TERMINAL=kitty
 
 export FZF_DEFAULT_COMMAND='ag -g ""'
 
