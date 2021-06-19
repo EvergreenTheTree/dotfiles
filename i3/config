@@ -135,7 +135,6 @@ bindsym F12 [instance="__quake"] scratchpad show
 exec --no-startup-id kitty --name '__quake' &
 
 # Autostart programs
-exec --no-startup-id ~/.i3/dex/dex -a -s ~/.i3/autostart
 exec --no-startup-id dunst &
 exec --no-startup-id nm-applet &
 exec --no-startup-id safeeyes &

@@ -7,16 +7,15 @@ This is a list of software that I find myself using very regularly.
 
 - tmux: My choice of terminal multiplexer.
 - zsh: My favorite shell currently
-- **[LINUX]** Termite: The best terminal emulator around.  Konsole is good too if
+- **[LINUX]** kitty: The best terminal emulator around.  Konsole is good too if
   you are using KDE.
 
 # Web
 
 - Firefox: My web browser of choice
-- Dropbox: An embarassingly essential piece of software for me.
 - Thunderbird: My email client of choice.
 - Bittorrent Client _(Transmission, qBittorrent, KTorrent, etc)_
-- Private Internet Access - A VPN
+- Wireguard: Good simple VPN
 
 # Dev
 
@@ -32,20 +31,23 @@ This is a list of software that I find myself using very regularly.
 - vim: The best text and code editor. Come at me emacs! _(preferrably compiled
   with `--with-features=huge` and python support)_.  Or just use neovim.
 - git: The version control system I am most familiar with.
-- C/C++ compiler _(gcc)_: For C hacking.
+- C/C++ compiler _(gcc, clang)_: For C hacking.
 - CMake: A really popular alternative to configure scripts.
+- meson: Much better than CMake (though it is a low bar to clear tbf).
 - **[WINDOWS]** msys2 _(or Git for Windows SDK)_: Linux on windows.  _(better
   than cygwin)_
-- Haskell Platform: A necessity for haskell development.
 - Exuberant ctags: Necessary for some vim plugins
 - ag or "the silver searcher": Used by FZF to get gitignore-sensitive results
+- ripgrep: better than ag for command line use
+- fd: better `find`
+- exa: better `ls`
 - keychain: SSH agent handler
 - shellcheck: shell script linter
 
 # School/Office
 
 - Libreoffice: Great office suite that can handle most document formats
-- Geogebra: Awesome tool for exploring geometry and algebra
+- Geogebra: Wonderful tool for exploring geometry and algebra
 - Speedcrunch: Nice simple calculator
 - **[LINUX]** Atril PDF Viewer: The best light-weight pdf viewer for gnome that I could find,
   though evince is okay. I would use okular on KDE.
@@ -58,9 +60,10 @@ This is a list of software that I find myself using very regularly.
 - Audacity: Best audio editor out there.
 - Spotiy: My favorite music streaming service, though the client is a bit heavy
 - spotifyd/spotify-tui: Light weight daemon/TUI for spotify that works nicely on laptops
-- Clementine: My music player of choice.
+- Audacious: My music player of choice.
 - **[LINUX]** simplescreenrecorder: The only option (IMO) for screen recording.  It just
-  blows everything else out of the water
+  blows everything else out of the water (minus OBS)
+- OBS: Just a great all-around streaming/recording tool
 - VLC: My favorite video player, supports every audio/video format under the sun
 - GIMP: A really nice advanced image editing tool.
 - Inkscape: Vector graphics editor.
@@ -69,10 +72,9 @@ This is a list of software that I find myself using very regularly.
 
 # Chat
 
-- Wire (Thomas)
-- Discord (mickey mouse crackhouse)
+- Discord
 - Ripcord if you don't want heavy electron clients for slack or discord
-- Hexchat (IRC)
+- Quassel
 
 # System
 
