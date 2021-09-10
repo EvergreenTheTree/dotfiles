@@ -52,9 +52,12 @@ Plug 'mbbill/undotree'
 Plug 'mhinz/vim-signify'
 
 " Language server and autocompletion
-Plug 'Shougo/neco-vim'
-Plug 'neoclide/coc-neco'
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() }}
+if has('nvim-0.5.0')
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+endif
 
 " Nice semantic python syntax highlighting
 if has('nvim')

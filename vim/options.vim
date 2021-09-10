@@ -175,60 +175,87 @@ let g:ale_linters = {
 let g:ale_haskell_hie_executable = 'hie-wrapper'
 let g:ale_rust_rustc_options = ''
 
-"""" coc
-inoremap <silent><expr> <tab>
-            \ pumvisible() ? "\<c-n>" :
-            \ <sid>check_back_space() ? "\<tab>" :
-            \ coc#refresh()
-inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<c-h>"
+"""" cmp
+if has('nvim-0.5.0')
+lua << EOF
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menuone,noselect'
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+local cmp = require("cmp")
+local t = function(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
 
-inoremap <silent><expr> <c-space> coc#refresh()
+local check_back_space = function()
+    local col = vim.fn.col(".") - 1
+    return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
+end
 
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            vim.fn["UltiSnips#Anon"](args.body)
+        end,
+    },
+    sources = {
+        { name = "ultisnips" },
+        { name = "nvim_lsp" },
+    },
+    -- Configure for <TAB> people
+    -- - <TAB> and <S-TAB>: cycle forward and backward through autocompletion items
+    -- - <TAB> and <S-TAB>: cycle forward and backward through snippets tabstops and placeholders
+    -- - <TAB> to expand snippet when no completion item selected (you don't need to select the snippet from completion item to expand)
+    -- - <C-space> to expand the selected snippet from completion menu
+    mapping = {
+        ["<C-Space>"] = cmp.mapping(function(fallback)
+            if vim.fn.pumvisible() == 1 then
+                if vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+                    return vim.fn.feedkeys(t("<C-R>=UltiSnips#ExpandSnippet()<CR>"))
+                end
 
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
-endfunction
+                vim.fn.feedkeys(t("<C-n>"), "n")
+            elseif check_back_space() then
+                vim.fn.feedkeys(t("<cr>"), "n")
+            else
+                fallback()
+            end
+        end, {
+            "i",
+            "s",
+        }),
+        ["<Tab>"] = cmp.mapping(function(fallback)
+            if vim.fn.complete_info()["selected"] == -1 and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+                vim.fn.feedkeys(t("<C-R>=UltiSnips#ExpandSnippet()<CR>"))
+            elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+                vim.fn.feedkeys(t("<ESC>:call UltiSnips#JumpForwards()<CR>"))
+            elseif vim.fn.pumvisible() == 1 then
+                vim.fn.feedkeys(t("<C-n>"), "n")
+            elseif check_back_space() then
+                vim.fn.feedkeys(t("<tab>"), "n")
+            else
+                fallback()
+            end
+        end, {
+            "i",
+            "s",
+        }),
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+                return vim.fn.feedkeys(t("<C-R>=UltiSnips#JumpBackwards()<CR>"))
+            elseif vim.fn.pumvisible() == 1 then
+                vim.fn.feedkeys(t("<C-p>"), "n")
+            else
+                fallback()
+            end
+        end, {
+            "i",
+            "s",
+        }),
+    },
+})
 
-function! Coc_mappings()
-    " Use `[g` and `]g` to navigate diagnostics
-    nmap <silent> [g <Plug>(coc-diagnostic-prev)
-    nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-    " Remap keys for gotos
-    nmap <silent> gd <Plug>(coc-definition)
-    nmap <silent> gy <Plug>(coc-type-definition)
-    nmap <silent> gi <Plug>(coc-implementation)
-    nmap <silent> gr <Plug>(coc-references) code
-
-    " Use K to show documentation in preview window
-    nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-    " Remap for rename current word
-    nmap <leader>rn <Plug>(coc-rename)
-
-    " Remap for format selected region
-    " xmap <leader>f  <Plug>(coc-format-selected)
-    " nmap <leader>f  <Plug>(coc-format-selected)
-endf
-
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+EOF
+endif
 
 """" Dirvish
 " Put directories on top and sort alphabetically
@@ -258,6 +285,57 @@ let g:incsearch#magic = '\v'
 nmap <leader>% <plug>(matchup-z%)
 omap <leader>% <Plug>(matchup-o_)<plug>(matchup-z%)
 xmap <leader>% <plug>(matchup-z%)
+
+"""" lspconfig
+if has('nvim-0.5.0')
+lua << EOF
+local nvim_lsp = require('lspconfig')
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+end
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { 'clangd' }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
+end
+EOF
+endif
 
 """" Obsession
 map <leader>w :Obsess<cr>
