@@ -30,6 +30,8 @@ progexists kitty && export TERMINAL=kitty
 
 export FZF_DEFAULT_COMMAND='ag -g ""'
 
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
 # Source local environment variables
 [ -f "$HOME/.environment.local" ] && . "$HOME/.environment.local"
 

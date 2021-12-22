@@ -56,9 +56,6 @@ rofi.sidebar-mode: true
 ! Use regex matching
 rofi.regex: true
 
-! No scrollbar
-rofi.hide-scrollbar: true
-
 ! Center scrolling
 rofi.scroll-method: 1
 

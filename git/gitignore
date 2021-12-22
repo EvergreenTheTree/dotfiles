@@ -31,3 +31,4 @@ Session.vim
 .autoenv.zsh
 .autoenv_leave.zsh
 .ccls-cache/
+.cache/

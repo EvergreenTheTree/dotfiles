@@ -28,10 +28,13 @@ This is a list of software that I find myself using very regularly.
   _(previously pep8)_, pydocstyle _(previously pep257)_ and pyflakes.
 - pylint: Very picky python linter; useful for catching code smells but take it with
   a grain of salt
+- pyls: python language server
 - vim: The best text and code editor. Come at me emacs! _(preferrably compiled
   with `--with-features=huge` and python support)_.  Or just use neovim.
 - git: The version control system I am most familiar with.
 - C/C++ compiler _(gcc, clang)_: For C hacking.
+- ccls: c language server
+- bear: generates command list for ccls
 - CMake: A really popular alternative to configure scripts.
 - meson: Much better than CMake (though it is a low bar to clear tbf).
 - **[WINDOWS]** msys2 _(or Git for Windows SDK)_: Linux on windows.  _(better
