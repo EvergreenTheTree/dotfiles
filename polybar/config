@@ -283,6 +283,8 @@ battery = BAT0
 adapter = ADP1
 full-at = 98
 
+click-left = xfce4-power-manager-settings
+
 format-charging = <animation-charging> <label-charging>
 format-charging-underline = #ffb52a
 

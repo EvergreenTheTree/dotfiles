@@ -85,7 +85,9 @@ This is a list of software that I find myself using very regularly.
 - **[WINDOWS]** Win32DiskImager: Gui `dd` for windows.
 - **[WINDOWS]** Rufus: USB Image Writer.
 - rsync: Simple file synchronization.
-- unison: More file synchronization
+- restic: Good good backups
+- b2: Utility for configuring the location of the aforementioned good good backups
+- Nextcloud: Self-hosted dropbox
 - **[WINDOWS]** AutoHotkey: Awesome key remapping software.  _(also a
   programming language)_
 - **[WINDOWS]** AHK Studio: Nice AutoHotkey script editor written in AutoHotkey.

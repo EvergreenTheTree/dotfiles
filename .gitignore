@@ -9,3 +9,4 @@ vim/plugins
 vim/plugins-local
 vim/view
 vim/rplugin.vim
+vim/autoload/plug.vim.old

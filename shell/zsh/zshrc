@@ -103,6 +103,10 @@ function notify() {
     notify-send "Command Finished" "$*"
 }
 
+function launch() {
+    "$@" >/dev/null 2>&1 &
+}
+
 ### KEY BINDINGS ###
 
 # Vi keys pls

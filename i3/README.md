@@ -10,10 +10,10 @@ These are my configuration files for the i3 window manager.
 - polybar
 - feh
 - dunst
-- compton
+- picom
 - NetworkManager
 - nm-applet
-- termite
+- kitty
 - xfce4-power-manager
 - lm-sensors
 - imagemagick
@@ -33,11 +33,11 @@ These are my configuration files for the i3 window manager.
 - yay
 - safeeyes
 - redshift
-- Dropbox
 - system-config-printer
 - clipit
 - blueman
 - teiler (screenshots)
+- Nextcloud
 
 # Installation
 Link this directory to `~/.i3`, and link `conf` to `~/.config/i3/conf`.  Note that you need to have
