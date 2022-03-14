@@ -259,7 +259,8 @@ endif
 
 """" Dirvish
 " Put directories on top and sort alphabetically
-let g:dirvish_mode = 'sort ir /[^\/]$/ | /^.*[^\/]$/,$ sort i | nohl | 1'
+let g:dirvish_mode = 'sort ir /[^\/]$/ | silent! /^.*[^\/]$/,$ sort i | nohl | 1'
+
 
 " Vim <7.4 compatibility
 let g:dirvish_relative_paths = 1
