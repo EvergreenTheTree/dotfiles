@@ -29,8 +29,7 @@ This is a list of software that I find myself using very regularly.
 - pylint: Very picky python linter; useful for catching code smells but take it with
   a grain of salt
 - pyls: python language server
-- vim: The best text and code editor. Come at me emacs! _(preferrably compiled
-  with `--with-features=huge` and python support)_.  Or just use neovim.
+- neovim: My current choice of code editor.
 - git: The version control system I am most familiar with.
 - C/C++ compiler _(gcc, clang)_: For C hacking.
 - ccls: c language server
@@ -43,7 +42,7 @@ This is a list of software that I find myself using very regularly.
 - ag or "the silver searcher": Used by FZF to get gitignore-sensitive results
 - ripgrep: better than ag for command line use
 - fd: better `find`
-- exa: better `ls`
+- difftastic: semantically aware diffs, needed for default difftool in git config
 - keychain: SSH agent handler
 - shellcheck: shell script linter
 
@@ -51,19 +50,18 @@ This is a list of software that I find myself using very regularly.
 
 - Libreoffice: Great office suite that can handle most document formats
 - Geogebra: Wonderful tool for exploring geometry and algebra
-- Speedcrunch: Nice simple calculator
 - **[LINUX]** Atril PDF Viewer: The best light-weight pdf viewer for gnome that I could find,
   though evince is okay. I would use okular on KDE.
 - **[WINDOWS]** Sumatra PDF: Another PDF viewer.  It is the only good open source viewer
   I could find for windows, though it is kind of ugly.
 - Pandoc: An awesome document converter.
+- Etesync Connector: For accessing my CardDAV/CalDAV stuff
 
 # Multimedia
 
 - Audacity: Best audio editor out there.
 - Spotiy: My favorite music streaming service, though the client is a bit heavy
-- spotifyd/spotify-tui: Light weight daemon/TUI for spotify that works nicely on laptops
-- Audacious: My music player of choice.
+- Strawberry: My music player of choice.
 - **[LINUX]** simplescreenrecorder: The only option (IMO) for screen recording.  It just
   blows everything else out of the water (minus OBS)
 - OBS: Just a great all-around streaming/recording tool
@@ -77,7 +75,6 @@ This is a list of software that I find myself using very regularly.
 
 - Discord
 - Ripcord if you don't want heavy electron clients for slack or discord
-- Quassel
 
 # System
 
@@ -88,9 +85,9 @@ This is a list of software that I find myself using very regularly.
 - **[WINDOWS]** Win32DiskImager: Gui `dd` for windows.
 - **[WINDOWS]** Rufus: USB Image Writer.
 - rsync: Simple file synchronization.
+- Syncthing: Syncs things
 - restic: Good good backups
 - b2: Utility for configuring the location of the aforementioned good good backups
-- Nextcloud: Self-hosted dropbox
 - **[WINDOWS]** AutoHotkey: Awesome key remapping software.  _(also a
   programming language)_
 - **[WINDOWS]** AHK Studio: Nice AutoHotkey script editor written in AutoHotkey.
