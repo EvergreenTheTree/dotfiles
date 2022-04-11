@@ -31,7 +31,13 @@
 [merge]
 	tool = vimdiff
 [diff]
-	tool = vimdiff
+	tool = difftastic
+[difftool]
+	prompt = false
+[difftool "difftastic"]
+	cmd = difft --color always "$LOCAL" "$REMOTE"
+[pager]
+	difftool = true
 [push]
 	default = simple
 [pull]
@@ -45,6 +51,8 @@
 	b = branch -vv
 	d = diff
 	dc = diff --cached
+	dt = difftool
+	dtc = difftool --cached
 	identity = "! git config user.name \"$(git config user.$1.name)\"; git config user.email \"$(git config user.$1.email)\"; :"
 [include]
 	# Machine local settings
