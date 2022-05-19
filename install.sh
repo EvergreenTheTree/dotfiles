@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO: update this
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ln -s "$DIR/shell/dir_colors" "$HOME/.dir_colors"
 ln -s "$DIR/shell/environment" "$HOME/.environment"

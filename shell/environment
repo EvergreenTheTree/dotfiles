@@ -1,6 +1,11 @@
 # Evergreen's environment variables                         #
 # NOTE: Everything in this file must be posix sh compatible #
 
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
+
 progexists() {
     command -v "$1" >/dev/null 2>&1
 }
@@ -32,7 +37,23 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
+# Force as many things to conform to XDG standards as possible
+export ANDROID_USER_HOME="$XDG_DATA_HOME/android"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export GOPATH="$XDG_DATA_HOME/go"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+export IPYTHONDIR="$XDG_DATA_HOME/ipython"
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
+export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
+export MYPY_CACHE_DIR="$XDG_CACHE_HOME/mypy"
+export _JAVA_OPTIONS=-Djava.utils.prefs.userRoot="$XDG_CONFIG_HOME/java"
+export PYLINTHOME="$XDG_CACHE_HOME/pylint"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
+
 # Source local environment variables
-[ -f "$HOME/.environment.local" ] && . "$HOME/.environment.local"
+[ -f "$HOME/config/environment.local" ] && . "$HOME/config/environment.local"
+
 
 # vim:ft=sh

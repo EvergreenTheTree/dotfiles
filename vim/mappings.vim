@@ -6,9 +6,8 @@ let maplocalleader = ","
 
 " Easily edit my config files.
 nnoremap <leader>ev :e $MYVIMRC<cr>
-nnoremap <leader>et :e ~/.tmux.conf<cr>
-nnoremap <leader>eb :e ~/.bashrc<cr>
-nnoremap <leader>ez :e ~/.zshrc<cr>
+nnoremap <leader>et :e ~/.config/tmux/tmux.conf<cr>
+nnoremap <leader>ez :e ~/.config/zsh/.zshrc<cr>
 
 " Hex read
 nnoremap <leader>hr :%!xxd<cr> :set filetype=xxd<cr>

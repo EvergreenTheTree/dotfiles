@@ -25,3 +25,5 @@ command! VTerm vsplit | terminal
 command! TTerm tabnew | terminal
 
 set background=dark
+
+set laststatus=3

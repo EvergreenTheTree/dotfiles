@@ -2,8 +2,8 @@
 
 ### ENVIRONMENT VARIABLES ###
 
-if [[ -f "$HOME/.environment" ]]; then
-    source "$HOME/.environment"
+if [[ -f "$HOME/.config/environment" ]]; then
+    source "$HOME/.config/environment"
 fi
 
 ### COMPLETION ###
@@ -29,7 +29,7 @@ zstyle ':completion:*' substitute 1
 KEYTIMEOUT=1
 
 # History options (pretty self-explanatory)
-HISTFILE=~/.histfile
+HISTFILE="$XDG_DATA_HOME/zsh/history"
 HISTSIZE=10000
 SAVEHIST=10000
 
@@ -65,13 +65,12 @@ setopt prompt_subst
 ### ZSH MODULES ###
 
 # Plugins
-ZSHRC="$HOME/.zshrc"
 # Syntax highlighting
-source "${ZSHRC:A:h}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$XDG_CONFIG_HOME/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 # Better cd command
-export ZSHZ_DATA="$HOME/.config/z"
-source "${ZSHRC:A:h}/zsh-z/zsh-z.plugin.zsh"
-source "${ZSHRC:A:h}/zsh-autoenv/autoenv.zsh"
+export ZSHZ_DATA="$XDG_CONFIG_HOME/z"
+source "$XDG_CONFIG_HOME/zsh/zsh-z/zsh-z.plugin.zsh"
+source "$XDG_CONFIG_HOME/zsh/zsh-autoenv/autoenv.zsh"
 
 # Homebrew
 if type brew &>/dev/null; then
@@ -80,7 +79,7 @@ fi
 
 # Initialize completion system
 autoload -Uz compinit
-compinit
+compinit -d "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 
 # Required for menu-completion widget and many other goodies
 autoload -Uz complist
@@ -320,6 +319,9 @@ alias e="\$EDITOR"
 unalias run-help &>/dev/null
 alias help=run-help
 
+# XDG conformance
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+
 ### TMUX ###
 
 tmux_user () {
@@ -328,14 +330,28 @@ tmux_user () {
 
 alias t="tmux_user"
 
+### FZF ###
+
+# Setup fzf
+# ---------
+if [[ ! "$PATH" == *$HOME/.local/share/fzf/bin* ]]; then
+  export PATH="${PATH:+${PATH}:}$HOME/.local/share/fzf/bin"
+fi
+
+# Auto-completion
+# ---------------
+[[ $- == *i* ]] && source "$HOME/.local/share/fzf/shell/completion.zsh" 2> /dev/null
+
+# Key bindings
+# ------------
+source "$HOME/.local/share/fzf/shell/key-bindings.zsh"
+
 ### MISC ###
 
 # Source local settings
-[[ -f $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
+[[ -f $XDG_CONFIG_HOME/zsh/.zshrc.local ]] && source "$XDG_CONFIG_HOME/zsh/.zshrc.local"
 
 true
 
 ## vim:fdm=expr:fdl=0:fdc=3:et:sts=4:ts=4:sw=4
 ## vim:fde=getline(v\:lnum)=~'^##'?'>'.(matchend(getline(v\:lnum),'##*')-2)\:'='
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
