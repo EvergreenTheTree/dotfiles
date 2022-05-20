@@ -149,7 +149,7 @@ exec --no-startup-id kdeconnect-indicator &
 exec --no-startup-id nextcloud --background &
 
 # Wallpaper
-exec_always --no-startup-id sh ~/.fehbg
+exec_always --no-startup-id sh ~/.config/fehbg
 
 # Bar
 exec_always --no-startup-id ~/.config/polybar/launcher.sh
