@@ -25,9 +25,6 @@ zstyle ':completion:*' substitute 1
 
 ### OPTIONS ###
 
-# This makes the vi mode indicator in the prompt update faster
-KEYTIMEOUT=1
-
 # History options (pretty self-explanatory)
 HISTFILE="$XDG_DATA_HOME/zsh/history"
 HISTSIZE=10000
@@ -61,6 +58,9 @@ setopt menu_complete
 
 # Allow command and variable subtitution in prompt
 setopt prompt_subst
+
+# Stop beeping at me
+unsetopt list_beep
 
 ### ZSH MODULES ###
 
@@ -108,29 +108,15 @@ function launch() {
 
 ### KEY BINDINGS ###
 
-# Vi keys pls
-bindkey -v
+# Emacs keys pls 😈
+bindkey -e
+_fix_cursor() {
+   echo -ne '\e[5 q'
+}
+precmd_functions+=(_fix_cursor)
 
-# Cancel completion and undo up to the point when tab was pressed
-bindkey -M viins '^g' vi-undo-change
-
-# Make Home and End keys work properly
-bindkey '\e[1~' vi-beginning-of-line
-bindkey '\eOH' vi-beginning-of-line
-
-# Quickly view help for commands
-bindkey -M vicmd 'H' run-help
-bindkey -M viins '\eh' run-help
-
-# Do incremental history search instead of non-incremental history search
-bindkey -M vicmd '/' history-incremental-search-backward
-bindkey -M vicmd '?' history-incremental-search-forward
-
-# Make backspace always delete a character
-bindkey -M viins "^?" backward-delete-char
-
-# Shift-tab goes to the previous completion option
-bindkey -M viins '^[[Z' reverse-menu-complete
+# Shift tab pls
+bindkey '^[[Z' reverse-menu-complete
 
 ### COLORS ###
 
@@ -204,23 +190,48 @@ fi
 
 ### PROMPT ###
 
-#### VI MODE INDICATOR ####
+#### COMMAND TIME TRACKING ####
+ZSH_TIME_EXCLUDE=(nvim less)
+_command_time_preexec() {
+    # check excluded
+    if [ -n "$ZSH_COMMAND_TIME_EXCLUDE" ]; then
+        cmd="$1"
+        for exc ($ZSH_COMMAND_TIME_EXCLUDE) do;
+            if [ "$(echo $cmd | grep -c "$exc")" -gt 0 ]; then
+                # echo "command excluded: $exc"
+                return
+            fi
+        done
+    fi
 
-# See https://superuser.com/questions/151803/how-do-i-customize-zshs-vim-mode/156304
-vim_ins_mode="I"
-vim_cmd_mode="C"
-vim_mode=$vim_ins_mode
-
-function zle-keymap-select {
-  vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
-  zle reset-prompt
+    timer=${timer:-$SECONDS}
+    ZSH_COMMAND_TIME_MSG=${ZSH_COMMAND_TIME_MSG-"Time: %s"}
+    ZSH_COMMAND_TIME_COLOR=${ZSH_COMMAND_TIME_COLOR-"white"}
+    export ZSH_COMMAND_TIME=""
 }
-zle -N zle-keymap-select
 
-function zle-line-finish {
-  vim_mode=$vim_ins_mode
+_command_time_precmd() {
+    if [ $timer ]; then
+        timer_show=$(($SECONDS - $timer))
+        if [ -n "$TTY" ] && [ $timer_show -ge ${ZSH_COMMAND_TIME_MIN_SECONDS:-3} ]; then
+            export ZSH_COMMAND_TIME="$timer_show"
+            if [ ! -z ${ZSH_COMMAND_TIME_MSG} ]; then
+                zsh_command_time
+            fi
+        fi
+        unset timer
+    fi
 }
-zle -N zle-line-finish
+
+zsh_command_time() {
+    if [ -n "$ZSH_COMMAND_TIME" ]; then
+        timer_show=$(printf '%dh:%02dm:%02ds\n' $(($ZSH_COMMAND_TIME/3600)) $(($ZSH_COMMAND_TIME%3600/60)) $(($ZSH_COMMAND_TIME%60)))
+        print -P "%F{$ZSH_COMMAND_TIME_COLOR}$(printf "${ZSH_COMMAND_TIME_MSG}\n" "$timer_show")%f"
+    fi
+}
+
+precmd_functions+=(_command_time_precmd)
+preexec_functions+=(_command_time_preexec)
 
 #### GIT BRANCH ####
 
@@ -293,12 +304,9 @@ PROMPT+='$(__ssh_hostname)'
 # path component, …, then the last 2 components.
 PROMPT+='%F{white}%B%(4~|%-1~/.../%2~|%~)%f%b '
 
-# Display "C" for normal mode and "I" for insert mode (for vi keybindings).
-PROMPT+='${vim_mode}'
-
 # Color the character directly before the editing line red for root and blue for
 # non-root.
-PROMPT+='%(!|%F{red}|%F{blue})>%f '
+PROMPT+='%B%(!|%F{red}|%F{blue})>%b%f '
 
 #### RIGHT PROMPT ####
 

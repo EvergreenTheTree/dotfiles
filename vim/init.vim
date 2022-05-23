@@ -10,7 +10,7 @@ endif
 " Source normal vim config file.
 exe "source " . split(&rtp, ',')[0] . "/vimrc"
 
-" Use the esscape key to exit terminal mode.
+" Use the escape key to exit terminal mode.
 tnoremap <esc> <c-\><c-n>
 
 " Edit normal vim config
