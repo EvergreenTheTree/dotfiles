@@ -109,10 +109,6 @@ Plug 'tpope/vim-unimpaired'
 " Provides text objects and folding for indented languages
 Plug 'tweekmonster/braceless.vim'
 
-" Nice status line
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
 " Provides pandoc markdown highlighting
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
