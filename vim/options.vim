@@ -3,7 +3,7 @@
 set backspace=indent,eol,start
 
 " Better display for messages
-set cmdheight=2
+set cmdheight=1
 
 " Don't search tags file when using insert completion
 set complete=.,w,b,u,i
@@ -115,8 +115,7 @@ set wildmode=full
 """ PLUGIN OPTIONS
 """" Airline
 " I like this theme, minimalist is good too
-" let g:airline_theme = "distinguished"
-let g:airline_theme = "papercolor"
+let g:airline_theme = "zenburn"
 
 " No powerline symbols up in here
 let g:airline_symbols_ascii = 1
