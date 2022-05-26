@@ -22,7 +22,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec rofi -show drun -show-icons
 bindsym $mod+Shift+d exec rofi -show run
 bindsym Print exec teiler --screenshot
-bindsym $mod+g exec bash ~/.i3/roll.sh
+bindsym $mod+g exec bash ~/.config/i3/roll.sh
 bindsym $mod+Shift+g exec bash -c 'printf "\n" > ~/dice.txt'
 
 # change focus
@@ -130,7 +130,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Quake-like terminal
-for_window [instance="__quake"] exec --no-startup-id ~/.i3/quakeify
+for_window [instance="__quake"] exec --no-startup-id ~/.config/i3/quakeify
 bindsym F12 [instance="__quake"] scratchpad show
 exec --no-startup-id kitty --name '__quake' &
 
@@ -242,12 +242,12 @@ bindsym $mod+m mode "move"
 set $Locker i3lock && sleep 1
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (p) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id $HOME/.i3/i3exit lock,      mode "default"
-    bindsym e exec --no-startup-id $HOME/.i3/i3exit logout,    mode "default"
-    bindsym s exec --no-startup-id $HOME/.i3/i3exit suspend,   mode "default"
-    bindsym h exec --no-startup-id $HOME/.i3/i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id $HOME/.i3/i3exit reboot,    mode "default"
-    bindsym p exec --no-startup-id $HOME/.i3/i3exit shutdown,  mode "default"
+    bindsym l exec --no-startup-id $HOME/.config/i3/i3exit lock,      mode "default"
+    bindsym e exec --no-startup-id $HOME/.config/i3/i3exit logout,    mode "default"
+    bindsym s exec --no-startup-id $HOME/.config/i3/i3exit suspend,   mode "default"
+    bindsym h exec --no-startup-id $HOME/.config/i3/i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id $HOME/.config/i3/i3exit reboot,    mode "default"
+    bindsym p exec --no-startup-id $HOME/.config/i3/i3exit shutdown,  mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
