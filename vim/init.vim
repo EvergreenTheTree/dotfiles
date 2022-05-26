@@ -24,6 +24,10 @@ command! STerm split | terminal
 command! VTerm vsplit | terminal
 command! TTerm tabnew | terminal
 
+autocmd TermOpen * setlocal nonumber
+
+set mouse=a
+
 set background=dark
 
 set laststatus=2
