@@ -65,12 +65,12 @@ unsetopt list_beep
 ### ZSH MODULES ###
 
 # Plugins
-# Syntax highlighting
-source "$XDG_CONFIG_HOME/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-# Better cd command
+PLUGS=(zsh-syntax-highlighting/zsh-syntax-highlighting.zsh zsh-z/zsh-z.plugin.zsh zsh-autoenv/autoenv.zsh)
 export ZSHZ_DATA="$XDG_CONFIG_HOME/z"
-source "$XDG_CONFIG_HOME/zsh/zsh-z/zsh-z.plugin.zsh"
-source "$XDG_CONFIG_HOME/zsh/zsh-autoenv/autoenv.zsh"
+for plug in $PLUGS; do
+    plug_path="$XDG_CONFIG_HOME/zsh/$plug"
+    [[ -f $plug_path ]] && source "$plug_path"
+done
 
 # Homebrew
 if type brew &>/dev/null; then
