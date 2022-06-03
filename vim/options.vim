@@ -154,6 +154,17 @@ cmp.setup({
         { name = "ultisnips" },
         { name = "nvim_lsp" },
     },
+    formatting = {
+        format = function (entry, vim_item)
+            if not entry.source.source.client then return vim_item end
+            local item = entry:get_completion_item()
+            local lsp_server = entry.source.source.client.name
+            if (lsp_server == "clangd" or lsp_server == "ccls") and item.detail then
+                vim_item.menu = item.detail
+            end
+            return vim_item
+        end
+    },
     -- Configure for <TAB> people
     -- - <TAB> and <S-TAB>: cycle forward and backward through autocompletion items
     -- - <TAB> and <S-TAB>: cycle forward and backward through snippets tabstops and placeholders
