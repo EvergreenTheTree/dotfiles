@@ -55,7 +55,6 @@ export TEXMFVAR="$XDG_CACHE_HOME/texlive/texmf-var"
 export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
 
 # Source local environment variables
-[ -f "$HOME/config/environment.local" ] && . "$HOME/config/environment.local"
-
+[ -f "$HOME/.config/environment.local" ] && . "$HOME/.config/environment.local"
 
 # vim:ft=sh
