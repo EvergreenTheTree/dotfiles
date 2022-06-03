@@ -7,6 +7,21 @@ if has("win32")
     let g:python3_host_prog = "C:\\Python37\\python.exe"
 endif
 
+if has("wsl")
+    let g:clipboard = {
+    \   'name': 'WslClipboard',
+    \   'copy': {
+    \      '+': 'clip.exe',
+    \      '*': 'clip.exe',
+    \    },
+    \   'paste': {
+    \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    \   },
+    \   'cache_enabled': 0,
+    \ }
+endif
+
 " Source normal vim config file.
 exe "source " . split(&rtp, ',')[0] . "/vimrc"
 
