@@ -1,0 +1,7 @@
+configuration {
+	modi: "run,drun";
+	font: "Iosevka Fixed 10";
+	terminal: "kitty";
+}
+
+@theme "nord"
