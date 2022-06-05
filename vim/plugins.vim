@@ -65,6 +65,9 @@ if has('nvim')
     let g:semshi#error_sign = v:false
 endif
 
+" nftables filetype support
+Plug 'nfnty/vim-nftables'
+
 " i3 config syntax higlighting
 Plug 'PotatoesMaster/i3-vim-syntax'
 
