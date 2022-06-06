@@ -127,6 +127,7 @@ let g:ale_linters = {
 \}
 let g:ale_haskell_hie_executable = 'hie-wrapper'
 let g:ale_rust_rustc_options = ''
+let g:ale_disable_lsp = 1
 
 """" cmp
 if has('nvim-0.5.0')
@@ -153,6 +154,7 @@ cmp.setup({
     sources = {
         { name = "ultisnips" },
         { name = "nvim_lsp" },
+        { name = "path" },
     },
     formatting = {
         format = function (entry, vim_item)
@@ -171,49 +173,103 @@ cmp.setup({
     -- - <TAB> to expand snippet when no completion item selected (you don't need to select the snippet from completion item to expand)
     -- - <C-space> to expand the selected snippet from completion menu
     mapping = {
-        ["<C-Space>"] = cmp.mapping(function(fallback)
-            if vim.fn.pumvisible() == 1 then
-                if vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-                    return vim.fn.feedkeys(t("<C-R>=UltiSnips#ExpandSnippet()<CR>"))
+        ["<Tab>"] = cmp.mapping({
+            c = function()
+                if cmp.visible() then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                else
+                    cmp.complete()
                 end
-
-                vim.fn.feedkeys(t("<C-n>"), "n")
-            elseif check_back_space() then
-                vim.fn.feedkeys(t("<cr>"), "n")
-            else
-                fallback()
+            end,
+            i = function(fallback)
+                if cmp.visible() then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+                    vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+                else
+                    fallback()
+                end
+            end,
+            s = function(fallback)
+                if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+                    vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+                else
+                    fallback()
+                end
             end
-        end, {
-            "i",
-            "s",
         }),
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            if vim.fn.complete_info()["selected"] == -1 and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-                vim.fn.feedkeys(t("<C-R>=UltiSnips#ExpandSnippet()<CR>"))
-            elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                vim.fn.feedkeys(t("<ESC>:call UltiSnips#JumpForwards()<CR>"))
-            elseif vim.fn.pumvisible() == 1 then
-                vim.fn.feedkeys(t("<C-n>"), "n")
-            elseif check_back_space() then
-                vim.fn.feedkeys(t("<tab>"), "n")
-            else
-                fallback()
+        ["<S-Tab>"] = cmp.mapping({
+            c = function()
+                if cmp.visible() then
+                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+                else
+                    cmp.complete()
+                end
+            end,
+            i = function(fallback)
+                if cmp.visible() then
+                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+                elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+                    return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
+                else
+                    fallback()
+                end
+            end,
+            s = function(fallback)
+                if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+                    return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
+                else
+                    fallback()
+                end
             end
-        end, {
-            "i",
-            "s",
         }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-                return vim.fn.feedkeys(t("<C-R>=UltiSnips#JumpBackwards()<CR>"))
-            elseif vim.fn.pumvisible() == 1 then
-                vim.fn.feedkeys(t("<C-p>"), "n")
-            else
-                fallback()
+        ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), {'i'}),
+        ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), {'i'}),
+        ['<C-n>'] = cmp.mapping({
+            c = function()
+                if cmp.visible() then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                else
+                    vim.api.nvim_feedkeys(t('<Down>'), 'n', true)
+                end
+            end,
+            i = function(fallback)
+                if cmp.visible() then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                else
+                    fallback()
+                end
             end
-        end, {
-            "i",
-            "s",
+        }),
+        ['<C-p>'] = cmp.mapping({
+            c = function()
+                if cmp.visible() then
+                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+                else
+                    vim.api.nvim_feedkeys(t('<Up>'), 'n', true)
+                end
+            end,
+            i = function(fallback)
+                if cmp.visible() then
+                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+                else
+                    fallback()
+                end
+            end
+        }),
+        ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
+        ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
+        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
+        ['<C-e>'] = cmp.mapping({ i = cmp.mapping.close(), c = cmp.mapping.close() }),
+        ['<CR>'] = cmp.mapping({
+            i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+            c = function(fallback)
+                if cmp.visible() then
+                    cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+                else
+                    fallback()
+                end
+            end
         }),
     },
 })
@@ -299,6 +355,10 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+require'lspconfig'.powershell_es.setup{
+  bundle_path = '/opt/powershell-editor-services',
+}
+
 EOF
 endif
 
@@ -403,7 +463,7 @@ endif
 " Add this folder to wildignore, since I don't need to edit any files from there
 set wildignore+=*/tmp/undo/*
 
-"" Status Line
+""" STATUS LINE
 set statusline=%!MyStatusline()
 
 function! MyStatusline()
