@@ -26,7 +26,7 @@ function! tmux_focus_events#focus_gained()
     augroup focus_gained_checktime
       au!
       " perform checktime ASAP when outside cmd line
-      au * * call <SID>delayed_checktime()
+      au CmdLineLeave * call timer_start(0, { _ -> <SID>delayed_checktime() })
     augroup END
   else
     silent checktime
