@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+wget -qO- pastebin.com/raw/PT8LbcWA | groff -Tascii -man | less

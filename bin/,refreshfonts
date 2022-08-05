@@ -1,0 +1,11 @@
+#!/bin/sh
+fontdir="$HOME/.fonts"
+[ -d "$HOME/.local/share/fonts" ] && fontdir="$HOME/.local/share/fonts"
+[ -d "$XDG_DATA_HOME" ] && fontdir="$XDG_DATA_HOME/fonts"
+
+mkfontdir "$fontdir"
+mkfontscale  "$fontdir"
+xset +fp  "$fontdir"
+xset fp rehash
+fc-cache
+fc-cache -fv

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+for file in "$@"; do
+    ffmpeg -i "$file" -ab 256k -map_metadata 0 -id3v2_version 3 "${file%.*}.mp3"
+done
