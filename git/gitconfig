@@ -53,12 +53,14 @@
 	dc = diff --cached
 	dt = difftool
 	dtc = difftool --cached
-	identity = "! git config user.name \"$(git config user.$1.name)\"; git config user.email \"$(git config user.$1.email)\"; :"
 [include]
 	# Machine local settings
-	path = ~/.gitconfig.local
-[user "github"]
-	name = 4Evergreen4
-	email = 4Evergreen4@users.noreply.github.com
+	path = ~/.config/git/config.local
+[includeIf "hasconfig:remote.*.url:ssh://aur@aur.archlinux.org/**"]
+	path = ~/.config/git/aur
+[includeIf "hasconfig:remote.*.url:git@github.com:4Evergreen4/**"]
+	path = ~/.config/git/github
+[includeIf "hasconfig:remote.*.url:git@git.sr.ht:~evergreentree/**"]
+	path = ~/.config/git/sourcehut
 [user]
 	useConfigOnly = true
