@@ -129,6 +129,8 @@ let g:ale_haskell_hie_executable = 'hie-wrapper'
 let g:ale_rust_rustc_options = ''
 let g:ale_disable_lsp = 1
 
+nnoremap <localleader>f :ALEFix<cr>
+
 """" cmp
 if has('nvim-0.5.0')
 lua << EOF
@@ -306,12 +308,12 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', ',f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  -- require'completion'.on_attach(client)
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'ccls', 'gopls', 'pylsp' }
+local servers = { 'ccls', 'gopls', 'pylsp', 'rust_analyzer' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
