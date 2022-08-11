@@ -1,0 +1,10 @@
+systemctl --user stop pulseaudio.socket
+systemctl --user stop pulseaudio.service
+sudo cpupower frequency-set -g powersave
+echo 'enabled' | sudo tee '/sys/class/net/enp57s0f1/device/power/wakeup' >/dev/null
+echo 'enabled' | sudo tee '/sys/class/net/wlp58s0/device/power/wakeup' >/dev/null
+echo 'enabled' | sudo tee '/sys/bus/usb/devices/usb3/power/wakeup' >/dev/null
+echo 'enabled' | sudo tee '/sys/bus/usb/devices/usb1/power/wakeup' >/dev/null
+echo 'enabled' | sudo tee '/sys/bus/usb/devices/1-10/power/wakeup' >/dev/null
+echo 'enabled' | sudo tee '/sys/bus/usb/devices/usb4/power/wakeup' >/dev/null
+echo 'enabled' | sudo tee '/sys/bus/usb/devices/usb2/power/wakeup' >/dev/null
