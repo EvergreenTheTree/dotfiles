@@ -81,6 +81,11 @@ setopt menu_complete
 # Allow command and variable subtitution in prompt
 setopt prompt_subst
 
+# Automatic cd stack keeping
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushd_silent
+
 # Stop beeping at me
 unsetopt list_beep
 
@@ -351,6 +356,10 @@ alias help=run-help
 
 # XDG conformance
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+
+# Quickly switch through pushd stack
+alias d='dirs -v'
+for index ({1..9}) alias "$index"="cd +${index}"; unset index
 
 ### TMUX ###
 
