@@ -8,20 +8,42 @@ fi
 
 ### COMPLETION ###
 
-# TODO: describe what each option does
+# Enable completers for performing shell expansions, normal completions,
+# reinstating completions in ignored-patterns, and approximate completions.
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
-zstyle ':completion:*' completions 1
-zstyle ':completion:*' glob 1
-zstyle ':completion:*' insert-unambiguous true
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '+' '+m:{[:lower:]}={[:upper:]}'
-zstyle ':completion:*' max-errors 1
+
+# Use an interactive menu to select completion options instead of just cycling
+# through them
 zstyle ':completion:*' menu select
-zstyle ':completion:*' original true
-zstyle ':completion:*' preserve-prefix '//[^/]##/'
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+
+# Caching for slower completion functions
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache-$ZSH_VERSION"
+
+# Group completions by category
+zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %d --%f'
+zstyle ':completion:*' group-name ''
+
+# Redue //dirname to /dirname when completing instead of /*/dirname
 zstyle ':completion:*' squeeze-slashes true
-zstyle ':completion:*' substitute 1
+
+# Allow lower case characters to complete itself or its uuppercase counterpart
+zstyle ':completion:*' matcher-list '+' '+m:{[:lower:]}={[:upper:]}'
+
+# Perform completion without showing menu if it is unambiguous
+zstyle ':completion:*' insert-unambiguous true
+
+# Set prompt for when completion items take up the whole screen (or more)
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+
+# Allow 1 error in approximate completion
+zstyle ':completion:*' max-errors 2
+
+# When showing approximate completions, always add the original to the list
+zstyle ':completion:*' original true
+
+# Not sure what this does tbh
+zstyle ':completion:*' completions 1
 
 ### OPTIONS ###
 
