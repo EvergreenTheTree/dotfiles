@@ -398,11 +398,20 @@ source "$HOME/.local/share/fzf/shell/key-bindings.zsh"
 ### PLUGINS ###
 
 PLUGS=(zsh-syntax-highlighting/zsh-syntax-highlighting.zsh zsh-z/zsh-z.plugin.zsh zsh-autoenv/autoenv.zsh)
+
 export ZSHZ_DATA="$XDG_CONFIG_HOME/z"
+
 for plug in $PLUGS; do
     plug_path="$XDG_CONFIG_HOME/zsh/$plug"
     [[ -f $plug_path ]] && source "$plug_path"
 done
+
+# Remove all /mnt/c references in path when using WSL2, it slows down syntax
+# highlighting significantly
+[[ -n $ZSH_HIGHLIGHT_VERSION ]] \
+    && [[ -d /run/WSL/ ]] \
+    && export PATH="$(echo $PATH | sed -e 's|:/mnt/c/[^:]*||g')" \
+    && export PATH="$PATH/:/mnt/c/Program Files/Microsoft VS Code/bin"
 
 true
 
