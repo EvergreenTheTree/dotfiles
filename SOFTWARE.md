@@ -5,10 +5,16 @@ This is a list of software that I find myself using very regularly.
 
 # Command Line
 
-- tmux: My choice of terminal multiplexer.
 - zsh: My favorite shell currently
-- **[LINUX]** kitty: The best terminal emulator around.  Konsole is good too if
+- tmux: My choice of terminal multiplexer.
+- **[LINUX]** kitty: My favorite terminal emulator.  Konsole is good too if
   you are using KDE.
+- ag or "the silver searcher": Used by FZF to get gitignore-sensitive results
+- ripgrep: better than ag for command line use
+- fd: better `find`
+- bat: better `cat`
+- difftastic: semantically aware diffs, needed for default difftool in git config
+- keychain: SSH agent handler
 
 # Web
 
@@ -19,31 +25,36 @@ This is a list of software that I find myself using very regularly.
 
 # Dev
 
+## General
+
+- neovim: My current choice of code editor.
+- git: The version control system I am most familiar with.
+- **[WINDOWS]** msys2 _(or Git for Windows SDK)_: Linux on windows.  _(better
+  than cygwin)_
+- Exuberant ctags: Necessary for some vim plugins
+
+## Python
+
 - python 3.4+: I do a lot of stuff with python, so it is essential.
 - pip: Much better python package management than easy_install, also essential.
 - ipython: The best interactive python interpreter, no question.
-- virtualenv: essential for python development.
-- poetry: Not as essential, but useful for managing virtualenvs in a cross-platform manner
+- poetry: Very useful for managing project virtualenvs in a cross-platform manner
+- pipx: Nice way of installing applications using pip without disrupting everything else
 - pylama: general purpose python code linter.  It is a wrapper around pycodestyle
   _(previously pep8)_, pydocstyle _(previously pep257)_ and pyflakes.
 - pylint: Very picky python linter; useful for catching code smells but take it with
   a grain of salt
 - pyls: python language server
-- neovim: My current choice of code editor.
-- git: The version control system I am most familiar with.
+
+## C/C++
 - C/C++ compiler _(gcc, clang)_: For C hacking.
 - ccls: c language server
 - bear: generates command list for ccls
 - CMake: A really popular alternative to configure scripts.
 - meson: Much better than CMake (though it is a low bar to clear tbf).
-- **[WINDOWS]** msys2 _(or Git for Windows SDK)_: Linux on windows.  _(better
-  than cygwin)_
-- Exuberant ctags: Necessary for some vim plugins
-- ag or "the silver searcher": Used by FZF to get gitignore-sensitive results
-- ripgrep: better than ag for command line use
-- fd: better `find`
-- difftastic: semantically aware diffs, needed for default difftool in git config
-- keychain: SSH agent handler
+
+## Shell
+
 - shellcheck: shell script linter
 
 # School/Office
@@ -73,8 +84,7 @@ This is a list of software that I find myself using very regularly.
 
 # Chat
 
-- Discord
-- Ripcord if you don't want heavy electron clients for slack or discord
+- Discord: I know it's bad privacy-wise but some communities I'm in use it exclusively)
 
 # System
 
