@@ -62,5 +62,7 @@
 	path = ~/.config/git/github
 [includeIf "hasconfig:remote.*.url:git@git.sr.ht:~evergreentree/**"]
 	path = ~/.config/git/sourcehut
+[includeIf "hasconfig:remote.*.url:git@elj.me/**"]
+	path = ~/.config/git/elj
 [user]
 	useConfigOnly = true
