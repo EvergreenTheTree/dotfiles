@@ -40,5 +40,5 @@ These are my configuration files for the i3 window manager.
 - Nextcloud
 
 # Installation
-Link this directory to `~/.i3`, and link `conf` to `~/.config/i3/conf`.  Note that you need to have
-pulled in the submodules and must have python 3 installed for autostart to work.
+
+Link this directory to `~/.config/i3`.
