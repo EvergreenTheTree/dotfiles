@@ -89,6 +89,9 @@ Plug 'tbastos/vim-lua'
 " text is yanked. (requires vim-tmux-focus-events)
 Plug 'roxma/vim-tmux-clipboard'
 
+" Better python code folding
+Plug 'tmhedberg/SimpylFold'
+
 " Some conveniences for editing tmux.conf
 Plug 'tmux-plugins/vim-tmux'
 
