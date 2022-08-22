@@ -1,0 +1,44 @@
+#!/bin/env bash
+set -e
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+
+WORK_LENGTH=25m
+SHORT_BREAK_LENGTH=5m
+LONG_BREAK_LENGTH=30m
+
+NOTIFICATION_SOUND="$SCRIPT_DIR/pomodoro.wav"
+
+if ! command -v termdown >/dev/null 2>&1 ; then
+    echo "ERROR: termdown executable not found" 1>&2
+    exit 1
+fi
+if ! command -v notify-send >/dev/null 2>&1 ; then
+    echo "ERROR: notify-send executable not found" 1>&2
+    exit 1
+fi
+
+end() {
+    echo "Number of pomodoros: $pomodoros"
+    exit 0
+}
+
+trap 'end' SIGINT
+
+pomodoros=0
+
+while true; do
+    termdown -T work $WORK_LENGTH
+    aplay "$NOTIFICATION_SOUND"
+    notify-send -i appointment-soon "Work period is over"
+    pomodoros=$((pomodoros + 1))
+    if ((pomodoros % 4)); then
+        termdown -T break $SHORT_BREAK_LENGTH
+    else
+        termdown -T break $LONG_BREAK_LENGTH
+    fi
+    aplay "$NOTIFICATION_SOUND"
+    notify-send -i appointment-soon "Break is over"
+done
+
+end
