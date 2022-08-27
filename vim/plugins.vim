@@ -58,6 +58,7 @@ if has('nvim-0.5.0')
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-path'
     Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+    Plug 'p00f/clangd_extensions.nvim'
 endif
 
 " Nice semantic python syntax highlighting

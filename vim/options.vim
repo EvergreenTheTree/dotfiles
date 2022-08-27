@@ -305,7 +305,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'ccls', 'gopls', 'pylsp', 'rust_analyzer' }
+local servers = { 'gopls', 'pylsp', 'rust_analyzer' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -317,6 +317,7 @@ end
 require'lspconfig'.powershell_es.setup{
   bundle_path = '/opt/powershell-editor-services',
 }
+require("clangd_extensions").setup()
 
 EOF
 endif
