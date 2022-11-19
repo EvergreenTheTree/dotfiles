@@ -17,7 +17,7 @@ pathadd() {
 }
 
 # If you want a directory added to PATH, put it here
-pathadd "$HOME/bin" "$HOME/.cargo/bin" "$HOME/.cabal/bin" "$HOME/.local/bin" "$HOME/.linuxbrew/bin" "$HOME/.nimble/bin" "$HOME/.luarocks/bin"
+pathadd "$HOME/bin" "$HOME/.local/share/cargo/bin" "$HOME/.cabal/bin" "$HOME/.local/bin" "$HOME/.linuxbrew/bin" "$HOME/.nimble/bin" "$HOME/.luarocks/bin"
 
 export PATH
 
