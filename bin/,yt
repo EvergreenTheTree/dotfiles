@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+cd /chonk/Videos/Youtube/ || exit 1
+yt-dlp --socket-timeout 2 --retries infinite --limit-rate 5M -f 'bv*[height<=1080]+ba/b' "$1"
+vlc "$(yt-dlp --get-filename "$1")"
