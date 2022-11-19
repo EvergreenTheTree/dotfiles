@@ -32,3 +32,5 @@ Session.vim
 .autoenv_leave.zsh
 .ccls-cache/
 .cache/
+.gdb_history
+compile_commands.json
