@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+"""Send all arguments to stdout separated by newlines or NULLs"""
+import sys
+
+
+def main():
+    if len(sys.argv) > 1 and sys.argv[1] == '-z':
+        end = "\0"
+        args = sys.argv[2:]
+    else:
+        end = "\n"
+        args = sys.argv[1:]
+
+    for arg in args:
+        print(arg, end=end)
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
