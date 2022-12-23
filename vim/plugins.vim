@@ -90,6 +90,13 @@ Plug 'tbastos/vim-lua'
 " text is yanked. (requires vim-tmux-focus-events)
 Plug 'roxma/vim-tmux-clipboard'
 
+" Multi-purpose fuzzy finder
+if has('nvim')
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+endif
+
 " Better python code folding
 Plug 'tmhedberg/SimpylFold'
 

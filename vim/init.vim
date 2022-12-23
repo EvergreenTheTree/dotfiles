@@ -46,3 +46,6 @@ set mouse=a
 set background=dark
 
 set laststatus=2
+
+lua require('me.options')
+
