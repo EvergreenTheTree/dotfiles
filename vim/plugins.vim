@@ -28,6 +28,9 @@ endif
 " Better syntax highlighting, autoindentation, linting, folding, and more for haskell
 Plug 'dag/vim2hs'
 
+" EditorConfig file support
+Plug 'editorconfig/editorconfig-vim'
+
 " Use tab to autocomplete (and much more)
 if !has('nvim')
     Plug 'ervandew/supertab'
