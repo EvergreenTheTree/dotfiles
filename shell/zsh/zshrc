@@ -355,6 +355,12 @@ alias df="df -h"
 # Quick editor shortcut
 alias e="\$EDITOR"
 
+# Clipboard aliases. TODO: support more "providers" than xsel
+if progexists xsel; then
+    alias cpaste="xsel -bo"
+    alias ccopy="xsel -bi"
+fi
+
 # Use the familiar "help" instead of run-help
 unalias run-help &>/dev/null
 alias help=run-help
