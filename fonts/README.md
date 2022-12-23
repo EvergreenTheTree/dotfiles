@@ -1,7 +1,8 @@
 fonts
 =====
 
-These are my programming fonts.  All of these fonts are openly licensed.
+These are my programming fonts.  All of these fonts are openly licensed and
+the licenses are included.
 
 # Installation
 
