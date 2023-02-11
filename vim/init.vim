@@ -5,6 +5,8 @@ set termguicolors
 
 if has("win32")
     let g:python3_host_prog = "C:\\Python37\\python.exe"
+else
+    let g:python3_host_prog = expand("~/.local/share/pyenv/versions/py3nvim/bin/python")
 endif
 
 if has("wsl")

@@ -64,6 +64,9 @@ if has('nvim-0.5.0')
     Plug 'p00f/clangd_extensions.nvim'
 endif
 
+" i3 config syntax higlighting
+Plug 'mboughaba/i3config.vim'
+
 " Nice semantic python syntax highlighting
 if has('nvim')
     Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
@@ -73,8 +76,13 @@ endif
 " nftables filetype support
 Plug 'nfnty/vim-nftables'
 
-" i3 config syntax higlighting
-Plug 'PotatoesMaster/i3-vim-syntax'
+if has('nvim')
+    " Treesitter support, enables lots of things
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter-context'
+    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+    Plug 'nvim-treesitter/playground'
+endif
 
 " Multi-purpose fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
@@ -124,15 +132,9 @@ Plug 'tpope/vim-surround'
 " Provides many convenient bracket mappings
 Plug 'tpope/vim-unimpaired'
 
-" Provides text objects and folding for indented languages
-Plug 'tweekmonster/braceless.vim'
-
 " Provides pandoc markdown highlighting
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
-
-" Provides nim support for vim
-Plug 'zah/nim.vim'
 
 " Linting
 if v:version >= 800 || has('nvim')
