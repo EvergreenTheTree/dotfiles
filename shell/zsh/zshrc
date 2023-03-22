@@ -150,6 +150,19 @@ precmd_functions+=(_fix_cursor)
 # Shift tab pls
 bindkey '^[[Z' reverse-menu-complete
 
+
+# Ctrl-z at an empty prompt backgrounds the current job
+fancy-ctrl-z () {
+if [[ $#BUFFER -eq 0 ]]; then
+    bg
+    zle redisplay
+else
+    zle push-input
+fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
 ### COLORS ###
 
 #### DETECTION ####
@@ -420,6 +433,17 @@ done
     && export PATH="$PATH/:/mnt/c/Program Files/Microsoft VS Code/bin"
 
 true
+
+# Use fzf to select zshz destination when z is run without arguments
+unalias z 2>/dev/null
+z() {
+    if [[ $# -gt 0 ]] || ! progexists fzf; then
+        zshz "$*"
+        return
+    fi
+
+    cd "$(zshz -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+}
 
 ## vim:fdm=expr:fdl=0:fdc=3:et:sts=4:ts=4:sw=4
 ## vim:fde=getline(v\:lnum)=~'^##'?'>'.(matchend(getline(v\:lnum),'##*')-2)\:'='

@@ -16,11 +16,6 @@ pathadd() {
     done
 }
 
-# If you want a directory added to PATH, put it here
-pathadd "$HOME/bin" "$HOME/.local/share/cargo/bin" "$HOME/.cabal/bin" "$HOME/.local/bin" "$HOME/.linuxbrew/bin" "$HOME/.nimble/bin" "$HOME/.luarocks/bin"
-
-export PATH
-
 # Try using vim as editor
 progexists vim && export EDITOR=vim GIT_EDITOR=vim
 
@@ -40,8 +35,10 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 # Force as many things to conform to XDG standards as possible
 export ANDROID_USER_HOME="$XDG_DATA_HOME/android"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
+pathadd "$CARGO_HOME/bin"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export GOPATH="$XDG_DATA_HOME/go"
+pathadd "$GOPATH/bin"
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export IPYTHONDIR="$XDG_DATA_HOME/ipython"
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
@@ -53,6 +50,12 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export DOT_SAGE="$XDG_CONFIG_HOME/sage"
 export TEXMFVAR="$XDG_CACHE_HOME/texlive/texmf-var"
 export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
+
+# If you want a directory added to PATH, put it here
+pathadd "$HOME/bin" "$HOME/.cabal/bin" "$HOME/.local/bin" "$HOME/.linuxbrew/bin" "$HOME/.nimble/bin" "$HOME/.luarocks/bin"
+
+export PATH
+
 
 # Source local environment variables
 [ -f "$HOME/.config/environment.local" ] && . "$HOME/.config/environment.local"
