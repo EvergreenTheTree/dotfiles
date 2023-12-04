@@ -21,6 +21,7 @@ These are my configuration files for the i3 window manager.
 - python 3
 - scrot
 - i3lock-color: https://github.com/chrjguill/i3lock-color
+- rofi (rofi-calc is a plus)
 
 # Optional Dependencies
 
