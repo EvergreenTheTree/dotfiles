@@ -4,14 +4,21 @@ function _rofi() {
     rofi -kb-accept-entry "!Return" "$@"
 }
 
-# [[ ! -f "$HOME/dice_hist.txt" ]] && touch "$HOME/dice_hist.txt"
+if [[ ! -f "$HOME/.cache/dice_hist" ]] || [[ $(wc -l <"$HOME/.cache/dice_hist") -eq 0 ]]; then
+    printf "\n" > "$HOME/.cache/dice_hist"
+fi
 
-dice="$(_rofi -dmenu -p "Roll dice" <"$HOME/dice_hist.txt")"
+dice="$(echo "New roll" | cat - "$HOME/.cache/dice_hist" | _rofi -dmenu -p "Roll dice")"
+
+if [[ $dice == "New roll" ]]; then
+    dice="$(_rofi -dmenu -p "Roll dice" )"
+fi
+
 if ! roll "$dice" >/dev/null 2>&1; then
     _rofi -e "No dice rolled."
     exit 1
 fi
 
-# grep -q "^$dice\$" "$HOME/dice_hist.txt" || sed -i "1s/^/$dice \n/" "$HOME/dice_hist.txt"
-result="$(roll -v "$dice" | tee "$HOME/dice.txt")"
+grep -q "^$dice\$" "$HOME/.cache/dice_hist" || sed -i "1s/^/$dice \n/" "$HOME/.cache/dice_hist"
+result="$(roll -v "$dice" | tee "$HOME/.cache/dice_res")"
 _rofi -e "$result"
