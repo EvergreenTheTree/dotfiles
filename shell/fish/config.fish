@@ -22,7 +22,7 @@ set fish_cursor_replace_one underscore
 fzf --fish | source
 
 alias ncdu="ncdu --color off"
-alias v="nvim"
+alias e="nvim"
 
 function fish_mode_prompt
 end
