@@ -1,0 +1,15 @@
+snippet t3 "Python 3 command line script template" b
+#!/usr/bin/env python3
+'''${1:Description for `!v expand("%:t")`}'''
+import sys
+
+
+def main():
+	$0
+	return 0
+
+
+if __name__ == '__main__':
+	sys.exit(main())
+
+endsnippet
