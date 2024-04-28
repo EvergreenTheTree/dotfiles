@@ -1,0 +1,2 @@
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dBATCH -sOutputFile="${1%.*}"_compressed.pdf "$1"
+# screen is lowest quality, ebook is medium, prepress is highest
