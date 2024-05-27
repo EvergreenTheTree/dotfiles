@@ -1,0 +1,1 @@
+/home/green/dotfiles/shell/fish/z/functions/__z_clean.fish

@@ -4,3 +4,6 @@
 [submodule "shell/zsh/zsh-autoenv"]
 	path = shell/zsh/zsh-autoenv
 	url = https://github.com/Tarrasch/zsh-autoenv
+[submodule "shell/fish/z"]
+	path = shell/fish/z
+	url = https://github.com/jethrokuan/z

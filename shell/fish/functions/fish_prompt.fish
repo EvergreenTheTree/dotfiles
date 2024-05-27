@@ -1,5 +1,5 @@
-# name: Default
-# author: Lily Ballard
+# name: Default Modified
+# author: Evergreen (based on "Default" by Lily Ballard)
 
 function fish_prompt --description 'Write out the prompt'
     set -l last_pipestatus $pipestatus
