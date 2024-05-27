@@ -21,7 +21,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- TODO: Migrate plugin configurations/keybindings to their own files
--- TODO: Neogit / gitsigns?
+-- TODO: Neogit
 require("lazy").setup({
     {
         "catppuccin/nvim",
@@ -41,6 +41,7 @@ require("lazy").setup({
     "justinmk/vim-dirvish",
     "tpope/vim-surround",
     "tpope/vim-unimpaired",
+    "tpope/vim-obsession",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
@@ -50,6 +51,7 @@ require("lazy").setup({
         dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
     },
     "stevearc/conform.nvim",
+    "stevearc/aerial.nvim",
     "mfussenegger/nvim-lint",
     "hrsh7th/nvim-cmp",     -- Autocompletion plugin
     "hrsh7th/cmp-nvim-lsp", -- LSP source for nvim-cmp
@@ -111,6 +113,7 @@ lspconfig.lua_ls.setup {
         }
     }
 }
+lspconfig.clangd.setup{}
 
 require "init.diagnostic_delay"
 vim.diagnostic.config({
@@ -252,33 +255,36 @@ tmux.setup({
     }
 })
 
-local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
-vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+
+local telescope = require("telescope")
+local telescope_builtin = require("telescope.builtin")
+telescope.load_extension("aerial")
+vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files, {})
+vim.keymap.set("n", "<leader>fg", telescope_builtin.live_grep, {})
+vim.keymap.set("n", "<leader>fb", telescope_builtin.buffers, {})
+vim.keymap.set("n", "<leader>fh", telescope_builtin.help_tags, {})
+vim.keymap.set("n", "<leader>fs", telescope.extensions.aerial.aerial, {})
+vim.keymap.set("n", "<leader>fl", telescope_builtin.lsp_document_symbols, {})
 vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>", {})
 
 vim.g.dirvish_mode = [[sort ir /[^\/]$/ | silent! keeppatterns /^.*[^\/]$/,$ sort i | nohl | 1]]
 vim.g.dirvish_relative_paths = 1
-local dirvish_augroup = vim.api.nvim_create_augroup("dirvish_settings", { clear = true })
+function Dirvish_settings()
+    vim.keymap.set("n", "gh", function ()
+        vim.b.hidden = not vim.b.hidden
+        if vim.b.hidden then
+            vim.cmd([[silent keeppatterns g@\v^\.[^\/]+/?$@d _]])
+        else
+            vim.cmd("Dirvish")
+        end
+    end,
+    { buffer = true, silent = true }
+    )
+end
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "dirvish",
-    callback = function ()
-        vim.keymap.set("n", "gh", function ()
-            vim.b.hidden = not vim.b.hidden
-            if vim.b.hidden then
-                vim.cmd([[silent keeppatterns g@\v^\.[^\/]+/?$@d _]])
-            else
-                vim.cmd("Dirvish")
-            end
-            end,
-            { buffer = true, silent = true }
-        )
-    end,
-    group = dirvish_augroup,
+    callback = Dirvish_settings
 })
-
 
 require'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all" (the five listed parsers should always be installed)
@@ -357,9 +363,58 @@ require("lint").linters_by_ft = {
     bash = {"shellcheck"},
     sh = {"shellcheck"},
 }
-vim.api.nvim_create_autocmd("BufWritePost", {
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
     callback = function () require("lint").try_lint() end,
 })
+
+require("aerial").setup()
+
+require("gitsigns").setup{
+    on_attach = function(bufnr)
+        local gitsigns = require('gitsigns')
+
+        local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+        end
+
+        -- Navigation
+        map('n', ']c', function()
+            if vim.wo.diff then
+                vim.cmd.normal({']c', bang = true})
+            else
+                gitsigns.nav_hunk('next')
+            end
+        end)
+
+        map('n', '[c', function()
+            if vim.wo.diff then
+                vim.cmd.normal({'[c', bang = true})
+            else
+                gitsigns.nav_hunk('prev')
+            end
+        end)
+
+        -- Actions
+        map('n', '<leader>hs', gitsigns.stage_hunk)
+        map('n', '<leader>hr', gitsigns.reset_hunk)
+        map('v', '<leader>hs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+        map('v', '<leader>hr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+        map('n', '<leader>hS', gitsigns.stage_buffer)
+        map('n', '<leader>hu', gitsigns.undo_stage_hunk)
+        map('n', '<leader>hR', gitsigns.reset_buffer)
+        map('n', '<leader>hp', gitsigns.preview_hunk)
+        map('n', '<leader>hb', function() gitsigns.blame_line{full=true} end)
+        map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+        map('n', '<leader>hd', gitsigns.diffthis)
+        map('n', '<leader>hD', function() gitsigns.diffthis('~') end)
+        --map('n', '<leader>td', gitsigns.toggle_deleted)
+
+        -- Text object
+        map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+    end
+}
 
 -- }}}
 -- Colorscheme {{{
@@ -448,6 +503,8 @@ vim.keymap.set("n", "f", "<Plug>Sneak_f")
 vim.keymap.set("n", "F", "<Plug>Sneak_F")
 vim.keymap.set("n", "t", "<Plug>Sneak_t")
 vim.keymap.set("n", "T", "<Plug>Sneak_T")
+
+vim.keymap.set("n", "<leader>w", "<cmd>Obsession<cr>")
 
 -- }}}
 -- Status Line {{{
