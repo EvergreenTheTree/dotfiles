@@ -1,3 +1,4 @@
+#!/bin/sh
 # Evergreen's environment variables                         #
 # NOTE: Everything in this file must be posix sh compatible #
 
