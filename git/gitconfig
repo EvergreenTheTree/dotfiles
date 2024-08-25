@@ -3,6 +3,8 @@
 	abbrev = 12
 	excludesfile = ~/.config/git/gitignore
 	askPass =
+[init]
+	defaultBranch = main
 [advice]
 	# Don't need to see status hints
 	statusHints = false
@@ -58,8 +60,10 @@
 	path = ~/.config/git/config.local
 [includeIf "hasconfig:remote.*.url:ssh://aur@aur.archlinux.org/**"]
 	path = ~/.config/git/aur
-[includeIf "hasconfig:remote.*.url:git@github.com:4Evergreen4/**"]
+[includeIf "hasconfig:remote.*.url:git@github.com:EvergreenTheTree/**"]
 	path = ~/.config/git/github
+[includeIf "hasconfig:remote.*.url:git@gitlab.com:4Evergreen4/**"]
+	path = ~/.config/git/gitlab
 [includeIf "hasconfig:remote.*.url:git@git.sr.ht:~evergreentree/**"]
 	path = ~/.config/git/sourcehut
 [includeIf "hasconfig:remote.*.url:git@elj.me/**"]
