@@ -115,18 +115,29 @@ lspconfig.lua_ls.setup {
 }
 lspconfig.clangd.setup{}
 
-require'lspconfig'.pylsp.setup{
+lspconfig.basedpyright.setup{
     settings = {
-        pylsp = {
-            plugins = {
-                pycodestyle = {
-                    ignore = {'W391'},
-                    maxLineLength = 100
-                }
+        python = {
+            analysis = {
+                ignore = { "*" }, -- using ruff
             }
-        }
+        },
+        basedpypyright = {
+            disableOrganizeImports = true, -- using ruff
+            capabilities = {
+                textDocument = {
+                    publishDiagnostics = {
+                        tagSupport = {
+                            valueSet = { 2 },
+                        },
+                    },
+                },
+            },
+        },
     }
 }
+
+lspconfig.ruff.setup{}
 
 require "init.diagnostic_delay"
 vim.diagnostic.config({
