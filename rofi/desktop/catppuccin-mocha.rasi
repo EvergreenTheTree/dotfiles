@@ -8,7 +8,7 @@
     fg-col2: #f2d5cf;
     grey: #6c7086;
     width: 800;
-    font: "Pragmasevka Nerd Font 10";
+    font: "IosevkaTerm Nerd Font 11";
 }
 
 element-text, element-icon , mode-switcher {

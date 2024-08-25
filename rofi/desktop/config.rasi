@@ -1,5 +1,5 @@
 configuration{
-    modi: "run,drun,window";
+    modi: "run,drun,window,power-menu:rofi-power-menu";
     icon-theme: "Papirus";
     show-icons: true;
     terminal: "alacritty";
