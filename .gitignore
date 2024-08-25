@@ -12,3 +12,4 @@ vim/rplugin.vim
 vim/autoload/plug.vim.old
 fish_variables
 beets/state.pickle
+shell/fish/config.fish.local
