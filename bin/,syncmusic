@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+rsync -av --chmod=Du=rwx,Dg=rx,Do=rx,Fu=rw,Fg=r,Fo=r -e ssh "$HOME/NotDropbox/Music/" rhu.home:/mnt/storage/Music
+
