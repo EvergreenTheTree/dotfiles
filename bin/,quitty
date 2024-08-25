@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+tdrop -P 'wmctrl -i -r $wid -b add,above' kitty -o hide_window_decorations=yes
+
