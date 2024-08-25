@@ -38,6 +38,10 @@ else if progexists vim
     set -gx EDITOR "vim"
 end
 
+if progexists keychain
+    keychain --eval --quiet | source
+end
+
 fish_vi_key_bindings
 bind -M insert \cr history-pager
 bind -M insert \ce end-of-line
@@ -76,7 +80,7 @@ alias df="df -h"
 # TODO: more clipboard "providers"
 if progexists xsel
     alias cpaste="xsel -bo"
-    alias ccopy="xsel-bi"
+    alias ccopy="xsel -bi"
 end
 alias t="tmux new -A -s $USER"
 
