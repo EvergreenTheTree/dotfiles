@@ -42,6 +42,13 @@ if progexists keychain
     keychain --eval --quiet | source
 end
 
+if progexists pyenv
+    pyenv init - | source
+    pyenv virtualenv-init - | source
+    set -gx PYENV_ROOT $HOME/.pyenv
+    fish_add_path $PYENV_ROOT/bin
+end
+
 fish_vi_key_bindings
 bind -M insert \cr history-pager
 bind -M insert \ce end-of-line
@@ -129,8 +136,8 @@ function c -w z
     end
 end
 
-if test -f "$XDG_DATA_HOME/fish/config.fish.local"
-    source "$XDG_DATA_HOME/fish/config.fish.local"
+if test -f "$XDG_CONFIG_HOME/fish/config.fish.local"
+    source "$XDG_CONFIG_HOME/fish/config.fish.local"
 end
 
 # vim:et:sts=4:ts=4:sw=4
