@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+set -eu
+
+# All supported choices
+all=(shutdown reboot suspend hibernate "log out" "lock screen")
+
+# By default, show all (i.e., just copy the array)
+show=("${all[@]}")
+
+declare -A icons
+icons["lock screen"]="\Uf033e"
+icons["log out"]="\Uf0343"
+icons[suspend]="\Uf04b2"
+icons[hibernate]="\Uf02ca"
+icons[reboot]="\Uf0709"
+icons[shutdown]="\Uf0425"
+icons[cancel]="\Uf0156"
+
+declare -A actions
+actions["lock screen"]="hyprlock --no-fade-in"
+actions["log out"]="niri msg action quit --skip-confirmation"
+actions[suspend]="systemctl suspend"
+actions[hibernate]="systemctl hibernate"
+actions[reboot]="systemctl reboot"
+actions[shutdown]="systemctl poweroff"
+
+# By default, no dry run
+dryrun=false
+
+options=""
+for entry in "${show[@]}"
+do
+    options+="${icons[$entry]}\t$entry\n"
+done
+options="${options%??}" # remove trailing newline
+
+selection="$(echo -e "$options" | fuzzel --dmenu --lines ${#show[@]} --width 40 --accept-nth=2 --prompt='power menu: ')"
+if [[ $dryrun = true ]]; then
+    printf 'Selected: %s\n' "$selection" >&2
+else
+    ${actions[$selection]}
+fi

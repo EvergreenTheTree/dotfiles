@@ -1,0 +1,66 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 24,
+    "spacing": 5,
+
+    "modules-left": ["niri/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["group/usage", "wireplumber", "group/bat", "tray"],
+
+    "group/usage": {
+        "orientation": "horizontal",
+        "modules": ["custom/pacman", "temperature"]
+    },
+
+    "group/bat": {
+        "orientation": "horizontal",
+        "modules": ["battery", "backlight"]
+    },
+
+    "niri/workspaces": {
+        "format": "{value}"
+    },
+
+    "clock": {
+        "format": "{:%Y-%m-%d | %H:%M}"
+    },
+
+    "wireplumber": {
+        "format": "\udb81\udd7e  {volume}%",
+        "max-volume": 100,
+        "scroll-step": 5
+    },
+
+    "battery": {
+        "interval": 30,
+        "format-charging": "\uf0e7  {capacity}%",
+        "format-discharging": "{icon}  {capacity}%",
+        "format-full": "\uf240  {capacity}%",
+        "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"],
+    },
+
+    "backlight": {
+        "format": "\udb80\udcdf  {percent}%"
+    },
+
+    "temperature": {
+        "format": " {temperatureC}°C"
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 16
+    },
+
+    "custom/pacman": {
+        "format": "{icon}{0} ",
+        "return-type": "json",
+        "format-icons": {
+            "pending-updates": " ",
+            "updated": ""
+        },
+        "exec-if": "which waybar-updates",
+        "exec": "waybar-updates --notify --interval 30 --cycles 120"
+    }
+}
