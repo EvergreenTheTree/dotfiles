@@ -5,8 +5,8 @@
     "spacing": 5,
 
     "modules-left": ["niri/workspaces"],
-    "modules-center": ["clock"],
-    "modules-right": ["group/usage", "wireplumber", "group/bat", "tray"],
+    "modules-center": [],
+    "modules-right": ["group/usage", "wireplumber", "group/bat", "tray", "clock"],
 
     "group/usage": {
         "orientation": "horizontal",
@@ -28,8 +28,10 @@
 
     "wireplumber": {
         "format": "\udb81\udd7e  {volume}%",
+        "format-muted": "󰝟  {volume}%",
         "max-volume": 100,
-        "scroll-step": 5
+        "scroll-step": 5,
+        "on-click": "pavucontrol"
     },
 
     "battery": {
