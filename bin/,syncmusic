@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 
-rsync -av --chmod=Du=rwx,Dg=rx,Do=rx,Fu=rw,Fg=r,Fo=r -e ssh "$HOME/NotDropbox/Music/" rhu.home:/mnt/storage/Music
-
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+# rsync -av --chmod=D755,F644 --delete --progress -e ssh "$HOME/NotDropbox/Music/" glenn.internal:/mnt/chonk/navidrome/music
+rclone sync -v "$HOME/NotDropbox/Music" glenn_music:/mnt/chonk/navidrome/music
+python "$SCRIPT_DIR/start_scan.py"
