@@ -1,3 +1,5 @@
+config.load_autoconfig(False)
+
 c.fonts.default_family = 'Iosevka Fixed'
 c.fonts.default_size = '10pt'
 c.fonts.web.family.serif = "Noto Serif"
@@ -18,6 +20,6 @@ c.editor.command = ["nvim-qt", "{file}", "--", "-c", "normal {line}G{column0}l"]
 
 c.colors.webpage.bg = "#3b4252"
 
-c.colors.webpage.prefers_color_scheme_dark = True
+c.colors.webpage.preferred_color_scheme = "dark"
 
 config.source('nord-qutebrowser.py')
