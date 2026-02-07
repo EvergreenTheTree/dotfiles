@@ -1,10 +1,19 @@
 directory: ~/NotDropbox/Music
 library: ~/NotDropbox/musiclibrary.db
-plugins: convert
+plugins: convert fetchart lyrics replaygain permissions fish musicbrainz
 import:
     move: yes
-convert:
-    copy_album_art: yes
-    dest: "~/Converted Music"
-
+fetchart:
+    auto: yes
+    minwidth: 512
+    maxwidth: 1200
+    high_resolution: no
+lyrics:
+    synced: yes
+    print: yes
+replaygain:
+    backend: ffmpeg
+permissions:
+    file: 644
+    dir: 755
 # vim:et:ts=4:sts=4:sw=4
