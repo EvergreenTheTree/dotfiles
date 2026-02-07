@@ -131,6 +131,7 @@ environment {
 }
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "swayidle" "-w" "timeout" "601" "niri msg action power-off-monitors" "timeout" "600" "hyprlock --no-fade-in" "before-sleep" "hyprlock --no-fade-in"
+spawn-at-startup "vicinae"
 
 // all my homies hate CSD
 prefer-no-csd
@@ -175,7 +176,8 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+Return { spawn "kitty"; }
-    Mod+D { spawn "fuzzel" "--prompt=app: "; }
+    Mod+Shift+D { spawn "fuzzel" "--prompt=app: "; }
+    Mod+D { spawn "vicinae" "open"; }
     Super+Alt+L { spawn "hyprlock"; }
     Mod+V { spawn "sh" "-c" "cliphist list | fuzzel --dmenu --prompt='cliphist: ' | cliphist decode | wl-copy"; }
 
