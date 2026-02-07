@@ -132,7 +132,9 @@ function c -w z
     if test (count $argv) -gt 0
         z $argv
     else
-        cd (z -l 2>&1 | fzf --height=40% --scheme=path --reverse +s +m --tac --bind=ctrl-z:ignore | sed 's/^[0-9,.]* *//')
+        cd (z -l 2>&1 | fzf --height=40% --scheme=path --reverse +s +m --bind=ctrl-z:ignore | sed 's/^[0-9,.]* *//')
+    end
+end
 
 function y
     set tmp (mktemp -t "yazi-cwd.XXXXXX")
