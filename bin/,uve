@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Edit single file python scripts with inline dependencies using uv
+set -eu
+temp="$(mktemp)"
+printf 'Created temp directory for requirements: %s\n' "$temp" 1>&2
+cleanup() {
+	printf 'Removed temp directory: %s\n' "$temp" 1>&2
+	rm -rf "$temp"
+}
+dirtycleanup() {
+	printf 'Trapped EXIT, cleaning up\n' 1>&2
+}
+trap cleanup EXIT
+uv export --script "$1" --no-hashes > "$temp"
+printf 'Exported requirements requirements\n'
+uv run --with-requirements "$temp" "$EDITOR" "$1"
+cleanup
