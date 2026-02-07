@@ -143,10 +143,10 @@ vim.diagnostic.config({
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
+vim.keymap.set("n", "<leader>x", vim.diagnostic.open_float)
 --vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 --vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -164,16 +164,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
         --vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-        vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
-        vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
-        vim.keymap.set("n", "<space>wl", function()
+        vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
+        vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
+        vim.keymap.set("n", "<leader>wl", function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, opts)
-        vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
-        vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
-        vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
+        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-        vim.keymap.set("n", "<space>=", function()
+        vim.keymap.set("n", "<leader>=", function()
             vim.lsp.buf.format { async = true }
         end, opts)
     end,
@@ -291,7 +291,6 @@ vim.keymap.set("n", "<leader>fb", telescope_builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", telescope_builtin.help_tags, {})
 vim.keymap.set("n", "<leader>fs", telescope.extensions.aerial.aerial, {})
 vim.keymap.set("n", "<leader>fl", telescope_builtin.lsp_document_symbols, {})
-vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>", {})
 
 vim.g.dirvish_mode = [[sort ir /[^\/]$/ | silent! keeppatterns /^.*[^\/]$/,$ sort i | nohl | 1]]
 vim.g.dirvish_relative_paths = 1
@@ -515,6 +514,14 @@ function Docgen()
 end
 
 vim.keymap.set("n", "<leader>d", Docgen)
+
+function Bufclean()
+    for _, v in ipairs(vim.fn.getbufinfo()) do
+        if v.hidden == 1 then
+            vim.cmd.bwipeout(v.bufnr)
+        end
+    end
+end
 
 -- vim.keymap.set("n", "<c-h>", "<c-w>h")
 -- vim.keymap.set("n", "<c-j>", "<c-w>j")
