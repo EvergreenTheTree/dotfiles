@@ -70,15 +70,9 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 
 -- Setup language servers.
-local lspconfig = require("lspconfig")
+local lspconfig = vim.lsp.config
 -- TODO: look into https://github.com/mrcjkb/rustaceanvim if I do more rust
-lspconfig.rust_analyzer.setup {
-    -- Server-specific settings. See `:help lspconfig-setup`
-    settings = {
-        ["rust-analyzer"] = {},
-    },
-}
-lspconfig.lua_ls.setup {
+lspconfig.lua_ls = {
     on_init = function(client)
         local path = client.workspace_folders[1].name
         if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
@@ -113,9 +107,8 @@ lspconfig.lua_ls.setup {
         }
     }
 }
-lspconfig.clangd.setup{}
 
-lspconfig.basedpyright.setup{
+lspconfig.basedpyright = {
     settings = {
         python = {
             analysis = {
@@ -136,8 +129,6 @@ lspconfig.basedpyright.setup{
         },
     }
 }
-
-lspconfig.ruff.setup{}
 
 require "init.diagnostic_delay"
 vim.diagnostic.config({
