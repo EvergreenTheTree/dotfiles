@@ -38,9 +38,9 @@ else if progexists vim
     set -gx EDITOR "vim"
 end
 
-if progexists keychain
-    keychain --eval --quiet | source
-end
+# if progexists keychain
+#     keychain --eval --quiet | source
+# end
 
 if progexists pyenv
     pyenv init - | source
