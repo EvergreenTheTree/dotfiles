@@ -133,7 +133,14 @@ function c -w z
         z $argv
     else
         cd (z -l 2>&1 | fzf --height=40% --scheme=path --reverse +s +m --tac --bind=ctrl-z:ignore | sed 's/^[0-9,.]* *//')
+
+function y
+    set tmp (mktemp -t "yazi-cwd.XXXXXX")
+    command yazi $argv --cwd-file="$tmp"
+    if read -z cwd < "$tmp"; and [ "$cwd" != "$PWD" ]; and test -d "$cwd"
+        builtin cd -- "$cwd"
     end
+    rm -f -- "$tmp"
 end
 
 if test -f "$XDG_CONFIG_HOME/fish/config.fish.local"

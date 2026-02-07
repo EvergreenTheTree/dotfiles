@@ -1,0 +1,34 @@
+[[plugin.deps]]
+use = "yazi-rs/plugins:mount"
+rev = "88990a6cf1d3"
+hash = "9ad20d763df07ce40fd09de549d914b0"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:chmod"
+rev = "88990a6cf1d3"
+hash = "8da0b15a97b5dfd13941d1ecc617ac7c"
+
+[[plugin.deps]]
+use = "boydaihungst/mediainfo"
+rev = "dc61636816e3"
+hash = "2fa34959353b6f1a1c33659f50e098fd"
+
+[[plugin.deps]]
+use = "ndtoan96/ouch"
+rev = "594b8a2b2466"
+hash = "c9e628fc0312d198db22ae2fa74883b"
+
+[[plugin.deps]]
+use = "AminurAlam/yazi-plugins:preview-sqlite"
+rev = "ad655bea7150"
+hash = "e21bd1066bfd09c92fd0201cffec287f"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:zoom"
+rev = "88990a6cf1d3"
+hash = "6ce49cf5b4c7c0d9cce8a1062ed478d3"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-mocha"
+rev = "9e053d0686a7"
+hash = "8eabb4e88096f10905a6df62cfaadbf4"
