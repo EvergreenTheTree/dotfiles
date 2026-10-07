@@ -5,9 +5,15 @@
 # === 1. Launch Vicinae and capture its active window ===
 # --------------------------------------------------------
 vicinae open
+
 # sleep 0.05  # Small delay if needed to ensure window is mapped.
 #             # Uncomment this ^ line if neede for your case, not needed for my setup.
 vicinae_win=$(xdotool getactivewindow)
+class=$(xdotool getwindowclassname "$vicinae_win")
+if [[ $class != vicinae ]]; then
+    echo "ERROR: Active window is not vicinae" 1>&2
+    exit 1
+fi
 
 # --------------------------------------------------------
 # === 2. Get mouse position (just to detect monitor) ===
