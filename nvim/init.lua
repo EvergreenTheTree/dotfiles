@@ -64,10 +64,15 @@ require("lazy").setup({
         dependencies = { "nvim-lua/plenary.nvim" }
     },
     "mbbill/undotree",
+    "mfussenegger/nvim-dap",
+    { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio", "theHamsta/nvim-dap-virtual-text"} },
+
 })
 
 require("mason").setup()
 require("mason-lspconfig").setup()
+require("dapui").setup()
+require("nvim-dap-virtual-text").setup()
 
 -- Setup language servers.
 local lspconfig = vim.lsp.config
@@ -444,6 +449,45 @@ require("gitsigns").setup{
     end
 }
 
+local dap = require('dap')
+dap.adapters.cppdbg = {
+    type = 'executable',
+    id = 'cppdbg',
+    command = vim.fn.exepath('OpenDebugAD7'),
+}
+dap.configurations.c = {
+    {
+        type = 'cppdbg',
+        request = 'launch',
+        name = 'Pick executable (GDB)',
+        program = function()
+            local path = vim.fn.input({
+                prompt = 'Path to executable: ',
+                default = vim.fn.getcwd() .. '/',
+                completion = 'file',
+            })
+            return (path and path ~= "") and path or dap.ABORT
+        end,
+        cwd = '${workspaceFolder}',
+        stopAtEntry = true,
+    },
+    {
+        type = 'cppdbg',
+        request = 'launch',
+        name = 'Attach to gdbserver :1234',
+        MIMode = 'gdb',
+        miDebuggerServerAddress = 'localhost:1234',
+        miDebuggerPath = '/usr/bin/gdb',
+        cwd = '${workspaceFolder}',
+        -- program = function()
+        --     return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        -- end,
+        program = function()
+            return "/bin/true"
+        end,
+    },
+}
+
 -- }}}
 -- Colorscheme {{{
 
@@ -492,6 +536,7 @@ vim.opt.shortmess = vim.opt.shortmess + "c"
 vim.opt.sidescrolloff = 3
 vim.opt.smartcase = true
 vim.opt.undofile = true
+vim.opt.shell = "fish"
 
 vim.g.markdown_folding = 1
 vim.g.matchup_matchparen_offscreen = {method = "popup"}
@@ -513,7 +558,7 @@ function Docgen()
     end
 end
 
-vim.keymap.set("n", "<leader>d", Docgen)
+--vim.keymap.set("n", "<leader>d", Docgen)
 
 function Bufclean()
     for _, v in ipairs(vim.fn.getbufinfo()) do
@@ -540,6 +585,34 @@ vim.keymap.set("n", "F", "<Plug>Sneak_F")
 vim.keymap.set("n", "t", "<Plug>Sneak_t")
 vim.keymap.set("n", "T", "<Plug>Sneak_T")
 
+vim.keymap.set("t", "<s-esc>", "<c-\\><c-n>")
+
+vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
+vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
+vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
+vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
+vim.keymap.set('n', '<localleader>b', function() require('dap').toggle_breakpoint() end)
+vim.keymap.set('n', '<localleader>B', function() require('dap').set_breakpoint() end)
+vim.keymap.set('n', '<localleader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
+vim.keymap.set('n', '<localleader>dg', function() require('dap').focus_frame() end)
+vim.keymap.set('n', '<localleader>dr', function() require('dap').repl.open() end)
+vim.keymap.set('n', '<localleader>dl', function() require('dap').run_last() end)
+vim.keymap.set('n', '<localleader>dd', function() require('dapui').toggle() end)
+vim.keymap.set({'n', 'v'}, '<localleader>dh', function()
+  require('dap.ui.widgets').hover()
+end)
+vim.keymap.set({'n', 'v'}, '<localleader>dp', function()
+  require('dap.ui.widgets').preview()
+end)
+vim.keymap.set('n', '<localleader>df', function()
+  local widgets = require('dap.ui.widgets')
+  widgets.centered_float(widgets.frames)
+end)
+vim.keymap.set('n', '<localleader>ds', function()
+  local widgets = require('dap.ui.widgets')
+  widgets.centered_float(widgets.scopes)
+end)
+
 vim.keymap.set("n", "<leader>w", "<cmd>Obsession<cr>")
 
 -- }}}
@@ -551,7 +624,7 @@ function Statusline()
     local squeeze_width = vim.fn.winwidth(0) - (filename:len() / 2)
 
     -- Buffer number
-    sl = sl .. "[%-3.3n] "
+    -- sl = sl .. "[%-3.3n] "
     -- File name
     if squeeze_width > 50 then
         sl = sl .. "%f "
