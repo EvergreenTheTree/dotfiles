@@ -11,6 +11,7 @@ fetchart:
 lyrics:
     synced: yes
     print: yes
+    sources: [lrclib]
 replaygain:
     backend: ffmpeg
 permissions:
