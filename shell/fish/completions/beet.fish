@@ -30,7 +30,7 @@ end
 
 set CMDS completion config convert fetchart fields fish ? help imp im import ls list lyrics mod modify mv move rm remove replaygain stats upd up update version write
 
-set FIELDS acoustid_fingerprint: acoustid_id: added: album: album_id: albumartist: albumartist_credit: albumartist_sort: albumartists: albumartists_credit: albumartists_sort: albumdisambig: albumstatus: albumtotal: albumtype: albumtypes: arranger: artist: artist_credit: artist_sort: artists: artists_credit: artists_ids: artists_sort: artpath: asin: barcode: bitdepth: bitrate: bitrate_mode: bpm: catalognum: channels: comments: comp: composer: composer_sort: country: day: disc: discogs_albumid: discogs_artistid: discogs_labelid: disctitle: disctotal: encoder: encoder_info: encoder_settings: filesize: format: genre: grouping: id: initial_key: isrc: label: language: length: lyricist: lyrics: mb_albumartistid: mb_albumartistids: mb_albumid: mb_artistid: mb_artistids: mb_releasegroupid: mb_releasetrackid: mb_trackid: mb_workid: media: month: mtime: original_day: original_month: original_year: path: r128_album_gain: r128_track_gain: release_group_title: releasegroupdisambig: remixer: rg_album_gain: rg_album_peak: rg_track_gain: rg_track_peak: samplerate: script: singleton: style: title: track: trackdisambig: tracktotal: work: work_disambig: year:
+set FIELDS acoustid_fingerprint: acoustid_id: added: album: album_id: albumartist: albumartist_credit: albumartist_sort: albumartists: albumartists_credit: albumartists_sort: albumdisambig: albumstatus: albumtotal: albumtype: albumtypes: arrangers: arrangers_ids: artist: artist_credit: artist_sort: artists: artists_credit: artists_ids: artists_sort: artpath: asin: barcode: bitdepth: bitrate: bitrate_mode: bpm: catalognum: channels: comments: comp: composer_sort: composers: composers_ids: country: day: disc: discogs_albumid: discogs_artistid: discogs_labelid: disctitle: disctotal: encoder: encoder_info: encoder_settings: filesize: format: genres: grouping: has_cover_art: id: initial_key: isrc: label: language: length: lyricists: lyricists_ids: lyrics: mb_albumartistid: mb_albumartistids: mb_albumid: mb_artistid: mb_artistids: mb_releasegroupid: mb_releasetrackid: mb_trackid: mb_workid: media: month: mtime: original_day: original_month: original_year: path: r128_album_gain: r128_track_gain: release_group_title: releasegroupdisambig: remixers: remixers_ids: rg_album_gain: rg_album_peak: rg_track_gain: rg_track_peak: samplerate: script: singleton: style: subtitle: title: track: trackdisambig: tracktotal: work: work_disambig: year:
 
 
 # ====== setup basic beet completion =====
@@ -172,6 +172,7 @@ complete -c beet -n '__fish_beet_using_command config' -s h -l help -d 'print he
 # ====== completions for convert =====
 complete -c beet -n '__fish_beet_using_command convert' -s p -l pretend -d 'show actions but do nothing'
 complete -c beet -n '__fish_beet_using_command convert' -r -s t -l threads -d 'change the number of threads, defaults to maximum available processors'
+complete -c beet -n '__fish_beet_using_command convert' -s r -l refresh -d 'reconvert if original file is newer than converted file'
 complete -c beet -n '__fish_beet_using_command convert' -s k -l keep-new -d 'keep only the converted and move the old files'
 complete -c beet -n '__fish_beet_using_command convert' -r -s d -l dest -d 'set the destination directory'
 complete -c beet -n '__fish_beet_using_command convert' -r -s f -l format -d 'set the target format of the tracks'
@@ -199,7 +200,7 @@ complete -c beet -n '__fish_beet_using_command fields' -s h -l help -d 'print he
 
 # ====== completions for fish =====
 complete -c beet -n '__fish_beet_using_command fish' -s f -l noFields -d 'omit album/track field completions'
-complete -c beet -n '__fish_beet_using_command fish' -r -s e -l extravalues -a 'id path album_id title artist artists artists_ids artist_sort artists_sort artist_credit artists_credit remixer album albumartist albumartists albumartist_sort albumartists_sort albumartist_credit albumartists_credit genre style discogs_albumid discogs_artistid discogs_labelid lyricist composer composer_sort work mb_workid work_disambig arranger grouping year month day track tracktotal disc disctotal lyrics comments bpm comp mb_trackid mb_albumid mb_artistid mb_artistids mb_albumartistid mb_albumartistids mb_releasetrackid trackdisambig albumtype albumtypes label barcode acoustid_fingerprint acoustid_id mb_releasegroupid release_group_title asin isrc catalognum script language country albumstatus media albumdisambig releasegroupdisambig disctitle encoder rg_track_gain rg_track_peak rg_album_gain rg_album_peak r128_track_gain r128_album_gain original_year original_month original_day initial_key length bitrate bitrate_mode encoder_info encoder_settings format samplerate bitdepth channels mtime added singleton filesize id artpath added albumartist albumartist_sort albumartist_credit albumartists albumartists_sort albumartists_credit album genre style discogs_albumid discogs_artistid discogs_labelid year month day disctotal comp mb_albumid mb_albumartistid mb_albumartistids albumtype albumtypes label barcode mb_releasegroupid release_group_title asin catalognum script language country albumstatus albumdisambig releasegroupdisambig rg_album_gain rg_album_peak r128_album_gain original_year original_month original_day path albumtotal' -d 'include specified field *values* in completions'
+complete -c beet -n '__fish_beet_using_command fish' -r -s e -l extravalues -a 'album_id channels length comments composers_ids mb_trackid artists_ids lyricists albumartists_credit original_year mb_albumid discogs_artistid albumtypes tracktotal comp country track r128_track_gain mb_albumartistids discogs_labelid r128_album_gain id barcode month release_group_title albumtype encoder_settings original_month trackdisambig disc mb_artistid bitrate_mode releasegroupdisambig grouping mb_workid disctitle year encoder encoder_info remixers lyrics bpm arrangers artist_sort path style work albumdisambig discogs_albumid bitrate mb_artistids original_day albumartists mb_albumartistid albumstatus mb_releasetrackid label rg_album_peak initial_key language albumartist_credit lyricists_ids mb_releasegroupid artists_credit asin rg_track_gain artist_credit composers isrc samplerate work_disambig filesize singleton disctotal acoustid_id arrangers_ids bitdepth rg_album_gain media artists day rg_track_peak artpath has_cover_art script composer_sort acoustid_fingerprint albumartist_sort artists_sort albumartists_sort remixers_ids catalognum subtitle album artist genres mtime albumartist albumtotal title format added' -d 'include specified field *values* in completions'
 complete -c beet -n '__fish_beet_using_command fish' -r -s o -l output -d 'where to save the script. default: ~/.config/fish/completions'
 complete -c beet -n '__fish_beet_using_command fish' -s h -l help -d 'print help'
 
@@ -219,6 +220,7 @@ complete -c beet -n '__fish_beet_using_command help' -s h -l help -d 'print help
 complete -c beet -n '__fish_beet_using_command imp' -s c -l copy -d 'copy tracks into library directory (default)'
 complete -c beet -n '__fish_beet_using_command imp' -s C -l nocopy -d "don't copy tracks (opposite of -c)"
 complete -c beet -n '__fish_beet_using_command imp' -s m -l move -d 'move tracks into the library (overrides -c)'
+complete -c beet -n '__fish_beet_using_command imp' -s M -l nomove -d "don't move tracks into the library (overrides -m)"
 complete -c beet -n '__fish_beet_using_command imp' -s w -l write -d "write new metadata to files' tags (default)"
 complete -c beet -n '__fish_beet_using_command imp' -s W -l nowrite -d "don't write metadata (opposite of -w)"
 complete -c beet -n '__fish_beet_using_command imp' -s a -l autotag -d 'infer tags for imported files (default)'
@@ -250,6 +252,7 @@ complete -c beet -n '__fish_beet_using_command imp' -s h -l help -d 'print help'
 complete -c beet -n '__fish_beet_using_command im' -s c -l copy -d 'copy tracks into library directory (default)'
 complete -c beet -n '__fish_beet_using_command im' -s C -l nocopy -d "don't copy tracks (opposite of -c)"
 complete -c beet -n '__fish_beet_using_command im' -s m -l move -d 'move tracks into the library (overrides -c)'
+complete -c beet -n '__fish_beet_using_command im' -s M -l nomove -d "don't move tracks into the library (overrides -m)"
 complete -c beet -n '__fish_beet_using_command im' -s w -l write -d "write new metadata to files' tags (default)"
 complete -c beet -n '__fish_beet_using_command im' -s W -l nowrite -d "don't write metadata (opposite of -w)"
 complete -c beet -n '__fish_beet_using_command im' -s a -l autotag -d 'infer tags for imported files (default)'
@@ -281,6 +284,7 @@ complete -c beet -n '__fish_beet_using_command im' -s h -l help -d 'print help'
 complete -c beet -n '__fish_beet_using_command import' -s c -l copy -d 'copy tracks into library directory (default)'
 complete -c beet -n '__fish_beet_using_command import' -s C -l nocopy -d "don't copy tracks (opposite of -c)"
 complete -c beet -n '__fish_beet_using_command import' -s m -l move -d 'move tracks into the library (overrides -c)'
+complete -c beet -n '__fish_beet_using_command import' -s M -l nomove -d "don't move tracks into the library (overrides -m)"
 complete -c beet -n '__fish_beet_using_command import' -s w -l write -d "write new metadata to files' tags (default)"
 complete -c beet -n '__fish_beet_using_command import' -s W -l nowrite -d "don't write metadata (opposite of -w)"
 complete -c beet -n '__fish_beet_using_command import' -s a -l autotag -d 'infer tags for imported files (default)'
@@ -312,6 +316,7 @@ complete -c beet -n '__fish_beet_using_command import' -s h -l help -d 'print he
 complete -c beet -n '__fish_beet_using_command ls' -s a -l album -d 'match albums instead of tracks'
 complete -c beet -n '__fish_beet_using_command ls' -s p -l path -d 'print paths for matched items or albums'
 complete -c beet -n '__fish_beet_using_command ls' -r -s f -l format -d 'print with custom format'
+complete -c beet -n '__fish_beet_using_command ls' -r -s l -l limit -d 'limit query results'
 complete -c beet -n '__fish_beet_using_command ls' -s h -l help -d 'print help'
 
 
@@ -320,6 +325,7 @@ complete -c beet -n '__fish_beet_using_command ls' -s h -l help -d 'print help'
 complete -c beet -n '__fish_beet_using_command list' -s a -l album -d 'match albums instead of tracks'
 complete -c beet -n '__fish_beet_using_command list' -s p -l path -d 'print paths for matched items or albums'
 complete -c beet -n '__fish_beet_using_command list' -r -s f -l format -d 'print with custom format'
+complete -c beet -n '__fish_beet_using_command list' -r -s l -l limit -d 'limit query results'
 complete -c beet -n '__fish_beet_using_command list' -s h -l help -d 'print help'
 
 
@@ -328,6 +334,8 @@ complete -c beet -n '__fish_beet_using_command list' -s h -l help -d 'print help
 complete -c beet -n '__fish_beet_using_command lyrics' -s p -l print -d 'print lyrics to console'
 complete -c beet -n '__fish_beet_using_command lyrics' -r -s r -l write-rest -d 'write lyrics to given directory as ReST files'
 complete -c beet -n '__fish_beet_using_command lyrics' -s f -l force -d 'always re-download lyrics'
+complete -c beet -n '__fish_beet_using_command lyrics' -l keep-synced -d 'skip items that already have synced lyrics'
+complete -c beet -n '__fish_beet_using_command lyrics' -l no-keep-synced -d 'do not skip items that already have synced lyrics'
 complete -c beet -n '__fish_beet_using_command lyrics' -s l -l local -d 'do not fetch missing lyrics'
 complete -c beet -n '__fish_beet_using_command lyrics' -s h -l help -d 'print help'
 

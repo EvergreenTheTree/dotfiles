@@ -1,6 +1,6 @@
 directory: ~/NotDropbox/Music
 library: ~/NotDropbox/musiclibrary.db
-plugins: convert fetchart lyrics replaygain permissions fish musicbrainz
+plugins: convert fetchart lyrics replaygain permissions fish musicbrainz lastimport lastgenre fromfilename
 import:
     move: yes
 fetchart:
@@ -17,4 +17,6 @@ replaygain:
 permissions:
     file: 644
     dir: 755
+lastfm:
+    user: DigitalForrest
 # vim:et:ts=4:sts=4:sw=4
