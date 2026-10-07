@@ -73,8 +73,8 @@ if progexists eza
     alias l="eza -lbF --git"
     alias ll="eza -lbGF --git"
     alias llm="eza -lbGd --git --sort=modified"
-    alias la="eza -lbhHigmuSa --time-style=long-iso --git --color-scale size"
-    alias lx="eza -lbhHigmuSa@ --time-style=long-iso --git --color-scale size"
+    alias la="eza -lbhHigmuSa --time-style=long-iso --git --color-scale=size"
+    alias lx="eza -lbhHigmuSa@ --time-style=long-iso --git --color-scale=size"
     alias lS="eza -1"
     alias lt="eza --tree --level=2"
 else
