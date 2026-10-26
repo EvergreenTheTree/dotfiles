@@ -7,6 +7,7 @@ vim.g.python3_host_prog = vim.fn.expand("~/.pyenv/versions/py3nvim/bin/python")
 -- end
 
 -- Plugins {{{
+local treesitter_langs = { "c", "cpp", "lua", "vim", "vimdoc", "query", "rust", "python", "markdown", "markdown_inline", "scss", "css", "html" }
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     vim.fn.system({
@@ -42,13 +43,28 @@ require("lazy").setup({
     "tpope/vim-surround",
     "tpope/vim-unimpaired",
     "tpope/vim-obsession",
+    "tpope/vim-sleuth",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
     {
         "nvim-treesitter/nvim-treesitter",
+        branch = "main",
         build = ":TSUpdate",
         dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+        init = function()
+            local already_installed = require("nvim-treesitter.config").get_installed()
+            local to_install = vim.iter(treesitter_langs)
+                :filter(function(parser)
+                    return not vim.tbl_contains(already_installed, parser)
+                end)
+                :totable()
+            require("nvim-treesitter").install(to_install)
+        end
+    },
+    {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        branch = "main",
     },
     "stevearc/conform.nvim",
     "stevearc/aerial.nvim",
@@ -75,9 +91,8 @@ require("dapui").setup()
 require("nvim-dap-virtual-text").setup()
 
 -- Setup language servers.
-local lspconfig = vim.lsp.config
 -- TODO: look into https://github.com/mrcjkb/rustaceanvim if I do more rust
-lspconfig.lua_ls = {
+vim.lsp.config("lua_ls", {
     on_init = function(client)
         local path = client.workspace_folders[1].name
         if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
@@ -111,29 +126,15 @@ lspconfig.lua_ls = {
             },
         }
     }
-}
+})
 
-lspconfig.basedpyright = {
-    settings = {
-        python = {
-            analysis = {
-                ignore = { "*" }, -- using ruff
-            }
+vim.lsp.config("ty", {
+    init_options = {
+        experimental = {
+            useUv = "scripts",
         },
-        basedpypyright = {
-            disableOrganizeImports = true, -- using ruff
-            capabilities = {
-                textDocument = {
-                    publishDiagnostics = {
-                        tagSupport = {
-                            valueSet = { 2 },
-                        },
-                    },
-                },
-            },
-        },
-    }
-}
+    },
+})
 
 require "init.diagnostic_delay"
 vim.diagnostic.config({
@@ -316,55 +317,21 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = Dirvish_settings
 })
 
-require'nvim-treesitter.configs'.setup {
-    -- A list of parser names, or "all" (the five listed parsers should always be installed)
-    ensure_installed = { "c", "cpp", "lua", "vim", "vimdoc", "query", "rust", "python", "markdown", "markdown_inline" },
-
-    -- Install parsers synchronously (only applied to `ensure_installed`)
-    sync_install = false,
-
-    -- Automatically install missing parsers when entering buffer
-    -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-    -- auto_install = vim.fn.executable("tree-sitter") == 1,
-    auto_install = false,
-
-    -- List of parsers to ignore installing (or "all")
-    ignore_install = {},
-
-    ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-    -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
-    highlight = {
-        enable = true,
-
-        -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-        disable = function(lang, buf)
-            local disabled_langs = { vim = true, vimdoc = true }
-            if disabled_langs[lang] then return true end
-            local max_filesize = 100 * 1024 -- 100 KB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-                return true
-            end
-        end,
-
-        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-        -- Using this option may slow down your editor, and you may see some duplicate highlights.
-        -- Instead of true it can also be a list of languages
-        additional_vim_regex_highlighting = false,
-    },
-
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = "gnn", -- set to `false` to disable one of the mappings
-            node_incremental = "grn",
-            scope_incremental = "grc",
-            node_decremental = "grm",
-        },
-    },
-
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = treesitter_langs,
+    callback = function()
+        local max_filesize = 100 * 1024 -- 100 KB
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(0))
+        if ok and stats and stats.size > max_filesize then
+            return
+        end
+        vim.treesitter.start()
+        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.wo.foldmethod = "expr"
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
+})
+require'nvim-treesitter'.setup {
     textobjects = {
         move = {
             enable = true,
