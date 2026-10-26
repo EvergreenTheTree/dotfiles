@@ -132,7 +132,10 @@ function c -w z
     if test (count $argv) -gt 0
         z $argv
     else
-        cd (z -l 2>&1 | fzf --height=40% --scheme=path --reverse +s +m --bind=ctrl-z:ignore | sed 's/^[0-9,.]* *//')
+        set -l target (z -l 2>&1 | fzf --height=40% --scheme=path --reverse +s +m --bind=ctrl-z:ignore | sed 's/^[0-9,.]* *//')
+        if test -n "$target"
+            cd $target
+        end
     end
 end
 
