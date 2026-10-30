@@ -44,6 +44,11 @@ require("lazy").setup({
     "tpope/vim-unimpaired",
     "tpope/vim-obsession",
     "tpope/vim-sleuth",
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        priority = 2000,
+    },
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
@@ -76,8 +81,11 @@ require("lazy").setup({
     "aserowy/tmux.nvim",
     {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.6",
-        dependencies = { "nvim-lua/plenary.nvim" }
+        version = "*",
+        dependencies = { 
+            "nvim-lua/plenary.nvim",
+            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+        }
     },
     "mbbill/undotree",
     "mfussenegger/nvim-dap",
@@ -89,6 +97,7 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 require("dapui").setup()
 require("nvim-dap-virtual-text").setup()
+require("todo-comments").setup()
 
 -- Setup language servers.
 -- TODO: look into https://github.com/mrcjkb/rustaceanvim if I do more rust
@@ -297,6 +306,7 @@ vim.keymap.set("n", "<leader>fb", telescope_builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", telescope_builtin.help_tags, {})
 vim.keymap.set("n", "<leader>fs", telescope.extensions.aerial.aerial, {})
 vim.keymap.set("n", "<leader>fl", telescope_builtin.lsp_document_symbols, {})
+vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>")
 
 vim.g.dirvish_mode = [[sort ir /[^\/]$/ | silent! keeppatterns /^.*[^\/]$/,$ sort i | nohl | 1]]
 vim.g.dirvish_relative_paths = 1
