@@ -70,3 +70,4 @@
 	path = ~/.config/git/elj
 [user]
 	useConfigOnly = true
+# vim: ft=gitconfig
