@@ -1,0 +1,7 @@
+rules:
+- name: "stop kdenlive from scanning yabridge vst2 plugins"
+  target: "~/.vst/yabridge"
+  rewrite: "~/.novst"
+- name: "stop kdenlive from scanning yabridge vst3 plugins"
+  target: "~/.vst3/yabridge"
+  rewrite: "~/.novst"
