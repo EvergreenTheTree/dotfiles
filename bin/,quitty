@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-tdrop -P 'wmctrl -i -r $wid -b add,above,skip_taskbar' kitty -o hide_window_decorations=yes
-
