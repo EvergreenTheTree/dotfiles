@@ -1,6 +1,0 @@
-include /usr/share/doc/newsboat/contrib/colorschemes/kinda-maia
-browser firefox
-macro y set browser ",yt %u" ; open-in-browser ; set browser "firefox %u"
-color info white black bold
-color title white black bold
-feed-sort-order unreadarticlecount-asc
