@@ -1,8 +1,16 @@
-#!/bin/bash
-# TODO: update this
+#!/usr/bin/env bash
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ln -s "$DIR/shell/dir_colors" "$HOME/.dir_colors"
-ln -s "$DIR/shell/environment" "$HOME/.environment"
-ln -s "$DIR/zsh/zshrc" "$HOME/.zshrc"
-ln -s "$DIR/git/gitconfig" "$HOME/.gitconfig"
-ln -s "$DIR/git/gitignore" "$HOME/.gitignore"
+# Basics and command line tools
+mkdir -p "$HOME/.config"
+mkdir "$HOME/.config/git"
+for f in "$DIR/git"/*; do
+    ln -s "$f" "$HOME/.config/git/${f##*/}"
+done
+ln -s "$DIR/shell/fish" "$HOME/.config/fish"
+mkdir "$HOME/.config/tmux"
+ln -s "$DIR/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
+ln -s "$DIR/nvim" "$HOME/.config/nvim"
+ln -s "$DIR/bin" "$HOME/bin"
+
+# TODO: Niri installation
+# TODO: Other stuff installation
