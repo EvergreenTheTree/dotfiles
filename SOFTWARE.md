@@ -99,6 +99,7 @@ This is a list of software that I find myself using very regularly.
 - qpwgraph: My preferred pipewire routing GUI.
 - coppwr: In-depth pipewire GUI mainly for troubleshooting or developing scripts.
 - beets: Manage and autotag my music library.
+- yt-dlp: Download ALL of the audio and ALL of the video
 
 ## Chat
 
@@ -109,6 +110,7 @@ This is a list of software that I find myself using very regularly.
 ## System
 
 - KDE Connect: Really nice set of tools for interacting with an Android phone (notifications, sending files, sharing clipboard, etc.)
+- **[LINUX]** keyd: QMK but for everything. Linux only, use kmonad for other platforms
 - **[LINUX]** fuzzel: Extremely light-weight wayland keyboard launcher.
 - **[LINUX]** htop: A really nice TUI task manager.
 - **[LINUX]** Baobab or FileLight: Nice disk usage visualization.
