@@ -166,7 +166,7 @@ This is a list of software that I find myself using very regularly.
 
 - **[WINDOWS]** F.lux: Does what redshift does on windows.
 - **[LINUX]** Safe Eyes: Application which reminds me to rest my eyes occasionally.
-- **[WINDOWS]** Eye Leo: Does what Safe Eyes does on windows.
+- **[WINDOWS]** BreakTimer: Does what Safe Eyes does on windows.
 
 # Self-hosted
 
@@ -198,9 +198,9 @@ I use GrapheneOS on a Pixel 8a. Asterisks indicate apps only on Google Play.
 - [DAVx5](https://f-droid.org/en/packages/at.bitfire.davdroid/): CalDAV and CardDAV synchronization for my personal calendar and contacts.
 - \* [Discord](https://play.google.com/store/apps/details?id=com.discord): A kind of necessary very useful evil.
 - [Bitwarden](https://mobileapp.bitwarden.com/fdroid/repo): My password manager (I don't self-host this because I don't trust myself like that).
+- [Droidrops](https://f-droid.org/packages/com.droidrops.app/): Client for FreshRSS feed reader.
 - [Equate](https://f-droid.org/en/packages/com.llamacorp.equate/): Handy unit conversion (and general) calculator.
 - [F-Droid](https://f-droid.org/en/packages/org.fdroid.fdroid/): Break the bonds of Google Play, you have nothing to lose but your chains!
-- [Folio](https://f-droid.org/packages/com.folio.reader/): Client for FreshRSS feed reader.
 - [FairScan](https://f-droid.org/en/packages/org.fairscan.app/): Open source camera-based document scanner
 - [Feeel](https://f-droid.org/en/packages/com.enjoyingfoss.feeel/): My exercise routine.
 - [Fennec](https://f-droid.org/en/packages/org.mozilla.fennec_fdroid/): Firefox available through F-Droid.
@@ -249,6 +249,7 @@ Other:
 - Google Wallet: For Offline concert / show tickets mainly.
 - WIFI Control App: My ISP unfortunately requires this, though it does everything I need it to.
 - Printer App
+- Yubico Authenticator for managing my yubikey / on-key TOTP passwords
 - {insert health org here} app
 
 # Not Self-Hosted
