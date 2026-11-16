@@ -148,6 +148,11 @@ function y
     rm -f -- "$tmp"
 end
 
+# WSL specific things
+if grep -qi microsoft /proc/version
+    set -gx SSH_SK_HELPER "/mnt/c/Windows/System32/OpenSSH/ssh-sk-helper.exe"
+end
+
 if test -f "$XDG_CONFIG_HOME/fish/config.fish.local"
     source "$XDG_CONFIG_HOME/fish/config.fish.local"
 end
