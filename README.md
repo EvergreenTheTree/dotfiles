@@ -1,3 +1,5 @@
+Migrated to https://codeberg.org/evergreen/dotfiles and commits are not mirrored
+
 Evergreen's dotfiles
 ====================
 
